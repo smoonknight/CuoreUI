@@ -1,9 +1,3 @@
->[!NOTE]
-> **About the Development**
-> 
-> If you want to know more about CuoreUI's past, read my profile's readme.
-
-
 ![CuoreUI Logo](https://i.imgur.com/pWwYDum.jpeg)
 [![License: Unlicense](https://img.shields.io/badge/License-Unlicense-ff6a00)](https://unlicense.org/)
 
@@ -53,3 +47,8 @@ We dispose classes inheriting `IDisposable`, and use memory efficiently.
 Documentation may not be up-to-date. In that case, [create an issue](https://github.com/owtysm/CuoreUI/issues/new/choose).
 
 ![GitBook logo](https://i.imgur.com/zUxXXU9.png) View the docs on [GitBook](https://itzkxhu.gitbook.io/cuoreui).
+
+>[!NOTE]
+> **About the Development**
+> 
+> If you want to know more about CuoreUI's past, read my profile's readme.
