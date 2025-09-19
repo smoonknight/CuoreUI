@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -76,7 +77,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateUnfocusedColor = Color.FromArgb(32, 128, 128, 128);
+        private Color privateUnfocusedColor = Color.White;
 
         [Category("CuoreUI")]
         public Color UnfocusedColor
@@ -92,7 +93,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateFocusedColor = Color.FromArgb(32, 128, 128, 128);
+        private Color privateFocusedColor = Color.White;
 
         [Category("CuoreUI")]
         public Color FocusedColor
@@ -224,7 +225,7 @@ namespace CuoreUI.Controls
                 for (int i = 0; i < BoxAmount; i++)
                 {
                     Rectangle boxRectangle = new Rectangle(currentPosition, 0, Height - 1, Height - 1);
-                    GraphicsPath gp = Helper.RoundRect(boxRectangle, Rounding);
+                    GraphicsPath gp = GeneralHelper.RoundRect(boxRectangle, Rounding);
 
                     if (i == focusedIndex && Focused)
                     {

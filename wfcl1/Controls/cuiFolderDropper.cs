@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using CuoreUI.Properties;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -6,7 +8,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using CuoreUI.Properties;
 
 namespace CuoreUI.Controls
 {
@@ -193,7 +194,7 @@ namespace CuoreUI.Controls
 
             modifiedCR.Inflate(-(int)(OutlineThickness), -(int)(OutlineThickness));
 
-            using (GraphicsPath roundBackground = Helper.RoundRect(modifiedCR, Rounding))
+            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding))
             using (SolidBrush brush = new SolidBrush(PanelColor))
             using (Pen pen = new Pen(DashedOutlineColor, OutlineThickness) { DashStyle = DashedOutline ? DashStyle.Dash : DashStyle.Solid })
             using (SolidBrush textBrush = new SolidBrush(hover ? HoverForeColor : NormalForeColor))
@@ -439,12 +440,12 @@ namespace CuoreUI.Controls
                 {
                     if (MultiselectNow)
                     {
-                        FolderNames = ofd.ResultPaths.ToArray();
+                        FolderNames = ofd.FolderNames.ToArray();
                         FolderDropped?.Invoke(null, new FolderDroppedEventArgs(FolderNames));
                     }
                     else
                     {
-                        FolderName = ofd.ResultPath;
+                        FolderName = ofd.FolderName;
                         FolderDropped?.Invoke(null, new FolderDroppedEventArgs(FolderName));
                     }
                 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -177,7 +178,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        int privateRounding = 5;
+        int privateRounding = 4;
 
         [Category("CuoreUI")]
         public int Rounding
@@ -266,8 +267,8 @@ namespace CuoreUI.Controls
 
             RectangleF squareClientRectangle = new RectangleF((OutlineThickness * 0.5f) + 0.6f, (OutlineThickness * 0.5f) + 0.6f, Height - OutlineThickness - 1.2f, Height - OutlineThickness - 1.2f);
 
-            using (GraphicsPath roundBackgroundInside = Helper.RoundRect(squareClientRectangle, (int)(Rounding - OutlineThickness - 0.6f)))
-            using (GraphicsPath roundBackground = Helper.RoundRect(squareClientRectangle, Rounding))
+            using (GraphicsPath roundBackgroundInside = GeneralHelper.RoundRect(squareClientRectangle, (int)(Rounding - OutlineThickness - 0.6f)))
+            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(squareClientRectangle, Rounding))
             {
                 float thumbDim = Height - (int)(OutlineThickness * 2);
                 RectangleF thumbRect = new RectangleF(squareClientRectangle.X + OutlineThickness, squareClientRectangle.Y + OutlineThickness, thumbDim - OutlineThickness - 1.2f, thumbDim - OutlineThickness - 1.2f);
@@ -309,7 +310,7 @@ namespace CuoreUI.Controls
                         thumbRect.Offset(0.5f, -0.33f);
                         thumbRect.Inflate(0.25f, 0.25f);
                         using (Pen checkmarkPen = new Pen(CheckedSymbolColor, CheckmarkThickness))
-                        using (GraphicsPath checkmark = Helper.Checkmark(thumbRect, symbolsOffset))
+                        using (GraphicsPath checkmark = GeneralHelper.Checkmark(thumbRect, symbolsOffset))
                         {
                             checkmarkPen.StartCap = LineCap.Round;
                             checkmarkPen.EndCap = LineCap.Round;
@@ -322,7 +323,7 @@ namespace CuoreUI.Controls
                         tempRectF.Inflate(-(int)(Height / 6.2f), -(int)(Height / 6.2f));
                         tempRectF.Offset(0, -2.2f);
                         using (Pen checkmarkPen = new Pen(UncheckedSymbolColor, CheckmarkThickness))
-                        using (GraphicsPath crossmark = Helper.Crossmark(tempRectF, symbolsOffset))
+                        using (GraphicsPath crossmark = GeneralHelper.Crossmark(tempRectF, symbolsOffset))
                         {
                             checkmarkPen.StartCap = LineCap.Round;
                             checkmarkPen.EndCap = LineCap.Round;

@@ -133,6 +133,7 @@ namespace CuoreUI.Controls
                 Invalidate();
             }
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -140,7 +141,7 @@ namespace CuoreUI.Controls
             Rectangle modifiedCR = ClientRectangle;
             modifiedCR.Inflate(-1, -1);
 
-            using (GraphicsPath roundBackground = Helper.RoundRect(modifiedCR, Rounding))
+            using (GraphicsPath roundBackground = Helpers.GeneralHelper.RoundRect(modifiedCR, Rounding))
             {
                 using (Pen br = new Pen(BackColor))
                 using (LinearGradientBrush brush = new LinearGradientBrush(

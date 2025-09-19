@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CuoreUI.Controls.Forms;
+using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using CuoreUI.Controls.Forms;
 
 namespace CuoreUI.Controls
 {
@@ -294,7 +295,7 @@ namespace CuoreUI.Controls
             Rectangle cr = ClientRectangle;
             cr.Inflate(-1, -1);
 
-            using (GraphicsPath roundBackground = Helper.RoundRect(cr, Rounding))
+            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(cr, Rounding))
             using (SolidBrush brush = new SolidBrush(BackgroundColor))
             using (Pen pen = new Pen(OutlineColor, OutlineThickness))
             {
@@ -337,7 +338,7 @@ namespace CuoreUI.Controls
                 expandRect.Width -= 2;
             }
 
-            using (GraphicsPath expandAvailable = isBrowsingOptions ? Helper.DownArrow(expandRect) : Helper.LeftArrowtest(expandRect))
+            using (GraphicsPath expandAvailable = isBrowsingOptions ? GeneralHelper.DownArrow(expandRect) : GeneralHelper.LeftArrow(expandRect))
             {
                 e.Graphics.FillPath(new SolidBrush(ExpandArrowColor), expandAvailable);
             }

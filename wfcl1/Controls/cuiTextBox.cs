@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -448,8 +449,8 @@ namespace CuoreUI.Controls
                 int smoothSize = privateBorderSize > 0 ? privateBorderSize : 1;
 
                 using (SolidBrush bgBrush = new SolidBrush(privateIsFocused ? FocusBackgroundColor : BackgroundColor))
-                using (GraphicsPath pathBorderSmooth = Helper.RoundRect(rectBorderSmooth, Rounding))
-                using (GraphicsPath pathBorder = Helper.RoundRect(rectBorder, Rounding - new Padding(OutlineThickness, OutlineThickness, OutlineThickness, OutlineThickness) - new Padding(1, 1, 1, 1)))
+                using (GraphicsPath pathBorderSmooth = GeneralHelper.RoundRect(rectBorderSmooth, Rounding))
+                using (GraphicsPath pathBorder = GeneralHelper.RoundRect(rectBorder, Rounding - new Padding(OutlineThickness, OutlineThickness, OutlineThickness, OutlineThickness) - new Padding(1, 1, 1, 1)))
                 using (Pen penBorderSmooth = new Pen(BackColor, smoothSize))
                 using (Pen penBorder = new Pen(privateIsFocused ? FocusOutlineColor : OutlineColor, OutlineThickness) { Alignment = PenAlignment.Center })
                 {

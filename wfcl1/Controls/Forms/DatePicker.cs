@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CuoreUI.Controls.Forms.DatePickerPages;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using CuoreUI.Controls.Forms.DatePickerPages;
 
 namespace CuoreUI.Controls.Forms
 {

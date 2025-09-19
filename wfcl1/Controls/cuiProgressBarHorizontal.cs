@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -128,7 +129,7 @@ namespace CuoreUI.Controls
             e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
 
             Bitmap tempBitmap = new Bitmap(ClientSize.Width * 2, ClientSize.Height * 2);
-            using (GraphicsPath roundBackground = Helper.RoundRect(new Rectangle(0, 0, ClientSize.Width * 2, ClientSize.Height * 2), Rounding * 2))
+            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(new Rectangle(0, 0, ClientSize.Width * 2, ClientSize.Height * 2), Rounding * 2))
             using (Graphics tempGraphics = Graphics.FromImage(tempBitmap))
             {
                 tempGraphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -149,7 +150,7 @@ namespace CuoreUI.Controls
                     tempGraphics.FillRectangle(brush, client);
                 }
 
-                using (GraphicsPath graphicsPath = Helper.RoundRect(foreHalf, Rounding * 2))
+                using (GraphicsPath graphicsPath = GeneralHelper.RoundRect(foreHalf, Rounding * 2))
                 using (SolidBrush brush = new SolidBrush(Foreground))
                 {
                     tempGraphics.FillPath(brush, graphicsPath);

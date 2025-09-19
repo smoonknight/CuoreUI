@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CuoreUI.Helpers;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -80,7 +81,7 @@ namespace CuoreUI.Controls
 
             // Draw the border rectangle
             Rectangle modifiedCR = new Rectangle(0, Font.Height / 2, Width - 1, Height - Font.Height / 2 - 1);
-            using (GraphicsPath roundedPath = Helper.RoundRect(modifiedCR, Rounding))
+            using (GraphicsPath roundedPath = GeneralHelper.RoundRect(modifiedCR, Rounding))
             {
                 g.DrawPath(borderPen, roundedPath);
             }

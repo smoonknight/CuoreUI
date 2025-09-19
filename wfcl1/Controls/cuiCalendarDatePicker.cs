@@ -1,11 +1,12 @@
-﻿using System;
+﻿using CuoreUI.Controls.Forms;
+using CuoreUI.Helpers;
+using CuoreUI.Properties;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using CuoreUI.Controls.Forms;
-using CuoreUI.Properties;
 using static CuoreUI.Controls.Forms.DatePicker;
 
 namespace CuoreUI.Controls
@@ -392,7 +393,7 @@ namespace CuoreUI.Controls
             Color currentBackground = isPressed ? PressedBackground : (isHovered ? HoverBackground : NormalBackground);
             Color currentOutline = isPressed ? PressedOutline : (isHovered ? HoverOutline : NormalOutline);
 
-            using (GraphicsPath bgPath = Helper.RoundRect(fixedCR, privateRounding))
+            using (GraphicsPath bgPath = GeneralHelper.RoundRect(fixedCR, privateRounding))
             using (SolidBrush br = new SolidBrush(currentBackground))
             using (Pen outlinePen = new Pen(currentOutline, OutlineThickness))
             {

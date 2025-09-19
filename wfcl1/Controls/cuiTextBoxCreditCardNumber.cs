@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CuoreUI.Properties;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using CuoreUI.Properties;
 
 namespace CuoreUI.Controls
 {
@@ -220,7 +220,7 @@ namespace CuoreUI.Controls
 
         private CardType privateCompany = CardType.Unknown;
         [Category("CuoreUI")]
-        public CardType Company 
+        public CardType Company
         {
             get
             {

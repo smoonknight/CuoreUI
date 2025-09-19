@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -316,7 +317,7 @@ namespace CuoreUI.Controls
                     bool isSelected = i == _selectedIndex;
                     bool isHover = i == _hoverIndex && !isSelected;
 
-                    using (var path = Helper.RoundRect(tabRect, Rounding))
+                    using (var path = GeneralHelper.RoundRect(tabRect, Rounding))
                     {
                         g.FillPath(isSelected ? selectedBackgroundBrush :
                                       isHover ? hoverBackgroundBrush :
@@ -363,7 +364,7 @@ namespace CuoreUI.Controls
                         );
 
                         using (Pen ClosePen = new Pen(isSelected ? SelectedDeleteColor : isHover ? HoverDeleteColor : UnselectedDeleteColor) { StartCap = LineCap.Round, EndCap = LineCap.Round })
-                        using (var closePath = Helper.Crossmark(closeRect))
+                        using (var closePath = GeneralHelper.Crossmark(closeRect))
                         {
                             g.DrawPath(ClosePen, closePath);
                         }
@@ -394,7 +395,7 @@ namespace CuoreUI.Controls
 
                 // scroll and scroll arrows
                 using (var scrollBrush = new SolidBrush(Color.FromArgb(scrollAlpha, ScrollbarColor)))
-                using (var scrollPath = Helper.RoundRect(scrollbarThumbRect, ScrollbarHeight / 2 - 1))
+                using (var scrollPath = GeneralHelper.RoundRect(scrollbarThumbRect, ScrollbarHeight / 2 - 1))
                 {
                     g.FillPath(scrollBrush, scrollPath);
 
@@ -402,7 +403,7 @@ namespace CuoreUI.Controls
                         if (scrollOffset < totalWidth - Width)
                         {
                             DrawGradient(new Rectangle(Width - 30, 0, 32, TabHeight + ScrollbarHeight));
-                            using (GraphicsPath rightScrollArrow = Helper.LeftArrowtest(new Rectangle(Width - 6, TabHeight + ScrollbarHeight / 2 - 3, 6, 7)))
+                            using (GraphicsPath rightScrollArrow = GeneralHelper.LeftArrow(new Rectangle(Width - 6, TabHeight + ScrollbarHeight / 2 - 3, 6, 7)))
                             using (Matrix matrix = new Matrix())
                             {
                                 RectangleF bounds = rightScrollArrow.GetBounds();
@@ -420,7 +421,7 @@ namespace CuoreUI.Controls
                         DrawGradient(new Rectangle(-2, 0, 33, TabHeight + ScrollbarHeight), true);
 
                         using (SolidBrush UnselectedTextBrush = new SolidBrush(UnselectedTextColor))
-                        using (GraphicsPath leftScrollArrow = Helper.LeftArrowtest(new Rectangle(0, TabHeight + ScrollbarHeight / 2 - 3, 6, 7)))
+                        using (GraphicsPath leftScrollArrow = GeneralHelper.LeftArrow(new Rectangle(0, TabHeight + ScrollbarHeight / 2 - 3, 6, 7)))
                         {
                             g.FillPath(UnselectedTextBrush, leftScrollArrow);
                         }
@@ -434,7 +435,7 @@ namespace CuoreUI.Controls
                 var addRect = new Rectangle(addX, 0, TabHeight, TabHeight);
 
                 using (Pen plusPen = new Pen(PlusColor))
-                using (GraphicsPath plus = Helper.Plus(new Rectangle(addRect.Left + addRect.Width / 2 - 6, (int)(addRect.Top + (TabHeight - cachedTextSize.Height) / 2), 12, 12)))
+                using (GraphicsPath plus = GeneralHelper.Plus(new Rectangle(addRect.Left + addRect.Width / 2 - 6, (int)(addRect.Top + (TabHeight - cachedTextSize.Height) / 2), 12, 12)))
                 {
                     g.DrawPath(plusPen, plus);
                 }

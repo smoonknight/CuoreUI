@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using CuoreUI.Components;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using CuoreUI.Components;
 
 internal static class FormsRegisteredByRounder
 {
@@ -41,7 +41,7 @@ internal static class FormsRegisteredByRounder
     public static cuiFormRounder GetRounderByForm(Form formSelector)
     {
         RegisteredForm foundForm = registeredFormList.FirstOrDefault(f => f.targetForm == formSelector);
-        if (foundForm != null) 
+        if (foundForm != null)
         {
             return foundForm.rounder;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -245,7 +246,7 @@ namespace CuoreUI.Controls
                 // current step
                 if (i == TasksProgress - 1)
                 {
-                    RoundedItemPath = Helper.RoundRect(new Rectangle(
+                    RoundedItemPath = GeneralHelper.RoundRect(new Rectangle(
                             currentItemPosition.X + (HalfPenThickness / 2) + 1,
                             PenThicknessCompensation + 1,
                             ActualItemHeight - HalfPenThickness - 2,
@@ -267,7 +268,7 @@ namespace CuoreUI.Controls
                     // save rect for later in case drawing symbols
                     Rectangle tempRect = new Rectangle(currentItemPosition.X, PenThicknessCompensation, ActualItemHeight, ActualItemHeight);
 
-                    RoundedItemPath = Helper.RoundRect(tempRect, tempRounding);
+                    RoundedItemPath = GeneralHelper.RoundRect(tempRect, tempRounding);
                     e.Graphics.FillPath(trackBrush, RoundedItemPath);
 
                     // checkmark
@@ -275,7 +276,7 @@ namespace CuoreUI.Controls
                     {
                         tempRect.Inflate(0, -1);
                         tempRect.Inflate(-(ActualItemHeight / 10), -(ActualItemHeight / 10));
-                        using (GraphicsPath checkmarkGP = Helper.Checkmark(tempRect))
+                        using (GraphicsPath checkmarkGP = GeneralHelper.Checkmark(tempRect))
                         using (Pen p = new Pen(BackColor, ActualItemHeight / 8) { EndCap = LineCap.Round, StartCap = LineCap.Round })
                         {
                             e.Graphics.DrawPath(p, checkmarkGP);
@@ -290,7 +291,7 @@ namespace CuoreUI.Controls
                 // steps yet to be completed
                 else
                 {
-                    RoundedItemPath = Helper.RoundRect(new Rectangle(
+                    RoundedItemPath = GeneralHelper.RoundRect(new Rectangle(
                         currentItemPosition.X,
                         PenThicknessCompensation,
                         ActualItemHeight,

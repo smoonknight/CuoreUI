@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -204,7 +205,7 @@ namespace CuoreUI.Controls
             UpdateThumbRectangle(out halfThumbHeight);
 
             trackRectangle.Inflate(0, -halfThumbHeight);
-            GraphicsPath trackPath = Helper.RoundRect(trackRectangle, (int)((trackRectangle.Width + 0.5f) / 2));
+            GraphicsPath trackPath = GeneralHelper.RoundRect(trackRectangle, (int)((trackRectangle.Width + 0.5f) / 2));
 
             using (SolidBrush trackBrush = new SolidBrush(TrackColor))
             {

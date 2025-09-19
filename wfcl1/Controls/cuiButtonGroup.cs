@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -366,7 +367,7 @@ namespace CuoreUI.Controls
             Color renderedTint = NormalImageTint;
             Color renderedForeColor = Color.Empty;
 
-            using (GraphicsPath roundBackground = Helper.RoundRect(modifiedCR, Rounding))
+            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding))
             {
                 if (Checked)
                 {

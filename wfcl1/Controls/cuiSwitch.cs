@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -22,7 +23,7 @@ namespace CuoreUI.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-            Size = new Size(48, 24);
+            Size = new Size(48, 26);
             MinimumSize = new Size(12, 8);
             Cursor = Cursors.Hand;
 
@@ -30,8 +31,6 @@ namespace CuoreUI.Controls
             {
                 privateBackground = BackColor;
             }
-
-            ForeColor = Color.FromArgb(171, 171, 171);
         }
 
         private double elapsedTime = 0;
@@ -164,7 +163,7 @@ namespace CuoreUI.Controls
         }
 
 
-        private Color privateBackground = Color.FromArgb(64, Drawing.PrimaryColor);
+        private Color privateBackground = Drawing.PrimaryColor;
 
         [Category("CuoreUI")]
         [Description("The rounded background for the CHECKED switch.")]
@@ -181,7 +180,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateUncheckedBackground = Color.FromArgb(32, 128, 128, 128);
+        private Color privateUncheckedBackground = Color.FromArgb(64, 128, 128, 128);
 
         [Category("CuoreUI")]
         [Description("The rounded background for the UNCHECKED switch.")]
@@ -198,7 +197,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateCheckedForeground = Color.Empty;
+        private Color privateCheckedForeground = Color.White;
 
         [Category("CuoreUI")]
         [Description("The checked foreground.")]
@@ -215,7 +214,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateUncheckedForeground = Color.Empty;
+        private Color privateUncheckedForeground = Color.White;
 
         [Category("CuoreUI")]
         [Description("The unchecked foreground.")]
@@ -324,7 +323,7 @@ namespace CuoreUI.Controls
         float targetX = 2;
         RectangleF thumbRect;
 
-        private bool privateShowSymbols = true;
+        private bool privateShowSymbols = false;
 
         [Category("CuoreUI")]
         [Description("Whether to show the cross when unchecked, and the check when checked.")]
@@ -383,7 +382,7 @@ namespace CuoreUI.Controls
             modifiedCR.Inflate(-(int)OutlineThickness, -(int)OutlineThickness);
             int temporaryRounding = Rounding - (int)OutlineThickness;
 
-            using (GraphicsPath roundBackground = Helper.RoundRect(modifiedCR, temporaryRounding))
+            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(modifiedCR, temporaryRounding))
             {
                 using (SolidBrush brush = new SolidBrush(Checked ? CheckedBackground : UncheckedBackground))
                 {
@@ -418,13 +417,13 @@ namespace CuoreUI.Controls
                             graphicsPen.Color = CheckedSymbolColor;
 
                             temporaryThumbRect.Offset(0, 1);
-                            e.Graphics.DrawPath(graphicsPen, Helper.Checkmark(temporaryThumbRect));
+                            e.Graphics.DrawPath(graphicsPen, GeneralHelper.Checkmark(temporaryThumbRect));
                         }
                         else
                         {
                             temporaryThumbRect.Inflate(-(int)(Height / 6.2f), -(int)(Height / 6.2f));
 
-                            e.Graphics.DrawPath(graphicsPen, Helper.Crossmark(temporaryThumbRect));
+                            e.Graphics.DrawPath(graphicsPen, GeneralHelper.Crossmark(temporaryThumbRect));
                         }
                     }
                 }

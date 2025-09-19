@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static CuoreUI.Drawing;
-using static CuoreUI.Helper;
+using static CuoreUI.Helpers.GeneralHelper;
 
 namespace CuoreUI.Controls
 {

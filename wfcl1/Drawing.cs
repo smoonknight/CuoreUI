@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -30,13 +31,13 @@ namespace CuoreUI
 
         public static int[] GetRefreshRates()
         {
-            return Helper.GetRefreshRates();
+            return GeneralHelper.GetRefreshRates();
         }
 
         public static int GetHighestRefreshRate()
         {
             // 1000 max, 1 minimum, a simple "1000 / 1001" or "1000 / 0" may crash the whole app
-            return Math.Min(Math.Max(1, Helper.GetHighestRefreshRate()), 1000);
+            return Math.Min(Math.Max(1, GeneralHelper.GetHighestRefreshRate()), 1000);
         }
 
         public class TimeDeltaInstance
@@ -187,14 +188,6 @@ namespace CuoreUI
 
             public static class ImageBlurs
             {
-                public static class GaussianBlur
-                {
-                    public unsafe static void Apply(ref Bitmap bitmap, float radius)
-                    {
-                        Blurs.GaussianBlur.Apply(ref bitmap, radius);
-                    }
-                }
-
                 public static class QuadraticBlur
                 {
                     public unsafe static void Apply(ref Bitmap bitmap, float radius)

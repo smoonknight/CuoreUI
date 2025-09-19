@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using CuoreUI.Components.Forms;
+using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CuoreUI.Components.Forms;
 
 namespace CuoreUI.Components
 {

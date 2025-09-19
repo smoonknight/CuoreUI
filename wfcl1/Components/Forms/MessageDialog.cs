@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CuoreUI.Controls;
+using CuoreUI.Helpers;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CuoreUI.Controls;
 
 namespace CuoreUI.Components.Forms
 {
@@ -92,7 +93,7 @@ namespace CuoreUI.Components.Forms
                 cuiFormRounder rounderFound = FormsRegisteredByRounder.GetRounderByForm(parent);
                 rounderExists = rounderFound != null;
 
-                bool automaticallyFindRounding = Helper.Win32.IsWindows11() == false || rounderExists;
+                bool automaticallyFindRounding = GeneralHelper.Win32.IsWindows11() == false || rounderExists;
                 dimmerRounding = parentBorderStyleBefore == FormBorderStyle.None ? 0 : 8;
                 if (automaticallyFindRounding)
                 {

@@ -5,13 +5,13 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using static CuoreUI.Helper.Win32;
+using static CuoreUI.Helpers.GeneralHelper.Win32;
 
-namespace CuoreUI
+namespace CuoreUI.Helpers
 {
-    public static class Helper
+    public static class GeneralHelper
     {
-        static Helper()
+        static GeneralHelper()
         {
             HandCursorFix.EnableModernCursor();
         }
@@ -23,7 +23,7 @@ namespace CuoreUI
 
         public static int GetHighestRefreshRate()
         {
-            return Win32.GetRefreshRate();
+            return GetRefreshRate();
         }
 
         public static GraphicsPath RoundHexagon(Rectangle bounds, float rounding)
@@ -72,6 +72,7 @@ namespace CuoreUI
             path.CloseFigure();
             return path;
         }
+
         public static PointF Normalize(PointF point)
         {
             float length = (float)Math.Sqrt(point.X * point.X + point.Y * point.Y);
@@ -92,36 +93,31 @@ namespace CuoreUI
         {
             GraphicsPath path = new GraphicsPath();
 
-            void AddArc(float x, float y, float diameter, float startAngle, float sweepAngle)
-            {
-                if (diameter > 0)
-                {
-                    RectangleF arc = new RectangleF(x, y, diameter, diameter);
-                    path.AddArc(arc, startAngle, sweepAngle);
-                }
-                else
-                {
-                    float small = 0.000001f;
-                    RectangleF arc = new RectangleF(x, y, small, small);
-                    path.AddArc(arc, startAngle, sweepAngle);
-                }
-            }
+            float diameter1 = (float)checked(borderRadius.Top * 2);
+            AddArc(rectangle.X, rectangle.Y, diameter1, 180f, 90f);
 
-            float topLeftDiameter = borderRadius.Top * 2;
-            AddArc(rectangle.X, rectangle.Y, topLeftDiameter, 180, 90);
+            float diameter2 = (float)checked(borderRadius.Left * 2);
+            AddArc(rectangle.Right - diameter2, rectangle.Y, diameter2, 270f, 90f);
 
-            float topRightDiameter = borderRadius.Left * 2;
-            AddArc(rectangle.Right - topRightDiameter, rectangle.Y, topRightDiameter, 270, 90);
+            float diameter3 = (float)checked(borderRadius.Bottom * 2);
+            AddArc(rectangle.Right - diameter3, rectangle.Bottom - diameter3, diameter3, 0.0f, 90f);
 
-            float bottomRightDiameter = borderRadius.Bottom * 2;
-            AddArc(rectangle.Right - bottomRightDiameter, rectangle.Bottom - bottomRightDiameter, bottomRightDiameter, 0, 90);
-
-            float bottomLeftDiameter = borderRadius.Right * 2;
-            AddArc(rectangle.X, rectangle.Bottom - bottomLeftDiameter, bottomLeftDiameter, 90, 90);
+            float diameter4 = (float)checked(borderRadius.Right * 2);
+            AddArc(rectangle.X, rectangle.Bottom - diameter4, diameter4, 90f, 90f);
 
             path.CloseFigure();
-
             return path;
+
+            void AddArc(float x, float y, float diameter, float startAngle, float sweepAngle)
+            {
+                if ((double)diameter > 0.0)
+                {
+                    RectangleF rect = new RectangleF(x, y, diameter, diameter);
+                    path.AddArc(rect, startAngle, sweepAngle);
+                }
+                else
+                    path.AddLine(x, y, x + 0.01f, y);
+            }
         }
 
         public static GraphicsPath Checkmark(Rectangle area)
@@ -168,7 +164,7 @@ namespace CuoreUI
             int WidthAfterScale = area.Width;
             int WidthDifference = WidthBeforeScale - WidthAfterScale;
 
-            area.Offset(WidthDifference / 2, 1 + (WidthDifference / 2));
+            area.Offset(WidthDifference / 2, 1 + WidthDifference / 2);
 
             GraphicsPath path = new GraphicsPath();
 
@@ -206,7 +202,7 @@ namespace CuoreUI
             float WidthAfterScale = area.Width;
             float WidthDifference = WidthBeforeScale - WidthAfterScale;
 
-            area.Offset(WidthDifference / 2, 1 + (WidthDifference / 2));
+            area.Offset(WidthDifference / 2, 1 + WidthDifference / 2);
 
             GraphicsPath path = new GraphicsPath();
 
@@ -243,14 +239,14 @@ namespace CuoreUI
             int widthAfterScale = area.Width;
             int widthDifference = widthBeforeScale - widthAfterScale;
 
-            area.Offset(widthDifference / 2, 1 + (widthDifference / 2));
+            area.Offset(widthDifference / 2, 1 + widthDifference / 2);
 
             GraphicsPath path = new GraphicsPath();
 
             Point[] horizontalPoints = new Point[]
 {
-        new Point(area.Left, area.Top + (area.Height / 2)),
-        new Point(area.Right, area.Top + (area.Height / 2))
+        new Point(area.Left, area.Top + area.Height / 2),
+        new Point(area.Right, area.Top + area.Height / 2)
 };
 
             path.AddLines(horizontalPoints);
@@ -259,8 +255,8 @@ namespace CuoreUI
 
             Point[] verticalPoints = new Point[]
 {
-        new Point(area.Left + (area.Width / 2), area.Top),
-        new Point(area.Left + (area.Width / 2), area.Bottom)
+        new Point(area.Left + area.Width / 2, area.Top),
+        new Point(area.Left + area.Width / 2, area.Bottom)
 };
 
             path2.AddLines(verticalPoints);
@@ -269,47 +265,7 @@ namespace CuoreUI
             return path;
         }
 
-        private static int arrowThicknessHardcoded = 2;
-
-        public static GraphicsPath LeftArrow(Rectangle rect)
-        {
-            rect.Height = rect.Width;
-            rect.Width = rect.Width / 2;
-
-            GraphicsPath path = new GraphicsPath();
-            path.AddLine(rect.Right, rect.Top, rect.Left, rect.Bottom / 2);
-            path.AddLine(rect.Left, rect.Bottom / 2, rect.Right, rect.Bottom);
-
-            Matrix translateMatrix = new Matrix();
-            translateMatrix.Translate(3 + (arrowThicknessHardcoded * 2), 4 + (arrowThicknessHardcoded + rect.Height / 2));
-            translateMatrix.Scale(1, 0.9f);
-            translateMatrix.Scale(0.6f, 0.6f);
-            path.Transform(translateMatrix);
-
-            return path;
-        }
-
-        public static GraphicsPath RightArrow(Rectangle rect)
-        {
-            rect.Height = rect.Width;
-            rect.Width = rect.Width / 2;
-
-            rect.Offset(rect.Width - arrowThicknessHardcoded, 0);
-
-            GraphicsPath path = new GraphicsPath();
-            path.AddLine(rect.Left, rect.Top, rect.Right, rect.Bottom / 2);
-            path.AddLine(rect.Right, rect.Bottom / 2, rect.Left, rect.Bottom);
-
-            Matrix translateMatrix = new Matrix();
-            translateMatrix.Translate(13 + (-arrowThicknessHardcoded * 2), 4 + (arrowThicknessHardcoded + rect.Height / 2));
-            translateMatrix.Scale(1, 0.9f);
-            translateMatrix.Scale(0.6f, 0.6f);
-            path.Transform(translateMatrix);
-
-            return path;
-        }
-
-        public static GraphicsPath LeftArrowtest(Rectangle rectangle)
+        public static GraphicsPath LeftArrow(Rectangle rectangle)
         {
             GraphicsPath path = new GraphicsPath();
 
@@ -373,22 +329,6 @@ namespace CuoreUI
             return new PointF(x, y);
         }
 
-        internal static GraphicsPath UpArrow(Rectangle rect)
-        {
-            GraphicsPath path = new GraphicsPath();
-
-            Point[] points =
-            {
-            new Point(rect.Left, rect.Bottom),
-            new Point(rect.Left + rect.Width / 2, rect.Top),
-            new Point(rect.Right, rect.Bottom)
-        };
-
-            path.AddPolygon(points);
-
-            return path;
-        }
-
         public static PointF ClosestPointOnSegment(PointF p, PointF a, PointF b)
         {
             var ap = new PointF(p.X - a.X, p.Y - a.Y);
@@ -409,15 +349,15 @@ namespace CuoreUI
             float d2 = DistanceSquared(p, bc);
             float d3 = DistanceSquared(p, ca);
 
-            return d1 < d2 && d1 < d3 ? ab : (d2 < d3 ? bc : ca);
+            return d1 < d2 && d1 < d3 ? ab : d2 < d3 ? bc : ca;
         }
+
         public static float DistanceSquared(PointF p1, PointF p2)
         {
             float dx = p1.X - p2.X;
             float dy = p1.Y - p2.Y;
             return dx * dx + dy * dy;
         }
-
 
         public static PointF RotatePoint(PointF origin, PointF point, float angleDegrees)
         {
@@ -439,11 +379,11 @@ namespace CuoreUI
             float s = p0.Y * p2.X - p0.X * p2.Y + (p2.Y - p0.Y) * p.X + (p0.X - p2.X) * p.Y;
             float t = p0.X * p1.Y - p0.Y * p1.X + (p0.Y - p1.Y) * p.X + (p1.X - p0.X) * p.Y;
 
-            if ((s < 0) != (t < 0))
+            if (s < 0 != t < 0)
                 return false;
 
             float A = -p1.Y * p2.X + p0.Y * (p2.X - p1.X) + p0.X * (p1.Y - p2.Y) + p1.X * p2.Y;
-            return A < 0 ? (s <= 0 && s + t >= A) : (s >= 0 && s + t <= A);
+            return A < 0 ? s <= 0 && s + t >= A : s >= 0 && s + t <= A;
         }
 
         public static (double X, double Y, double Z) BarycentricCoords(PointF p, PointF a, PointF b, PointF c)
@@ -658,10 +598,10 @@ namespace CuoreUI
                 public const int GWL_EXSTYLE = -20;
                 public const int WS_EX_LAYERED = 0x80000;
 
-                [System.Runtime.InteropServices.DllImport("user32.dll")]
+                [DllImport("user32.dll")]
                 public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
-                [System.Runtime.InteropServices.DllImport("user32.dll")]
+                [DllImport("user32.dll")]
                 public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
                 [DllImport("user32.dll")]
@@ -726,10 +666,10 @@ namespace CuoreUI
                     [StructLayout(LayoutKind.Sequential)]
                     public struct Point
                     {
-                        public Int32 x;
-                        public Int32 y;
+                        public int x;
+                        public int y;
 
-                        public Point(Int32 x, Int32 y)
+                        public Point(int x, int y)
                         {
                             this.x = x;
                             this.y = y;
@@ -739,10 +679,10 @@ namespace CuoreUI
                     [StructLayout(LayoutKind.Sequential)]
                     public struct Size
                     {
-                        public Int32 cx;
-                        public Int32 cy;
+                        public int cx;
+                        public int cy;
 
-                        public Size(Int32 cx, Int32 cy)
+                        public Size(int cx, int cy)
                         {
                             this.cx = cx;
                             this.cy = cy;
@@ -758,13 +698,13 @@ namespace CuoreUI
                         public byte AlphaFormat;
                     }
 
-                    public const Int32 ULW_ALPHA = 0x00000002;
+                    public const int ULW_ALPHA = 0x00000002;
 
                     public const byte AC_SRC_OVER = 0x00;
                     public const byte AC_SRC_ALPHA = 0x01;
 
                     [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
-                    public static extern Bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref Point pptDst, ref Size psize, IntPtr hdcSrc, ref Point pprSrc, Int32 crKey, ref BLENDFUNCTION pblend, Int32 dwFlags);
+                    public static extern Bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdcDst, ref Point pptDst, ref Size psize, IntPtr hdcSrc, ref Point pprSrc, int crKey, ref BLENDFUNCTION pblend, int dwFlags);
 
                     [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
                     public static extern IntPtr GetDC(IntPtr hWnd);

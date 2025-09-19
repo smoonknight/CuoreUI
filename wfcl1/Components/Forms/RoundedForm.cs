@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using static CuoreUI.Helper.Win32;
+using static CuoreUI.Helpers.GeneralHelper.Win32;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -155,7 +156,7 @@ namespace CuoreUI.Components.Forms
                 }
 
                 Rectangle gradientRectangle = new Rectangle(0, 0, Width - 2, Height - 2);
-                using (GraphicsPath roundedRectangle = Helper.RoundRect(gradientRectangle, Rounding))
+                using (GraphicsPath roundedRectangle = GeneralHelper.RoundRect(gradientRectangle, Rounding))
                 {
                     Rectangle subtractRectangle = gradientRectangle;
                     subtractRectangle.Offset(1, 1);
@@ -164,8 +165,8 @@ namespace CuoreUI.Components.Forms
                     Rectangle fillinoutlineRectangle = subtractRectangle;
                     fillinoutlineRectangle.Offset(-1, -1);
 
-                    using (GraphicsPath subtractPath = Helper.RoundRect(subtractRectangle, Rounding))
-                    using (GraphicsPath fillinoutlinePath = Helper.RoundRect(fillinoutlineRectangle, Rounding))
+                    using (GraphicsPath subtractPath = GeneralHelper.RoundRect(subtractRectangle, Rounding))
+                    using (GraphicsPath fillinoutlinePath = GeneralHelper.RoundRect(fillinoutlineRectangle, Rounding))
                     using (Pen BorderPen = new Pen(BorderColor))
                     {
                         backGraphics.SmoothingMode = SmoothingMode.AntiAlias;

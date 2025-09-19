@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using static CuoreUI.Helper.Win32;
+using static CuoreUI.Helpers.GeneralHelper.Win32;
 
 namespace CuoreUI.Components.Forms
 {

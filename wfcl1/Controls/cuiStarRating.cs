@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CuoreUI.Helpers;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -109,7 +110,7 @@ namespace CuoreUI.Controls
                 starRect.Inflate(-StarBorderSize, -StarBorderSize);
                 starRect.Offset(StarBorderSize / 2, StarBorderSize / 2);
 
-                GraphicsPath starPath = Helper.Star(starLeft + starWidth / 2, Height / 2, starWidth / 2, starWidth / 3.8f, 5);
+                GraphicsPath starPath = GeneralHelper.Star(starLeft + starWidth / 2, Height / 2, starWidth / 2, starWidth / 3.8f, 5);
 
                 using (SolidBrush starBrush = new SolidBrush(StarColor))
                     if ((i + 1) * 2 <= Rating)

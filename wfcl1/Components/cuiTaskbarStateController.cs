@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Taskbar;
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Microsoft.WindowsAPICodePack.Taskbar;
-using static CuoreUI.Helper.Win32;
+using static CuoreUI.Helpers.GeneralHelper.Win32;
 
 namespace CuoreUI.Components
 {

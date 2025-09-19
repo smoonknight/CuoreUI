@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CuoreUI.Controls;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CuoreUI.Controls;
 using static CuoreUI.Drawing;
 
 namespace CuoreUI.Components
@@ -166,7 +166,7 @@ namespace CuoreUI.Components
 
             if (animating || TargetControl == null || TargetControl is cuiPictureBox || DesignMode)
                 return;
-            animating = true; 
+            animating = true;
             animationFinished = false;
 
             TargetControl.Paint += paintHandler;

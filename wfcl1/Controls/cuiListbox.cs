@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -269,7 +270,7 @@ namespace CuoreUI.Controls
             }
 
 
-            using (GraphicsPath path2 = Helper.RoundRect(cr, Rounding))
+            using (GraphicsPath path2 = GeneralHelper.RoundRect(cr, Rounding))
             using (Brush itemBrush = new SolidBrush(BackgroundColor))
             using (Pen bgPen = new Pen(OutlineColor, OutlineThickness))
             {
@@ -294,7 +295,7 @@ namespace CuoreUI.Controls
                         itemRect.Offset(0, 2);
                         int yCenterString = itemRect.Y + (ItemHeight / 2) - (Font.Height) + 6;
 
-                        using (GraphicsPath path = Helper.RoundRect(itemRect, ItemRounding))
+                        using (GraphicsPath path = GeneralHelper.RoundRect(itemRect, ItemRounding))
                         {
                             string itemText = Items[i].ToString();
 

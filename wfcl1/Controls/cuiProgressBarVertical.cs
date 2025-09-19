@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using CuoreUI.Helpers;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Windows.Forms;
@@ -34,7 +35,7 @@ namespace CuoreUI.Controls
                 tempGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 tempGraphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-                using (GraphicsPath roundBackground = Helper.RoundRect(new Rectangle(0, 0, ClientSize.Width * 2, ClientSize.Height * 2), Rounding * 2))
+                using (GraphicsPath roundBackground = GeneralHelper.RoundRect(new Rectangle(0, 0, ClientSize.Width * 2, ClientSize.Height * 2), Rounding * 2))
                     tempGraphics.SetClip(roundBackground);
 
                 float filledPercent = (float)Value / MaxValue;
@@ -47,7 +48,7 @@ namespace CuoreUI.Controls
                     tempGraphics.FillRectangle(brush, client);
                 }
 
-                using (GraphicsPath graphicsPath = Helper.RoundRect(foreHalf, Rounding * 2))
+                using (GraphicsPath graphicsPath = GeneralHelper.RoundRect(foreHalf, Rounding * 2))
                 using (SolidBrush brush = new SolidBrush(Foreground))
                 {
                     tempGraphics.FillPath(brush, graphicsPath);

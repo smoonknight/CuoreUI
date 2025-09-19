@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -168,7 +169,7 @@ namespace CuoreUI.Controls
             fixedCR.Inflate(-1, -1);
 
             using (Pen pen = new Pen(PanelOutlineColor, OutlineThickness))
-            using (GraphicsPath roundBg = Helper.RoundRect(fixedCR, Rounding))
+            using (GraphicsPath roundBg = GeneralHelper.RoundRect(fixedCR, Rounding))
             {
                 GenerateTransformMatrix();
 

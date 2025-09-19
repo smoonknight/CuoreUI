@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -433,7 +434,7 @@ namespace CuoreUI.Controls.Charts
                     {
                         SizeF textSize = g.MeasureString(popupText, Font);
                         RectangleF popupRect = new RectangleF(popupLocation.X - textSize.Width / 2, popupLocation.Y - textSize.Height - 10, textSize.Width, textSize.Height);
-                        using (GraphicsPath popupPath = Helper.RoundRect(popupRect, (int)(popupRect.Height / 4)))
+                        using (GraphicsPath popupPath = GeneralHelper.RoundRect(popupRect, (int)(popupRect.Height / 4)))
                         {
                             using (SolidBrush popupBrush = new SolidBrush(PopupBackground))
                             {
@@ -581,7 +582,7 @@ namespace CuoreUI.Controls.Charts
             SizeF textSize = CreateGraphics().MeasureString(popupText, Font);
 
             RectangleF popupRect = new RectangleF(popupLocation.X - textSize.Width / 2, popupLocation.Y - textSize.Height - 10, textSize.Width, textSize.Height + 1);
-            using (GraphicsPath popupPath = Helper.RoundRect(popupRect, (int)(popupRect.Height / 4)))
+            using (GraphicsPath popupPath = GeneralHelper.RoundRect(popupRect, (int)(popupRect.Height / 4)))
             {
                 Region roundedRegion = new Region(popupPath);
                 Invalidate(roundedRegion);

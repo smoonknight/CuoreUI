@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-public static class GlobalMouseHook
+internal static class GlobalMouseHook
 {
     private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
@@ -25,15 +25,15 @@ public static class GlobalMouseHook
     private static HookProc _proc = HookCallback;
     private static IntPtr _hookID = IntPtr.Zero;
 
-    public static bool isHooked = false;
+    internal static bool isHooked = false;
 
-    public static void Start()
+    internal static void Start()
     {
         _hookID = SetHook(_proc);
         isHooked = true;
     }
 
-    public static void Stop()
+    internal static void Stop()
     {
         UnhookWindowsHookEx(_hookID);
         isHooked = false;
@@ -58,5 +58,5 @@ public static class GlobalMouseHook
         return CallNextHookEx(_hookID, nCode, wParam, lParam);
     }
 
-    public static Action OnGlobalMouseClick;
+    internal static Action OnGlobalMouseClick;
 }

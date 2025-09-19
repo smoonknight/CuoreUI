@@ -16,9 +16,9 @@ namespace CuoreUI.Controls
         }
 
         [Category("CuoreUI")]
-        public override Color ForeColor 
+        public override Color ForeColor
         {
-            get => base.ForeColor; 
+            get => base.ForeColor;
             set => base.ForeColor = value;
         }
 

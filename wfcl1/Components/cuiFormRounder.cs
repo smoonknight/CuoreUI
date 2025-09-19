@@ -1,15 +1,16 @@
-﻿using System;
+﻿using CuoreUI.Components.Forms;
+using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using CuoreUI.Components.Forms;
 using Color = System.Drawing.Color;
 using Task = System.Threading.Tasks.Task;
 
 namespace CuoreUI.Components
 {
-    [Description("Smooth rounded corners for your form with a bitmap approach")]
+    [Description("(Experimental) Pre-win11 rounded corners for your form with a bitmap approach")]
     public partial class cuiFormRounder : Component
     {
         public cuiFormRounder()
@@ -159,7 +160,7 @@ namespace CuoreUI.Components
         {
             if (f != null && !f.IsDisposed && f.IsHandleCreated)
             {
-                Helper.Win32.SendMessage(f.Handle, 0x0010, IntPtr.Zero, IntPtr.Zero);
+                GeneralHelper.Win32.SendMessage(f.Handle, 0x0010, IntPtr.Zero, IntPtr.Zero);
             }
         }
 

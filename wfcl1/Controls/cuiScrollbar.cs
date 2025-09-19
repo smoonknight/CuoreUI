@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -216,11 +217,11 @@ namespace CuoreUI.Controls
 
             Rectangle modifiedCR = new Rectangle(0, 0, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
 
-            GraphicsPath bgPath = Helper.RoundRect(modifiedCR, Rounding);
+            GraphicsPath bgPath = GeneralHelper.RoundRect(modifiedCR, Rounding);
             e.Graphics.FillPath(new SolidBrush(Background), bgPath);
 
             Rectangle thumbRect = new Rectangle(0, thumbPosition, Width - 1, thumbHeight - 1);
-            GraphicsPath thumbPath = Helper.RoundRect(thumbRect, Rounding);
+            GraphicsPath thumbPath = GeneralHelper.RoundRect(thumbRect, Rounding);
             e.Graphics.FillPath(
                   isThumbPressed ? new SolidBrush(PressedThumbColor)
                 : isThumbHovered ? new SolidBrush(HoveredThumbColor)
