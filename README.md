@@ -1,5 +1,4 @@
 ![CuoreUI Logo](https://i.imgur.com/pWwYDum.jpeg)
-[![License: Unlicense](https://img.shields.io/badge/License-Unlicense-ff6a00)](https://unlicense.org/)
 
 > [Fluent Icons](https://github.com/microsoft/fluentui-system-icons) used in this project are licensed under the MIT license.
 > 
@@ -8,6 +7,9 @@
 # ![cui logo mini](https://i.imgur.com/8fLdRDY.png) CuoreUI.Winforms
 
 This is a C# .NET Winforms library with **modern** controls, components and forms.
+
+>[!TIP]
+> The repository receives updates quicker than the [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet package](https://www.nuget.org/packages/CuoreUI.Winforms/)
 
 ## 🗿 Why use Cuore
 ![image](https://i.imgur.com/VrbId38.png)
@@ -29,7 +31,6 @@ While smaller in size than other competitors, it still packs similar features du
 
 We dispose classes inheriting `IDisposable`, and use memory efficiently.
 
-
 ## 🔧 Installation 
 ### ![NuGet logo](https://i.imgur.com/6aPyVAg.png) Nuget
 **Link: [CuoreUI.Winforms](https://www.nuget.org/packages/CuoreUI.Winforms/)**
@@ -37,18 +38,7 @@ We dispose classes inheriting `IDisposable`, and use memory efficiently.
 ### 📦 Add to toolbox from .DLL file
 **Step-by-step guide: [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
 
-## 📃 Documentation & Samples
-### Samples / Demos
+## 📜 Documentation
+*Documentation, documentation. Ah yes, the documentation..*
 
-![GitHub logo](https://i.imgur.com/Yc7jLwG.png) Download samples from [GitHub](https://github.com/owtysm/CuoreUI-Samples/?tab=readme-ov-file#available-demos).
-
-### Documentation
-
-Documentation may not be up-to-date. In that case, [create an issue](https://github.com/owtysm/CuoreUI/issues/new/choose).
-
-![GitBook logo](https://i.imgur.com/zUxXXU9.png) View the docs on [GitBook](https://itzkxhu.gitbook.io/cuoreui).
-
->[!NOTE]
-> **About the Development**
-> 
-> If you want to know more about CuoreUI's past, read my profile's readme.
+.. We currently don't provide any documentation for the project
