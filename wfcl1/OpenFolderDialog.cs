@@ -18,13 +18,13 @@ namespace CuoreUI
         private readonly List<string> _resultPaths = new List<string>();
         private readonly List<string> _resultNames = new List<string>();
 
-        public IReadOnlyList<string> FolderNames => this._resultPaths;
+        public IReadOnlyList<string> FolderNames => _resultPaths;
 
-        public IReadOnlyList<string> SafeFolderNames => this._resultNames;
+        public IReadOnlyList<string> SafeFolderNames => _resultNames;
 
-        public string FolderName => this.FolderNames.FirstOrDefault<string>();
+        public string FolderName => FolderNames.FirstOrDefault();
 
-        public string SafeFolderName => this.SafeFolderNames.FirstOrDefault<string>();
+        public string SafeFolderName => SafeFolderNames.FirstOrDefault();
 
         public string InputPath { get; set; }
 
@@ -38,7 +38,7 @@ namespace CuoreUI
 
         public string FileNameLabel { get; set; }
 
-        public DialogResult ShowDialog() => this.ShowDialog(IntPtr.Zero);
+        public DialogResult ShowDialog() => ShowDialog(IntPtr.Zero);
 
         public DialogResult ShowDialog(IntPtr owner, bool throwOnError = false)
         {
