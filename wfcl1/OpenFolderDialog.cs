@@ -18,9 +18,9 @@ namespace CuoreUI
         private readonly List<string> _resultPaths = new List<string>();
         private readonly List<string> _resultNames = new List<string>();
 
-        public IReadOnlyList<string> FolderNames => (IReadOnlyList<string>)this._resultPaths;
+        public IReadOnlyList<string> FolderNames => this._resultPaths;
 
-        public IReadOnlyList<string> SafeFolderNames => (IReadOnlyList<string>)this._resultNames;
+        public IReadOnlyList<string> SafeFolderNames => this._resultNames;
 
         public string FolderName => this.FolderNames.FirstOrDefault<string>();
 
