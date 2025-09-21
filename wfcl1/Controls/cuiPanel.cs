@@ -23,7 +23,7 @@ namespace CuoreUI.Controls
             Refresh();
         }
 
-        private Color privatePanelColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privatePanelColor = Color.White;
 
         [Category("CuoreUI")]
         public Color PanelColor
@@ -39,7 +39,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privatePanelOutlineColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privatePanelOutlineColor = Color.FromArgb(64, 128, 128, 128);
 
         [Category("CuoreUI")]
         public Color PanelOutlineColor
