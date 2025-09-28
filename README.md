@@ -6,9 +6,6 @@
 
 This is a C# .NET Winforms library with **modern** controls, components and forms.
 
-> [!IMPORTANT]
->  We used to have 45+ ![github star icon](https://i.imgur.com/QLzJCDX.png) stars in our prime, ![github star icon](https://i.imgur.com/QLzJCDX.png) **star if it's helpful**!! Thanks!
-
 >[!TIP]
 > [![image](https://i.imgur.com/rJ9l299.png) The repository](https://github.com/owtysm2/CuoreUI) receives updates quicker than the [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet package](https://www.nuget.org/packages/CuoreUI.Winforms/)
 
