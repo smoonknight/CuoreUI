@@ -34,9 +34,12 @@ We dispose classes inheriting `IDisposable`, and use memory efficiently.
 **Link: [CuoreUI.Winforms](https://www.nuget.org/packages/CuoreUI.Winforms/)**
 > or `Install-Package CuoreUI.Winforms`
 ### 📦 Add to toolbox from .DLL file
-**Step-by-step guide: [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
+**Step-by-step guide: ![image](https://i.imgur.com/rJ9l299.png) [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
 
 ## 📜 Documentation
 *Documentation, documentation. Ah yes, the documentation..*
 
 .. We currently don't provide any documentation for the project
+
+## 📅 Versioning
+We use CalVer, please refer to ![image](https://i.imgur.com/rJ9l299.png) [/.github/versioning.md](https://github.com/owtysm2/CuoreUI/blob/master/.github/versioning.md) for more info.
