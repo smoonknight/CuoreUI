@@ -124,6 +124,7 @@ namespace CuoreUI.Controls
             ForeColor = Color.Gray;
             Cursor = Cursors.Hand;
             Size = new Size(270, 135);
+            SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
         [Category("CuoreUI")]

@@ -20,6 +20,7 @@ namespace CuoreUI.Controls
             DoubleBuffered = true;
             ForeColor = Color.Black;
             Font = new Font("Microsoft Sans Serif", 9.75f);
+            SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
         private string privateContent = "Your text here!";

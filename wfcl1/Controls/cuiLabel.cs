@@ -17,6 +17,7 @@ namespace CuoreUI.Controls
             DoubleBuffered = true;
             AutoScaleMode = AutoScaleMode.None;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
         private string privateContent = "Your text here!";

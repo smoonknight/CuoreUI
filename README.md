@@ -6,9 +6,6 @@
 
 This is a C# .NET Winforms library with **modern** controls, components and forms.
 
-> [!IMPORTANT]
->  We used to have 45+ ![github star icon](https://i.imgur.com/QLzJCDX.png) stars in our prime, ![github star icon](https://i.imgur.com/QLzJCDX.png) **star if it's helpful**!! Thanks!
-
 >[!TIP]
 > [![image](https://i.imgur.com/rJ9l299.png) The repository](https://github.com/owtysm2/CuoreUI) receives updates quicker than the [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet package](https://www.nuget.org/packages/CuoreUI.Winforms/)
 
@@ -37,9 +34,12 @@ We dispose classes inheriting `IDisposable`, and use memory efficiently.
 **Link: [CuoreUI.Winforms](https://www.nuget.org/packages/CuoreUI.Winforms/)**
 > or `Install-Package CuoreUI.Winforms`
 ### 📦 Add to toolbox from .DLL file
-**Step-by-step guide: [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
+**Step-by-step guide: ![image](https://i.imgur.com/rJ9l299.png) [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
 
 ## 📜 Documentation
 *Documentation, documentation. Ah yes, the documentation..*
 
 .. We currently don't provide any documentation for the project
+
+## 📅 Versioning
+We use CalVer, please refer to ![image](https://i.imgur.com/rJ9l299.png) [/.github/versioning.md](https://github.com/owtysm2/CuoreUI/blob/master/.github/versioning.md) for more info.
