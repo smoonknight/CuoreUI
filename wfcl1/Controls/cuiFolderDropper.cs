@@ -435,22 +435,23 @@ namespace CuoreUI.Controls
             {
                 bool MultiselectNow = Multiselect;
 
-                OpenFolderDialog ofd = new OpenFolderDialog() { Multiselect = MultiselectNow };
-
-                if (ofd.ShowDialog() == DialogResult.OK)
+                using (OpenFolderDialog ofd = new OpenFolderDialog() { Multiselect = MultiselectNow })
                 {
-                    if (MultiselectNow)
-                    {
-                        FolderNames = ofd.FolderNames.ToArray();
-                        FolderDropped?.Invoke(null, new FolderDroppedEventArgs(FolderNames));
-                    }
-                    else
+                    if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         FolderName = ofd.FolderName;
-                        FolderDropped?.Invoke(null, new FolderDroppedEventArgs(FolderName));
+                        FolderNames = ofd.FolderNames.ToArray();
+
+                        if (MultiselectNow)
+                        {
+                            FolderDropped?.Invoke(null, new FolderDroppedEventArgs(FolderNames));
+                        }
+                        else
+                        {
+                            FolderDropped?.Invoke(null, new FolderDroppedEventArgs(FolderName));
+                        }
                     }
                 }
-
             }
         }
 
@@ -463,16 +464,17 @@ namespace CuoreUI.Controls
         public FolderDroppedEventArgs(string folderName)
         {
             FolderName = folderName;
+            FolderNames = new string[] { folderName };
             OneFolderDropped = true;
         }
 
         public FolderDroppedEventArgs(string[] folderNames)
         {
             FolderNames = folderNames;
+            FolderName = folderNames.FirstOrDefault();
 
             if (folderNames.Length == 1)
             {
-                FolderName = folderNames[0];
                 OneFolderDropped = true;
             }
         }

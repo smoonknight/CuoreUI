@@ -40,7 +40,7 @@ namespace CuoreUI
             return Math.Min(Math.Max(1, GeneralHelper.GetHighestRefreshRate()), 1000);
         }
 
-        public class TimeDeltaInstance
+        internal class TimeDeltaInstance
         {
             private Stopwatch stopwatch = Stopwatch.StartNew();
             private long lastElapsedTicks;

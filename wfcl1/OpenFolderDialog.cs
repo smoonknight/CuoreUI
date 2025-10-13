@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,8 +11,10 @@ using System.Windows.Forms;
 
 namespace CuoreUI
 {
-    public class OpenFolderDialog
+    public class OpenFolderDialog : IDisposable
     {
+        private IFileOpenDialog dialog = (IFileOpenDialog)new FileOpenDialog();
+        private bool disposedValue;
         private readonly List<string> _resultPaths = new List<string>();
         private readonly List<string> _resultNames = new List<string>();
 
@@ -42,7 +42,6 @@ namespace CuoreUI
 
         public DialogResult ShowDialog(IntPtr owner, bool throwOnError = false)
         {
-            var dialog = (IFileOpenDialog)new FileOpenDialog();
             if (!string.IsNullOrEmpty(InputPath))
             {
                 if (CheckHr(SHCreateItemFromParsingName(InputPath, null, typeof(IShellItem).GUID, out var item), throwOnError) != 0)
@@ -101,6 +100,7 @@ namespace CuoreUI
                     _resultNames.Add(name);
                 }
             }
+
             return DialogResult.OK;
         }
 
@@ -230,6 +230,40 @@ namespace CuoreUI
             FOS_DEFAULTNOMINIMODE = 0x20000000,
             FOS_FORCEPREVIEWPANEON = 0x40000000,
             FOS_SUPPORTSTREAMABLEITEMS = unchecked((int)0x80000000)
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                try
+                {
+                    // Release unmanaged COM resources
+                    if (dialog != null)
+                    {
+                        Marshal.FinalReleaseComObject(dialog);
+                        dialog = null;
+                    }
+
+                    if (disposing)
+                    {
+                        // Dispose managed resources
+                        _resultPaths.Clear();
+                        _resultNames.Clear();
+                    }
+                }
+                finally
+                {
+                    disposedValue = true;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

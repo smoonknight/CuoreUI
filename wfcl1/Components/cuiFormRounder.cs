@@ -11,6 +11,7 @@ using Task = System.Threading.Tasks.Task;
 namespace CuoreUI.Components
 {
     [Description("(Experimental) Pre-win11 rounded corners for your form with a bitmap approach")]
+    [ToolboxBitmap(typeof(Form))]
     public partial class cuiFormRounder : Component
     {
         public cuiFormRounder()
