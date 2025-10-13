@@ -5,6 +5,7 @@ using System.Windows.Forms;
 namespace CuoreUI.Components
 {
     [Description("The proper OpenFolderDialog, because of the outdated FolderBrowserDialog")]
+    [ToolboxItem(typeof(FolderBrowserDialog))]
     public partial class cuiOpenFolderDialog : Component
     {
         public cuiOpenFolderDialog()
