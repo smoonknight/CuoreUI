@@ -13,7 +13,7 @@ namespace CuoreUI
         public static readonly Color PrimaryColor = Color.FromArgb(255, 106, 0);
         public static Color TranslucentPrimaryColor => Color.FromArgb(192, PrimaryColor);
 
-        private static Timer RefreshRateTimer;
+        private static Timer refreshRateTimer;
         public static event EventHandler FrameDrawn;
         public static event EventHandler TenFramesDrawn;
 
@@ -25,7 +25,7 @@ namespace CuoreUI
                 GlobalMouseHook.Stop();
             };
 
-            RefreshRateTimer = new Timer();
+            refreshRateTimer = new Timer();
             SetTimerRefreshRate();
         }
 
@@ -67,17 +67,17 @@ namespace CuoreUI
             }
         }
 
-        static Timer refreshRefresher = new Timer();
+        static Timer refreshRateTimerIntervalUpdaterTimer = new Timer();
         static byte frame = 0;
 
         private static void SetTimerRefreshRate()
         {
-            RefreshRateTimer.Interval = 1000 / GetHighestRefreshRate();
+            refreshRateTimer.Interval = 1000 / GetHighestRefreshRate();
 
-            if (!RefreshRateTimer.Enabled)
+            if (!refreshRateTimer.Enabled)
             {
-                RefreshRateTimer.Start();
-                RefreshRateTimer.Tick += (sender, args) =>
+                refreshRateTimer.Start();
+                refreshRateTimer.Tick += (sender, args) =>
                 {
                     FrameDrawn?.Invoke(null, EventArgs.Empty);
                     frame++;
@@ -89,13 +89,13 @@ namespace CuoreUI
                 };
             }
 
-            if (!refreshRefresher.Enabled)
+            if (!refreshRateTimerIntervalUpdaterTimer.Enabled)
             {
-                refreshRefresher.Interval = 1000;
-                refreshRefresher.Start();
-                refreshRefresher.Tick += (sender, args) =>
+                refreshRateTimerIntervalUpdaterTimer.Interval = 5000;
+                refreshRateTimerIntervalUpdaterTimer.Start();
+                refreshRateTimerIntervalUpdaterTimer.Tick += (sender, args) =>
                 {
-                    RefreshRateTimer.Interval = 1000 / GetHighestRefreshRate();
+                    refreshRateTimer.Interval = 1000 / GetHighestRefreshRate();
                 };
             }
         }
