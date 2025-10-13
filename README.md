@@ -29,6 +29,8 @@ While smaller in size than other competitors, it still packs similar features du
 
 We dispose classes inheriting `IDisposable`, and use memory efficiently.
 
+The UI is drawn with the CPU, so we make sure to optimize that too.
+
 ## 🔧 Installation 
 ### ![NuGet logo](https://i.imgur.com/6aPyVAg.png) Nuget
 **Link: [CuoreUI.Winforms](https://www.nuget.org/packages/CuoreUI.Winforms/)**
