@@ -37,8 +37,9 @@ The UI is drawn with the CPU, so we make sure to optimize that too.
 > or `Install-Package CuoreUI.Winforms`
 ### 📦 Add to toolbox from .DLL file
 **Step-by-step guide: ![image](https://i.imgur.com/rJ9l299.png) [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
-
 ## 📜 Documentation
+> You can consider using [![DeepWiki logo](https://i.imgur.com/fwR6Crt.png) DeepWiki](https://deepwiki.com/owtysm2/CuoreUI) while official documentation is being worked on.
+
 *Documentation, documentation. Ah yes, the documentation..*
 
 .. We currently don't provide any documentation for the project
