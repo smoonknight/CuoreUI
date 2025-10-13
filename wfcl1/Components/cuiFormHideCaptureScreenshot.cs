@@ -32,24 +32,21 @@ namespace CuoreUI.Components
             {
                 if (privateTargetForm != null && !privateTargetForm.IsDisposed)
                 {
-                    if (privateTargetForm != null && !privateTargetForm.IsDisposed)
+                    cuiFormRounder formRounder = FormsRegisteredByRounder.GetRounderByForm(privateTargetForm);
+                    if (formRounder != null)
                     {
-                        cuiFormRounder formRounder = FormsRegisteredByRounder.GetRounderByForm(privateTargetForm);
-                        if (formRounder != null)
+                        Form roundedForm = formRounder.roundedFormObj;
+                        if (roundedForm != null && !roundedForm.IsDisposed)
                         {
-                            Form roundedForm = formRounder.roundedFormObj;
-                            if (roundedForm != null && !roundedForm.IsDisposed)
-                            {
-                                SetWindowDisplayAffinity(roundedForm.Handle, (uint)ExclusionTypeEnum.None);
-                                SetWindowDisplayAffinity(roundedForm.Handle, (uint)targetExclusionType);
-                            }
+                            SetWindowDisplayAffinity(roundedForm.Handle, (uint)ExclusionTypeEnum.None);
+                            SetWindowDisplayAffinity(roundedForm.Handle, (uint)targetExclusionType);
                         }
-
-                        // Switching from Black -> Disappear or Disappear -> Black didn't always work
-                        // This line fixes that issue for some reason..
-                        SetWindowDisplayAffinity(TargetForm.Handle, (uint)ExclusionTypeEnum.None);
-                        SetWindowDisplayAffinity(TargetForm.Handle, (uint)targetExclusionType);
                     }
+
+                    // Switching from Black -> Disappear or Disappear -> Black didn't always work
+                    // This line fixes that issue for some reason..
+                    SetWindowDisplayAffinity(TargetForm.Handle, (uint)ExclusionTypeEnum.None);
+                    SetWindowDisplayAffinity(TargetForm.Handle, (uint)targetExclusionType);
                 }
             }
         }

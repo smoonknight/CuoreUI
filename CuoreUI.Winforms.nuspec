@@ -10,7 +10,7 @@
     <license type="expression">Unlicense</license>
     <tags>winforms modern controls ui telerik siticone cui theme bunifu guna cuoreui</tags>
     <repository type="git" url="https://github.com/owtysm2/CuoreUI" />
-    <projectUrl>https://nuget.org/packages/CuoreUI.Winforms</projectUrl>
+    <projectUrl>https://cuoreui.netlify.app</projectUrl>
     <readme>README.md</readme>
   </metadata>
   <files>
