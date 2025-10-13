@@ -5,6 +5,8 @@ using System.Windows.Forms;
 
 namespace CuoreUI.Components
 {
+    [ToolboxItem(typeof(MaskedTextBox))]
+    [Description("Hides your form from screenshots and screen recordings.")]
     public partial class cuiFormHideCaptureScreenshot : Component
     {
         public enum ExclusionTypeEnum
