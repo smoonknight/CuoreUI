@@ -33,10 +33,11 @@ The UI is drawn with the CPU, so we make sure to optimize that too.
 
 ## 🔧 Installation 
 ### ![NuGet logo](https://i.imgur.com/6aPyVAg.png) Nuget
-**Link: [CuoreUI.Winforms](https://www.nuget.org/packages/CuoreUI.Winforms/)**
-> or `Install-Package CuoreUI.Winforms`
+The official NuGet page is called [CuoreUI.Winforms![image](https://i.imgur.com/e4nwNIY.png)](https://www.nuget.org/packages/CuoreUI.Winforms)
+>[!TIP]
+> To install using the Package Manager Console: `Install-Package CuoreUI.Winforms`
 ### 📦 Add to toolbox from .DLL file
-**Step-by-step guide: ![image](https://i.imgur.com/rJ9l299.png) [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
+> Follow our **Step-by-step guide: ![image](https://i.imgur.com/rJ9l299.png) [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
 ## 📜 Documentation
 > You can consider using [![DeepWiki logo](https://i.imgur.com/fwR6Crt.png) DeepWiki](https://deepwiki.com/owtysm2/CuoreUI) while official documentation is being worked on.
 
