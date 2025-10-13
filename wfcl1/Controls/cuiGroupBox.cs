@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace CuoreUI.Controls
 {
-    [ToolboxItem(typeof(GroupBox))]
+    [ToolboxBitmap(typeof(GroupBox))]
     public partial class cuiGroupBox : Panel
     {
         public cuiGroupBox()

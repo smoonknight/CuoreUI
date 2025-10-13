@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CuoreUI.Components
 {
     [Description("The proper OpenFolderDialog, because of the outdated FolderBrowserDialog")]
-    [ToolboxItem(typeof(FolderBrowserDialog))]
+    [ToolboxBitmap(typeof(FolderBrowserDialog))]
     public partial class cuiOpenFolderDialog : Component
     {
         public cuiOpenFolderDialog()

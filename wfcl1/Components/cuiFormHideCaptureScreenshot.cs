@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace CuoreUI.Components
 {
-    [ToolboxItem(typeof(MaskedTextBox))]
+    [ToolboxBitmap(typeof(MaskedTextBox))]
     [Description("Hides your form from screenshots and screen recordings.")]
     public partial class cuiFormHideCaptureScreenshot : Component
     {
