@@ -14,7 +14,7 @@ namespace CuoreUI
     public class OpenFolderDialog : IDisposable
     {
         private IFileOpenDialog dialog = (IFileOpenDialog)new FileOpenDialog();
-        private bool disposedValue;
+        public bool IsDisposed { get; private set; }
         private readonly List<string> _resultPaths = new List<string>();
         private readonly List<string> _resultNames = new List<string>();
 
@@ -234,7 +234,7 @@ namespace CuoreUI
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!IsDisposed)
             {
                 try
                 {
@@ -254,7 +254,7 @@ namespace CuoreUI
                 }
                 finally
                 {
-                    disposedValue = true;
+                    IsDisposed = true;
                 }
             }
         }
