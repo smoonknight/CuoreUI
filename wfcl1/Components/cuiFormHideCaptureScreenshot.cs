@@ -35,8 +35,11 @@ namespace CuoreUI.Components
                         if (formRounder != null)
                         {
                             Form roundedForm = formRounder.roundedFormObj;
-                            SetWindowDisplayAffinity(roundedForm.Handle, (uint)ExclusionTypeEnum.None);
-                            SetWindowDisplayAffinity(roundedForm.Handle, (uint)targetExclusionType);
+                            if (roundedForm != null && !roundedForm.IsDisposed)
+                            {
+                                SetWindowDisplayAffinity(roundedForm.Handle, (uint)ExclusionTypeEnum.None);
+                                SetWindowDisplayAffinity(roundedForm.Handle, (uint)targetExclusionType);
+                            }
                         }
 
                         // Switching from Black -> Disappear or Disappear -> Black didn't always work
