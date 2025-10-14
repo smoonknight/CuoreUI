@@ -1,9 +1,10 @@
 ﻿using CuoreUI.Components.Forms;
+using CuoreUI.Helpers;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static CuoreUI.Helpers.GeneralHelper;
+using static CuoreUI.Helpers.WindowsHelper;
 
 namespace CuoreUI.Components
 {
@@ -110,7 +111,7 @@ namespace CuoreUI.Components
 
             while (true)
             {
-                await Task.Delay(Drawing.LazyTimeDelta);
+                await Task.Delay(DrawingHelper.LazyTimeDelta);
                 if (TargetControl.ClientRectangle.Contains(TargetControl.PointToClient(Cursor.Position)) == false)
                 {
                     break;
@@ -143,6 +144,23 @@ namespace CuoreUI.Components
             }
 
             ToggleFormVisibilityWithoutActivating(tooltipForm, false);
+        }
+
+        private static void ToggleFormVisibilityWithoutActivating(Form form, bool show)
+        {
+            if (form == null || form.IsDisposed)
+                return;
+
+            if (show)
+            {
+                if (!form.Visible)
+                    NativeMethods.ShowWindow(form.Handle, NativeMethods.SW_SHOWNOACTIVATE);
+            }
+            else
+            {
+                if (form.Visible)
+                    NativeMethods.ShowWindow(form.Handle, NativeMethods.SW_HIDE);
+            }
         }
     }
 }

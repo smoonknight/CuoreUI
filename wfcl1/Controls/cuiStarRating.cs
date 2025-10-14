@@ -19,7 +19,8 @@ namespace CuoreUI.Controls
 
         private int privateStarCount = 5;
         private int privateRating = 2;
-        private Color privateStarColor = CuoreUI.Drawing.PrimaryColor;
+
+        private Color privateStarColor = Helpers.DrawingHelper.PrimaryColor;
         private int privateStarBorderSize = 1;
 
         [Category("CuoreUI")]

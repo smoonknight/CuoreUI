@@ -93,7 +93,7 @@ namespace CuoreUI.Components.Forms
                 cuiFormRounder rounderFound = FormsRegisteredByRounder.GetRounderByForm(parent);
                 rounderExists = rounderFound != null;
 
-                bool automaticallyFindRounding = GeneralHelper.Win32.IsWindows11() == false || rounderExists;
+                bool automaticallyFindRounding = WindowsHelper.IsWindows11() == false || rounderExists;
                 dimmerRounding = parentBorderStyleBefore == FormBorderStyle.None ? 0 : 8;
                 if (automaticallyFindRounding)
                 {

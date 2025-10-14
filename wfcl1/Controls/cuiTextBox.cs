@@ -25,7 +25,8 @@ namespace CuoreUI.Controls
         private Color privateFocusBackgroundColor = Color.White;
 
         private Color privateBorderColor = Color.FromArgb(128, 128, 128, 128);
-        private Color privateFocusBorderColor = CuoreUI.Drawing.PrimaryColor;
+
+        private Color privateFocusBorderColor = Helpers.DrawingHelper.PrimaryColor;
         private int privateBorderSize = 1;
         private bool privateUnderlinedStyle = true;
 

@@ -176,7 +176,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateThumbColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateThumbColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color ThumbColor

@@ -125,7 +125,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateFocusedBorderColor = Drawing.PrimaryColor;
+        private Color privateFocusedBorderColor = DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color FocusedBorderColor

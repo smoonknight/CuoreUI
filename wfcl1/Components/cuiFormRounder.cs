@@ -161,7 +161,7 @@ namespace CuoreUI.Components
         {
             if (f != null && !f.IsDisposed && f.IsHandleCreated)
             {
-                GeneralHelper.Win32.SendMessage(f.Handle, 0x0010, IntPtr.Zero, IntPtr.Zero);
+                Helpers.WindowsHelper.SendMessage(f.Handle, 0x0010, IntPtr.Zero, IntPtr.Zero);
             }
         }
 
@@ -249,7 +249,7 @@ namespace CuoreUI.Components
                 }
                 else
                 {
-                    await Task.Delay(1000 / Drawing.GetHighestRefreshRate());
+                    await Task.Delay(1000 / DrawingHelper.GetHighestRefreshRate());
 
                     // check same flags again because some time had passed
                     if (IsSafeToEditRoundedForm())
@@ -365,7 +365,7 @@ namespace CuoreUI.Components
 
             // Drawing.TenFramesDrawn is called every 10000/hz milliseconds
             // where hz stands for the maximum refresh rate recorded from all display devices
-            Drawing.TenFramesDrawn += (_, __) =>
+            DrawingHelper.TenFramesDrawn += (_, __) =>
             {
                 if (roundedFormObj != null && shouldCloseDown == false && roundedFormObj.IsDisposed == false)
                 {

@@ -82,7 +82,7 @@ namespace CuoreUI.Controls
             refreshTimer.Start();
             refreshTimer.Tick += (e, s) =>
             {
-                dragTimer.Interval = 1000 / CuoreUI.Drawing.GetHighestRefreshRate();
+                dragTimer.Interval = 1000 / Helpers.DrawingHelper.GetHighestRefreshRate();
             };
         }
 
@@ -133,7 +133,7 @@ namespace CuoreUI.Controls
 
             lastMousePoint = new Point(-1, -1);
 
-            dragTimer.Interval = 1000 / CuoreUI.Drawing.GetHighestRefreshRate();
+            dragTimer.Interval = 1000 / Helpers.DrawingHelper.GetHighestRefreshRate();
             dragTimer.Stop();
             dragTimer.Start();
         }
@@ -231,7 +231,7 @@ namespace CuoreUI.Controls
 
             if (TargetForm != null)
             {
-                Location = new Point(TargetForm.Size.Width - Width, TargetForm.Size.Height - Height);
+                Location = new Point(TargetForm.ClientSize.Width - Width, TargetForm.ClientSize.Height - Height);
             }
         }
     }

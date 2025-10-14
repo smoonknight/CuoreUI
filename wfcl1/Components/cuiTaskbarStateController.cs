@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using static CuoreUI.Helpers.GeneralHelper.Win32;
+using static CuoreUI.Helpers.WindowsHelper;
 
 namespace CuoreUI.Components
 {

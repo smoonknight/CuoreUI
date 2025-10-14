@@ -150,7 +150,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateThumbColor = Drawing.PrimaryColor;
+        private Color privateThumbColor = DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color ThumbColor
@@ -166,7 +166,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateHoveredThumbColor = Drawing.TranslucentPrimaryColor;
+        private Color privateHoveredThumbColor = DrawingHelper.TranslucentPrimaryColor;
 
         [Category("CuoreUI")]
         public Color HoveredThumbColor
@@ -182,7 +182,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privatePressedThumbColor = Drawing.TranslucentPrimaryColor;
+        private Color privatePressedThumbColor = DrawingHelper.TranslucentPrimaryColor;
 
         [Category("CuoreUI")]
         public Color PressedThumbColor

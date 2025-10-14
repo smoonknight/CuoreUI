@@ -96,7 +96,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateProgressColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateProgressColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color ProgressColor

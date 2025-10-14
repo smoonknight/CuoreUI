@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using static CuoreUI.Helpers.GeneralHelper.Win32;
+using static CuoreUI.Helpers.WindowsHelper;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 

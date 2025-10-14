@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CuoreUI.Helpers;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -103,7 +104,7 @@ namespace CuoreUI.Components
                     privateTargetControl.DrawToBitmap(cachedBitmap, new Rectangle(0, 0, privateTargetControl.Width, privateTargetControl.Height));
 
                     //GaussianBlur.Apply(ref cachedBitmap, BlurAmount);
-                    Drawing.Imaging.ImageBlurs.QuadraticBlur.Apply(ref cachedBitmap, BlurAmount);
+                    DrawingHelper.Imaging.ImageBlurs.QuadraticBlur.Apply(ref cachedBitmap, BlurAmount);
 
                 }
             }

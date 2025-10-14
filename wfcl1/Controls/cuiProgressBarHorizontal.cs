@@ -83,7 +83,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateForeground = CuoreUI.Drawing.PrimaryColor;
+        private Color privateForeground = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color Foreground

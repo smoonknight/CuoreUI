@@ -227,7 +227,7 @@ namespace CuoreUI.Controls.Forms
             }
         }
 
-        private Color privateNormalBackground = CuoreUI.Drawing.PrimaryColor;
+        private Color privateNormalBackground = Helpers.DrawingHelper.PrimaryColor;
         public Color NormalBackground
         {
             get
@@ -255,7 +255,7 @@ namespace CuoreUI.Controls.Forms
             }
         }
 
-        private Color privatePressedBackground = CuoreUI.Drawing.PrimaryColor;
+        private Color privatePressedBackground = Helpers.DrawingHelper.PrimaryColor;
         public Color PressedBackground
         {
             get

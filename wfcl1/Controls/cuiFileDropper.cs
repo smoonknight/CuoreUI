@@ -153,7 +153,7 @@ namespace CuoreUI.Controls
             set { ForeColor = value; Invalidate(); }
         }
 
-        private Color privateHoverUploadForeColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateHoverUploadForeColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color HoverUploadForeColor
@@ -162,7 +162,7 @@ namespace CuoreUI.Controls
             set { privateHoverUploadForeColor = value; Invalidate(); }
         }
 
-        private Color privateForeUploadColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateForeUploadColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color NormalUploadForeColor

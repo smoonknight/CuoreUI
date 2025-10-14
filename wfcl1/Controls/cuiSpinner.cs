@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using static CuoreUI.Drawing;
+using static CuoreUI.Helpers.DrawingHelper;
 
 namespace CuoreUI.Controls
 {
@@ -67,13 +68,13 @@ namespace CuoreUI.Controls
             universalRotateLogic();
         }
 
-        Drawing.TimeDeltaInstance tdi = new TimeDeltaInstance();
+        DrawingHelper.TimeDeltaInstance tdi = new TimeDeltaInstance();
         void universalRotateLogic()
         {
             Rotation += (((RotateSpeed / 2)) * tdi.TimeDelta) % 360;
         }
 
-        private Color privateArcColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateArcColor = DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color ArcColor

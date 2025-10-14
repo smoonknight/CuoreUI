@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static CuoreUI.Drawing;
+using static CuoreUI.Helpers.DrawingHelper;
 
 namespace CuoreUI.Controls
 {
@@ -92,7 +92,7 @@ namespace CuoreUI.Controls
 
             DateTime lastFrameTime = DateTime.Now;
 
-            int desiredFrameInterval = 1000 / Drawing.GetHighestRefreshRate();
+            int desiredFrameInterval = 1000 / DrawingHelper.GetHighestRefreshRate();
             EmergencySetLocation(Duration + desiredFrameInterval);
 
             while (true)
@@ -121,7 +121,7 @@ namespace CuoreUI.Controls
                 }
 
                 // sextic easing function
-                double easing = CuoreUI.Drawing.EasingFunctions.FromEasingType(EasingTypes.SextOut, elapsedTime, Duration / (double)1000) * durationRatio;
+                double easing = DrawingHelper.EasingFunctions.FromEasingType(EasingTypes.SextOut, elapsedTime, Duration / (double)1000) * durationRatio;
 
                 thumbX = (int)(startX + (xDistance * easing));
                 Refresh();
@@ -163,7 +163,7 @@ namespace CuoreUI.Controls
         }
 
 
-        private Color privateBackground = Drawing.PrimaryColor;
+        private Color privateBackground = DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         [Description("The rounded background for the CHECKED switch.")]
@@ -282,7 +282,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateCheckedSymbolColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateCheckedSymbolColor = DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         [Description("The color of the checked outline.")]

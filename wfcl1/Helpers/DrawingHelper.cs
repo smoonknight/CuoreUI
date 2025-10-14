@@ -1,14 +1,13 @@
-﻿using CuoreUI.Helpers;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
-namespace CuoreUI
+namespace CuoreUI.Helpers
 {
-    public static class Drawing
+    public static class DrawingHelper
     {
         public static readonly Color PrimaryColor = Color.FromArgb(255, 106, 0);
         public static Color TranslucentPrimaryColor => Color.FromArgb(192, PrimaryColor);
@@ -17,7 +16,7 @@ namespace CuoreUI
         public static event EventHandler FrameDrawn;
         public static event EventHandler TenFramesDrawn;
 
-        static Drawing()
+        static DrawingHelper()
         {
             HandCursorFix.EnableModernCursor();
             Process.GetCurrentProcess().Exited += (e, s) =>
@@ -115,7 +114,7 @@ namespace CuoreUI
             int min = Math.Min(color.R, Math.Min(color.G, color.B));
 
             hue = color.GetHue();
-            saturation = (max == 0) ? 0 : 1d - (1d * min / max);
+            saturation = max == 0 ? 0 : 1d - 1d * min / max;
             value = max / 255d;
         }
 
@@ -276,19 +275,19 @@ namespace CuoreUI
             {
                 public static double In(double time, double duration = 1)
                 {
-                    return (time * time) / duration;
+                    return time * time / duration;
                 }
 
                 public static double Out(double time, double duration = 1)
                 {
-                    return (time * (2 - time)) / duration;
+                    return time * (2 - time) / duration;
                 }
 
                 public static double InOut(double time, double duration = 1)
                 {
                     if (time < 0.5)
                     {
-                        return (2 * time * time) / duration;
+                        return 2 * time * time / duration;
                     }
                     return (-1 + (4 - 2 * time) * time) / duration;
                 }
@@ -298,7 +297,7 @@ namespace CuoreUI
             {
                 public static double In(double time, double duration = 1)
                 {
-                    return (time * time * time * time) / duration;
+                    return time * time * time * time / duration;
                 }
 
                 public static double Out(double time, double duration = 1)
@@ -310,7 +309,7 @@ namespace CuoreUI
                 {
                     if (time < 0.5)
                     {
-                        return (8 * time * time * time * time) / duration;
+                        return 8 * time * time * time * time / duration;
                     }
                     return (1 - Math.Pow(-2 * time + 2, 4) / 2) / duration;
                 }
@@ -320,7 +319,7 @@ namespace CuoreUI
             {
                 public static double In(double time, double duration = 1)
                 {
-                    return (time * time * time * time * time) / duration;
+                    return time * time * time * time * time / duration;
                 }
 
                 public static double Out(double time, double duration = 1)
@@ -332,7 +331,7 @@ namespace CuoreUI
                 {
                     if (time < 0.5)
                     {
-                        return (16 * time * time * time * time * time) / duration;
+                        return 16 * time * time * time * time * time / duration;
                     }
                     return (1 - Math.Pow(-2 * time + 2, 5) / 2) / duration;
                 }
@@ -354,7 +353,7 @@ namespace CuoreUI
                 {
                     if (time < 0.5)
                     {
-                        return (32 * Math.Pow(time, 6)) / duration;
+                        return 32 * Math.Pow(time, 6) / duration;
                     }
                     return (1 - Math.Pow(-2 * time + 2, 6) / 2) / duration;
                 }
@@ -384,9 +383,9 @@ namespace CuoreUI
                     }
                     if (time < 0.5)
                     {
-                        return (Math.Pow(2, 20 * time - 10) / 2) / duration;
+                        return Math.Pow(2, 20 * time - 10) / 2 / duration;
                     }
-                    return ((2 - Math.Pow(2, -20 * time + 10)) / 2) / duration;
+                    return (2 - Math.Pow(2, -20 * time + 10)) / 2 / duration;
                 }
             }
 
@@ -423,9 +422,9 @@ namespace CuoreUI
                     RecalculateOvershoot(backOvershoot);
                     if (time < 0.5)
                     {
-                        return ((Math.Pow(2 * time, 2) * ((c2 + 1) * 2 * time - c2)) / 2) / duration;
+                        return Math.Pow(2 * time, 2) * ((c2 + 1) * 2 * time - c2) / 2 / duration;
                     }
-                    return ((Math.Pow(2 * time - 2, 2) * ((c2 + 1) * (time * 2 - 2) + c2) + 2) / 2) / duration;
+                    return (Math.Pow(2 * time - 2, 2) * ((c2 + 1) * (time * 2 - 2) + c2) + 2) / 2 / duration;
                 }
             }
         }

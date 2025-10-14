@@ -88,7 +88,7 @@ namespace CuoreUI.Controls.Charts
             }
         }
 
-        private Color privatePointColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privatePointColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Browsable(true)]
         [Category("CuoreUI Chart Colors")]
@@ -235,7 +235,7 @@ namespace CuoreUI.Controls.Charts
             }
         }
 
-        private Color privateChartLineColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateChartLineColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Browsable(true)]
         [Category("CuoreUI Chart Colors")]

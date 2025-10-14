@@ -328,7 +328,7 @@ namespace CuoreUI.Controls
 
                     if (currentPage.Image != null)
                     {
-                        using (Bitmap currentImage = Drawing.Imaging.TintBitmap(currentPage.Image, isSelected ? SelectedImageTint :
+                        using (Bitmap currentImage = DrawingHelper.Imaging.TintBitmap(currentPage.Image, isSelected ? SelectedImageTint :
                                       isHover ? HoverImageTint :
                                       UnselectedImageTint))
                         {

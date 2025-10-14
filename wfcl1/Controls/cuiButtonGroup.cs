@@ -188,7 +188,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateCheckedBackground = CuoreUI.Drawing.PrimaryColor;
+        private Color privateCheckedBackground = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color CheckedBackground
@@ -204,7 +204,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateCheckedOutline = CuoreUI.Drawing.PrimaryColor;
+        private Color privateCheckedOutline = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color CheckedOutline

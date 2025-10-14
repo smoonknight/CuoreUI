@@ -22,7 +22,7 @@ namespace CuoreUI.Controls
             Refresh();
         }
 
-        Color privatePanelColor1 = CuoreUI.Drawing.PrimaryColor;
+        Color privatePanelColor1 = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color PanelColor1
@@ -54,7 +54,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        Color privatePanelOutlineColor1 = CuoreUI.Drawing.PrimaryColor;
+        Color privatePanelOutlineColor1 = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color PanelOutlineColor1
@@ -70,7 +70,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        Color privatePanelOutlineColor2 = CuoreUI.Drawing.PrimaryColor;
+        Color privatePanelOutlineColor2 = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color PanelOutlineColor2

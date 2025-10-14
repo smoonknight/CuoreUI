@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static CuoreUI.Drawing;
+using static CuoreUI.Helpers.DrawingHelper;
 using static CuoreUI.Helpers.GeneralHelper;
 
 namespace CuoreUI.Controls

@@ -71,7 +71,7 @@ namespace CuoreUI.Controls
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            Drawing.FrameDrawn += dropdownmove;
+            DrawingHelper.FrameDrawn += dropdownmove;
 
             GlobalMouseHook.OnGlobalMouseClick += HandleGlobalMouseClick; // Subscribe to global mouse clicks
         }
@@ -548,19 +548,19 @@ namespace CuoreUI.Controls
         public Color ButtonNormalBackground
         {
             get; set;
-        } = CuoreUI.Drawing.PrimaryColor;
+        } = DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color ButtonHoverBackground
         {
             get; set;
-        } = CuoreUI.Drawing.TranslucentPrimaryColor;
+        } = DrawingHelper.TranslucentPrimaryColor;
 
         [Category("CuoreUI")]
         public Color ButtonPressedBackground
         {
             get; set;
-        } = CuoreUI.Drawing.PrimaryColor;
+        } = DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color ButtonNormalOutline

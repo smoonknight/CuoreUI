@@ -81,7 +81,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateCompletedColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privateCompletedColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         [Description("The primary color of the control, the color of completed tasks and current task.")]

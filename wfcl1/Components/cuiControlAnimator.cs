@@ -1,10 +1,11 @@
 ﻿using CuoreUI.Controls;
+using CuoreUI.Helpers;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static CuoreUI.Drawing;
+using static CuoreUI.Helpers.DrawingHelper;
 
 namespace CuoreUI.Components
 {
@@ -210,7 +211,7 @@ namespace CuoreUI.Components
                     return;
                 }
 
-                double progress = CuoreUI.Drawing.EasingFunctions.FromEasingType(EasingType, elapsedTime, Duration / (double)1000) * durationRatio;
+                double progress = DrawingHelper.EasingFunctions.FromEasingType(EasingType, elapsedTime, Duration / (double)1000) * durationRatio;
 
                 if (shouldAnimateLocationNow)
                 {
@@ -232,7 +233,7 @@ namespace CuoreUI.Components
                 }
 
                 lastFrameTime = rightnow;
-                await Task.Delay(1000 / Drawing.GetHighestRefreshRate());
+                await Task.Delay(1000 / DrawingHelper.GetHighestRefreshRate());
             }
 
         }
@@ -245,7 +246,7 @@ namespace CuoreUI.Components
         private async void EmergencySetLocation(int Duration, bool shouldAnimateLocationNow)
         {
             animationFinished = false;
-            await Task.Delay(Duration + (1000 / Drawing.GetHighestRefreshRate()));
+            await Task.Delay(Duration + (1000 / DrawingHelper.GetHighestRefreshRate()));
 
             if (shouldAnimateLocationNow)
             {

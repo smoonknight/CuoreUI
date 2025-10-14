@@ -30,7 +30,7 @@ namespace CuoreUI.Controls.Shapes
             }
         }
 
-        private Color privatePanelColor = CuoreUI.Drawing.PrimaryColor;
+        private Color privatePanelColor = Helpers.DrawingHelper.PrimaryColor;
 
         [Category("CuoreUI")]
         public Color PanelColor
