@@ -14,30 +14,40 @@ namespace CuoreUI.Components
             InitializeComponent();
         }
 
+        [Category("CuoreUI")]
+        [Description("Leave empty for default system translation.")]
         public string Title
         {
             get;
             set;
         }
 
+        [Category("CuoreUI")]
+        [Description("Controls whether multiple folders can be selected in the dialog.")]
         public bool Multiselect
         {
             get;
             set;
         }
 
+        [Category("CuoreUI")]
+        [Description("Leave empty for default system translation.")]
         public string OkButtonLabel
         {
             get;
             set;
         }
 
+        [Category("CuoreUI")]
+        [Browsable(false)]
         public string FolderName
         {
             get;
             private set;
         }
 
+        [Category("CuoreUI")]
+        [Browsable(false)]
         public IReadOnlyList<string> FolderNames
         {
             get;

@@ -412,7 +412,7 @@ namespace CuoreUI.Helpers
             }
         }
 
-        public static class Win32
+        internal static class Win32
         {
             [StructLayout(LayoutKind.Sequential)]
             struct OSVERSIONINFOEX
@@ -433,6 +433,10 @@ namespace CuoreUI.Helpers
 
             [DllImport("ntdll.dll", SetLastError = true)]
             static extern int RtlGetVersion(ref OSVERSIONINFOEX versionInfo);
+
+            [DllImport("user32.dll")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool SetWindowDisplayAffinity(IntPtr hWnd, uint dwAffinity);
 
             public static bool IsWindows11()
             {

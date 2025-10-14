@@ -10,40 +10,41 @@ namespace CuoreUI.Components
     [ToolboxBitmap(typeof(Form))]
     public partial class cuiFormDrag : Component
     {
-        private Form targetForm;
         public cuiFormDrag(IContainer container)
         {
             container.Add(this);
         }
+
+        private Form privateTargetForm;
 
         [Category("CuoreUI")]
         public Form TargetForm
         {
             get
             {
-                return targetForm;
+                return privateTargetForm;
             }
             set
             {
-                if (targetForm != null)
+                if (privateTargetForm != null)
                 {
-                    targetForm.MouseMove -= MouseMove;
+                    privateTargetForm.MouseMove -= MouseMove;
                 }
 
-                targetForm = value;
+                privateTargetForm = value;
 
-                if (targetForm != null)
+                if (privateTargetForm != null)
                 {
-                    targetForm.MouseMove += MouseMove;
+                    privateTargetForm.MouseMove += MouseMove;
                 }
             }
         }
 
         [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
+        private static extern bool ReleaseCapture();
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCAPTION = 0x2;
