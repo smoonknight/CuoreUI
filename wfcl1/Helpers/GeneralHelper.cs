@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using static CuoreUI.Helpers.WindowsHelper;
 
 namespace CuoreUI.Helpers
 {
@@ -11,16 +10,6 @@ namespace CuoreUI.Helpers
         static GeneralHelper()
         {
             HandCursorFix.EnableModernCursor();
-        }
-
-        public static int[] GetRefreshRates()
-        {
-            return WindowsHelper.GetRefreshRates();
-        }
-
-        public static int GetHighestRefreshRate()
-        {
-            return GetRefreshRate();
         }
 
         public static GraphicsPath RoundHexagon(Rectangle bounds, float rounding)

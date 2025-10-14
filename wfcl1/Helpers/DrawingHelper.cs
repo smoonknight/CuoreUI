@@ -28,16 +28,11 @@ namespace CuoreUI.Helpers
             SetTimerRefreshRate();
         }
 
-        public static int[] GetRefreshRates()
-        {
-            return GeneralHelper.GetRefreshRates();
-        }
+        public static int[] GetRefreshRates() => WindowsHelper.GetRefreshRates();
 
-        public static int GetHighestRefreshRate()
-        {
-            // 1000 max, 1 minimum, a simple "1000 / 1001" or "1000 / 0" may crash the whole app
-            return Math.Min(Math.Max(1, GeneralHelper.GetHighestRefreshRate()), 1000);
-        }
+        // 1000 max, 1 minimum so as to prevent crashes
+        // (timers with Interval = 0 throw exceptions, and the library has timers which rely on this)
+        public static int GetHighestRefreshRate() => Math.Min(Math.Max(1, WindowsHelper.GetRefreshRate()), 1000);
 
         internal class TimeDeltaInstance
         {
