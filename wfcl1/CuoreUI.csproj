@@ -113,10 +113,6 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Components\CuiFormRounderResources\CuiRoundForm.cs" />
-    <Compile Remove="Components\CuiFormRounderResources\CuiRoundForm.Designer.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +125,7 @@
     <PropertyGroup>
       <OutputPath>bin\$(Configuration)</OutputPath>
       <PackageId>CuoreUI.Winforms</PackageId>
-      <Authors>itzkxhu</Authors>
+      <Authors>owtysm</Authors>
       <Description>Modern Winforms Library.</Description>
     </PropertyGroup>
     <ItemGroup>
