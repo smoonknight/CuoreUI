@@ -14,20 +14,20 @@ This is a C# .NET Winforms library with **modern** controls, components and form
 ## 🗿 Why use Cuore
 > CuoreUI Showcases is an upcoming app where you can browse interactive samples.
 
-![image](https://i.imgur.com/z0XjHOY.png)
+![CuoreUI Showcases: Message Dialog (UI)](https://i.imgur.com/z0XjHOY.png)
 
 **UI Design**
 
 CuoreUI draws inspiration from web UI designs. Tries to support control animations, blur effects on controls, and rounded forms for a "modern" look.
 
-![image](https://i.imgur.com/7yeFZER.png)
+![CuoreUI binary size in comparison to other libraries](https://i.imgur.com/7yeFZER.png)
 
 **Lightweight**
 *(Data from Early July 2025)*
 
 While smaller in size than other competitors, it still packs similar features due to not being obfuscated and not having a license manager.
 
-![image](https://i.imgur.com/9VbO6gK.png)
+![CuoreUI resource usage in "CuoreUI Showcases: Message Dialog" - Windows 10 Task Manager](https://i.imgur.com/9VbO6gK.png)
 
 **Cautious with Resources**
 
@@ -43,7 +43,7 @@ The official NuGet page is called [CuoreUI.Winforms![image](https://i.imgur.com/
 >[!TIP]
 > To install using the Package Manager Console: `Install-Package CuoreUI.Winforms`
 ### 📦 Add to toolbox from .DLL file
-> Follow our **Step-by-step guide: ![image](https://i.imgur.com/rJ9l299.png) [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
+> Follow our **Step-by-step guide: ![GitHub logo](https://i.imgur.com/rJ9l299.png) [Load CuoreUI.dll from toolbox](./.github/load-into-toolbox.md)**
 
 ---
 
