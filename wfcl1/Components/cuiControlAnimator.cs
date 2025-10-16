@@ -52,7 +52,7 @@ namespace CuoreUI.Components
                 {
                     if (value is Form && DesignMode)
                     {
-                        MessageBox.Show("Hey, You are probably looking for 'cuiFormAnimator' to animate Form.\nYou can still use 'cuiControlAnimator' though!", "CuoreUI");
+                        MessageBox.Show("Please use 'cuiFormAnimator' to animate Forms!", "CuoreUI");
                         privateTargetControl = null;
                     }
                     else

@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 
 namespace CuoreUI.Helpers
 {
-    public static class Blurs
+    public static class BlurHelper
     {
         private static float Clamp(float value, float min, float max)
         {

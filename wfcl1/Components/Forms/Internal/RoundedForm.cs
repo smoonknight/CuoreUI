@@ -10,7 +10,7 @@ using Pen = System.Drawing.Pen;
 
 namespace CuoreUI.Components.Forms
 {
-    public partial class RoundedForm : Form
+    internal partial class RoundedForm : Form
     {
         private Color privateBackgroundColor = Color.White;
         private Color privateBorderColor = Color.White;

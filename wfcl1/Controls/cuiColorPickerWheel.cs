@@ -11,6 +11,7 @@ using static CuoreUI.Helpers.GeneralHelper;
 namespace CuoreUI.Controls
 {
     [Description("HSV Color picker wheel, triangle inside")]
+    [DefaultEvent("SelectedColor")]
     public partial class cuiColorPickerWheel : UserControl
     {
         private Bitmap privateHueBitmap;
@@ -273,11 +274,21 @@ namespace CuoreUI.Controls
             }
             set
             {
+                float oldHue = value.GetHue();
                 privateContent = value;
 
                 if (DesignMode)
                 {
                     ColorToHSV(value, out privateHue, out _, out _);
+                }
+                else
+                {
+                    float newHue = value.GetHue();
+                    if (oldHue != newHue)
+                    {
+                        privateHue = newHue;
+                        privateHueBitmap = null;
+                    }
                 }
 
                 if (state == 0)

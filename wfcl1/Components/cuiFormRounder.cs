@@ -18,7 +18,7 @@ namespace CuoreUI.Components
         {
         }
 
-        public RoundedForm roundedFormObj;
+        internal RoundedForm roundedFormObj;
 
         private Form privateTargetForm;
 

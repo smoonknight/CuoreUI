@@ -24,8 +24,8 @@ namespace CuoreUI.Controls
         private float privateMinValue = 0;
         private float privateMaxValue = 100;
 
-        // [0 - 1]
-        public double GetProgress()
+        // double ranging from [0 - 1]
+        public double GetProgressPercentage()
         {
             // if this is true what are you even doing
             if (MaxValue == MinValue)
@@ -34,10 +34,10 @@ namespace CuoreUI.Controls
             return (double)(Value - MinValue) / (MaxValue - MinValue);
         }
 
-        // [-1 - 1]
+        // double randing from [-1 - 1]
         private double GetProgressHalfNormalized()
         {
-            double progress = GetProgress();
+            double progress = GetProgressPercentage();
             progress = (-progress);
 
             if (progress < 0)
@@ -80,7 +80,7 @@ namespace CuoreUI.Controls
             float halfThumbHeight = thumbHeight / 2;
 
             double progInverted = GetProgressHalfNormalized();
-            ThumbRectangle = new RectangleF((float)((Width * GetProgress()) - ((ThumbRectangle.Width / 2) * progInverted) - (1 * progInverted)), (Height / 2) - halfThumbHeight - 1, thumbHeight, thumbHeight);
+            ThumbRectangle = new RectangleF((float)((Width * GetProgressPercentage()) - ((ThumbRectangle.Width / 2) * progInverted) - (1 * progInverted)), (Height / 2) - halfThumbHeight - 1, thumbHeight, thumbHeight);
         }
 
         private void UpdateThumbRectangle(out float halfThumb)
@@ -89,7 +89,7 @@ namespace CuoreUI.Controls
             float halfThumbHeight = thumbHeight / 2;
 
             double progInverted = GetProgressHalfNormalized();
-            ThumbRectangle = new RectangleF((float)((Width * GetProgress()) - ((ThumbRectangle.Width / 2) * progInverted) - (1 * progInverted)), (Height / 2) - halfThumbHeight - 1, thumbHeight, thumbHeight);
+            ThumbRectangle = new RectangleF((float)((Width * GetProgressPercentage()) - ((ThumbRectangle.Width / 2) * progInverted) - (1 * progInverted)), (Height / 2) - halfThumbHeight - 1, thumbHeight, thumbHeight);
 
             halfThumb = halfThumbHeight;
         }
@@ -106,14 +106,17 @@ namespace CuoreUI.Controls
             }
             set
             {
-                if (value < privateMaxValue && value <= privateValue)
+                if (value < privateMaxValue)
                 {
                     privateMinValue = value;
+                    if (privateMinValue > privateValue)
+                    {
+                        privateValue = privateMinValue;
+                    }
                     Refresh();
                 }
             }
         }
-
 
         [Category("CuoreUI")]
         public float MaxValue
@@ -124,9 +127,13 @@ namespace CuoreUI.Controls
             }
             set
             {
-                if (value > privateMinValue && value >= privateValue)
+                if (value > privateMinValue)
                 {
                     privateMaxValue = value;
+                    if (privateMaxValue < privateValue)
+                    {
+                        privateValue = privateMaxValue;
+                    }
                     Refresh();
                 }
             }

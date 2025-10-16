@@ -5,7 +5,7 @@ using static CuoreUI.Helpers.WindowsHelper;
 
 namespace CuoreUI.Components.Forms
 {
-    public partial class TooltipForm : Form
+    internal partial class TooltipForm : Form
     {
         public TooltipForm()
         {

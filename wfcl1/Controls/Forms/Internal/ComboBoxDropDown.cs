@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace CuoreUI.Controls.Forms
 {
-    public partial class ComboBoxDropDown : Form
+    internal partial class ComboBoxDropDown : Form
     {
         public cuiComboBox caller;
         public Cursor ButtonCursor = Cursors.Arrow;

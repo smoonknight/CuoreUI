@@ -18,6 +18,10 @@ namespace CuoreUI.Components
             get => privateTargetForm;
             set
             {
+                if (privateTargetForm != null)
+                {
+                    privateTargetForm.Shown -= TargetForm_Shown;
+                }
                 privateTargetForm = value;
                 if (privateTargetForm != null)
                 {
@@ -28,7 +32,6 @@ namespace CuoreUI.Components
 
         private void TargetForm_Shown(object sender, EventArgs e)
         {
-            UpdateProgressValue();
             UpdateTaskbarState();
         }
 
@@ -81,7 +84,7 @@ namespace CuoreUI.Components
             set
             {
                 privateProgressValue = value;
-                UpdateProgressValue();
+                UpdateTaskbarState();
             }
         }
 
@@ -97,7 +100,7 @@ namespace CuoreUI.Components
             set
             {
                 privateMaxValue = value;
-                UpdateProgressValue();
+                UpdateTaskbarState();
             }
         }
 
@@ -124,18 +127,9 @@ namespace CuoreUI.Components
                 case TaskbarStates.Default:
                 default:
                     taskbar.SetProgressState(TaskbarProgressBarState.NoProgress, privateTargetForm.Handle);
-                    break;
+                    taskbar.SetProgressValue(0, 0, privateTargetForm.Handle);
+                    return;
             }
-        }
-
-        private void UpdateProgressValue()
-        {
-            if (privateTargetForm == null || DesignMode || privateTargetForm.Handle == IntPtr.Zero)
-            {
-                return;
-            }
-
-            var taskbar = TaskbarManager.Instance;
 
             taskbar.SetProgressValue(privateProgressValue, privateMaxValue, privateTargetForm.Handle);
         }

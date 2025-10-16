@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace CuoreUI.Components.Forms
 {
-    public partial class MessageDialog : Form
+    internal partial class MessageDialog : Form
     {
         public Color DimColor { get; set; } = Color.FromArgb(160, 0, 0, 0);
         public Size ButtonSize { get; set; } = new Size(80, 32);

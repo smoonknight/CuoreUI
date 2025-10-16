@@ -1,4 +1,5 @@
 ﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,6 +9,7 @@ namespace CuoreUI.Controls
 {
     [Description("Select a rating in stars")]
     [ToolboxBitmap(typeof(ToolTip))]
+    [DefaultEvent("RatingChanged")]
     public partial class cuiStarRating : Control
     {
         public cuiStarRating()
@@ -16,6 +18,9 @@ namespace CuoreUI.Controls
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             Size = new Size(150, 28);
         }
+
+        [Category("CuoreUI")]
+        public event EventHandler RatingChanged;
 
         private int privateStarCount = 5;
         private int privateRating = 2;
@@ -46,7 +51,11 @@ namespace CuoreUI.Controls
             }
             set
             {
-                privateRating = value;
+                if (privateRating != value)
+                {
+                    privateRating = value;
+                    RatingChanged?.Invoke(this, EventArgs.Empty);
+                }
                 Invalidate();
             }
         }

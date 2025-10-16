@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace CuoreUI.Controls.Forms
 {
+    // technically this can be used without cuiCalendarDatePicker, so I'm not making it internal for now
     public partial class DatePicker : Form
     {
         private DateTime privateValue;

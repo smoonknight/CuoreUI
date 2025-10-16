@@ -1,12 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace CuoreUI.Controls.Forms.DatePickerPages
 {
-    [ToolboxItem(false)]
-    [Description("Don't use, an internal part of datetime picker window.")]
-    public partial class YearDatePicker : UserControl
+    internal partial class YearDatePicker : UserControl
     {
         DatePicker _datePickerForm;
 
