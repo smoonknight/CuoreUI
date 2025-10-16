@@ -1,3 +1,8 @@
+## This page will be rewritten soon!!
+All future releases will be able to be found _**both**_ on [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet](https://www.nuget.org/packages/CuoreUI.Winforms/) and on the [![GitHub logo](https://i.imgur.com/rJ9l299.png) Releases](https://github.com/owtysm2/CuoreUI/releases) page.
+
+---
+
 > 1) Go to https://nuget.info/packages/CuoreUI.Winforms/
 > 2) Wait for it to load
 
