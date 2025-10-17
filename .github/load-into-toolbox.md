@@ -1,49 +1,68 @@
-## This page will be rewritten soon!!
-All future releases will be able to be found _**both**_ on [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet](https://www.nuget.org/packages/CuoreUI.Winforms/) and on the [![GitHub logo](https://i.imgur.com/rJ9l299.png) Releases](https://github.com/owtysm2/CuoreUI/releases) page.
+# 📦 Add to toolbox from .DLL file
+> [!IMPORTANT]
+> **Adding to toolbox by .dll is _bad for collaborative work_**, here's why:
+> - Toolbox references _your_ file on _your_ computer, **others won't have that file**
+> - Toolbox-added CuoreUI.dll **must be updated manually**
+
+Therefore, we _**strongly recommend you use the integrated NuGet Package Manager**_ in your copy of Visual Studio if you're working on a project you plan to share.
+
+> ### Step 1. Download CuoreUI.dll either from [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet](https://nuget.info/packages/CuoreUI.Winforms) or the [![GitHub logo](https://i.imgur.com/rJ9l299.png) GitHub Releases](https://github.com/owtysm2/CuoreUI/releases)
+
+### **a) ![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet Package Explorer**<br>
+Step 1.1. Navigate to the [NuGet Package Explorer for CuoreUI.Winforms![image](https://i.imgur.com/e4nwNIY.png)](https://nuget.info/packages/CuoreUI.Winforms) 
+
+<img width="649" height="445" alt="image" src="https://github.com/user-attachments/assets/f3b7c027-a3d2-4047-824b-ffd9d52ce122" />
+
+Step 1.2. Double-click your desired `CuoreUI.dll` to download the file
+
+<img width="649" height="445" alt="hgfdhgfdhfgd" src="https://github.com/user-attachments/assets/726fb442-74ec-410b-961d-91c9fcfa4c0d" />
+
+### **b) ![GitHub logo](https://i.imgur.com/rJ9l299.png) GitHub Releases**<br>
+Step 1.1. Navigate to the [GitHub Releases for owtysm2/CuoreUI![image](https://i.imgur.com/e4nwNIY.png)](https://github.com/owtysm2/CuoreUI/releases)
+
+<img width="649" height="445" alt="image" src="https://github.com/user-attachments/assets/8763229f-d566-43a3-9ff7-34457f2931ad" />
+
+Step 1.2. Click `CuoreUI.dll` to download the file
+
+<img width="649" height="445" alt="image" src="https://github.com/user-attachments/assets/cfa45ed9-6ac2-437e-a754-dbf376f2a7af" />
 
 ---
 
-> 1) Go to https://nuget.info/packages/CuoreUI.Winforms/
-> 2) Wait for it to load
+> ### Step 2. Add CuoreUI.dll to toolbox
 
-> 3) Download `CuoreUI.dll` from one of the folders inside ~/lib/
-> 
-> You can do so by double-clicking "CuoreUI.dll"
-> 
-> ![image](https://github.com/user-attachments/assets/e38facb4-65a3-4fb0-94c7-1d2b226524cb)
+Step 2.1. Once you're in your `Windows Forms App (.NET Framework)` or `Windows Forms App`:<br>
+**Right-click anywhere in the toolbox and press "Choose Items..."**
 
-> 4) Right-click your toolbox anywhere to bring up the toolbox menu
-> 5) Press "Choose Items..." in the dropdown menu
-> 
-> ![image](https://github.com/user-attachments/assets/eee3c85b-bbd6-42f6-902e-f007325cfad5)
+<img width="649" height="445" alt="image" src="https://github.com/user-attachments/assets/94e06d86-a80a-4867-896b-0002073d2d79" />
 
-> 6) Click "Browse..." in the bottom-right corner
-> 
-> ![image](https://github.com/user-attachments/assets/2b98bfd4-3926-4a4f-ac0b-c5f38d8e50c9)
+Step 2.2. **Press the "Browse..." button**
 
-> 7) Select your CuoreUI.dll file (the one you downloaded) and press "Open" depending on your language
->
-> You know you are doing it right if it freezes for a moment, after which there should be lots of controls selected in the list view above.
-> 
-> ![image](https://github.com/user-attachments/assets/4f38503a-a606-497e-9092-b81cc60b4a16)
+<img width="759" height="445" alt="image" src="https://github.com/user-attachments/assets/f4451ac2-94c3-49d1-b702-b60d953b8466" />
 
-> 8) Press "OK" to put selected CuoreUI controls into your toolbox
->  
-> ![image](https://github.com/user-attachments/assets/1311e771-7c8d-4528-bd2d-8b1c2fc8ade2)
+Step 2.3. **Select "CuoreUI.dll"** and **Press "Open"**
 
-## Done!
-Enjoy CuoreUI.
+<img width="759" height="545" alt="image" src="https://github.com/user-attachments/assets/fb37d19b-2712-4d22-b9e7-af20e71bd364" />
 
-You can create an issue [here](https://github.com/7owh/CuoreUI/issues) if you find any bugs!
+Step 2.4. **A "security warning"?**<br>
 
-# 🐞 Troubleshooting
+You downloaded CuoreUI.dll from the internet and Visual Studio warns you about that.<br>
 
-> ## "CuoreUI Controls don't show up in the toolbox"
+> [!TIP]
+> CuoreUI binaries from official sources (Only the [![NuGet logo](https://i.imgur.com/6aPyVAg.png)NuGet](https://nuget.info/packages/CuoreUI.Winforms) or [![GitHub logo](https://i.imgur.com/rJ9l299.png)GitHub](https://github.com/owtysm2/CuoreUI/releases)) _**don't compromise security**_.<br>
 
-1) Make sure you **download the CuoreUI.dll which is compatible** with your project.
+**Press "Yes" to load CuoreUI.dll into the list**
 
-For example, a `.NET Framework 4.7.2` project cannot import a `.net 8` project
+<img width="759" height="445" alt="image" src="https://github.com/user-attachments/assets/129ef865-7feb-4a3e-adb2-4d60635bc9b1" />
 
-2) **Restart your Visual Studio** application.
+Step 2.5. **Wait** for controls to appear in the list<br>
+and **Press "OK"**
 
-Sometimes, you just need to reopen your project and the toolbox will populate properly.
+<img width="759" height="545" alt="image" src="https://github.com/user-attachments/assets/4a6d49e3-eb8d-4fc8-a3f6-884a1655b5b9" />
+
+> ### Step 3. You're ready to use CuoreUI
+
+Yep, that's everything to do in order to add CuoreUI controls and components with a .dll file.<br>
+You can now use the library.<br>
+
+> [!IMPORTANT]
+> If any bugs arise, be sure to post them on the [![GitHub logo](https://i.imgur.com/rJ9l299.png)GitHub Issues](https://github.com/owtysm2/CuoreUI/issues) page, and we will try to solve the problem as soon as possible!
