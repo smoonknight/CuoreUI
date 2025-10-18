@@ -1,4 +1,4 @@
-﻿namespace CuoreUI.Controls.Forms.DatePickerPages
+﻿namespace CuoreUI.Controls.Forms.Internal.DatePickerPages
 {
     partial class MonthDatePicker
     {

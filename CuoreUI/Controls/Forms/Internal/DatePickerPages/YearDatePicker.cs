@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CuoreUI.Controls.Forms.DatePickerPages
+namespace CuoreUI.Controls.Forms.Internal.DatePickerPages
 {
-    internal partial class YearDatePicker : UserControl
+    public partial class YearDatePicker : UserControl
     {
         DatePicker _datePickerForm;
 

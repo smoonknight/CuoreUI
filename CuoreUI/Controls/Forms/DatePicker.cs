@@ -1,4 +1,4 @@
-﻿using CuoreUI.Controls.Forms.DatePickerPages;
+﻿using CuoreUI.Controls.Forms.Internal.DatePickerPages;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

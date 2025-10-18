@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Globalization;
 
-namespace CuoreUI.Controls.Forms.DatePickerPages
+namespace CuoreUI.Controls.Forms.Internal.DatePickerPages
 {
-    internal partial class MonthDatePicker : System.Windows.Forms.UserControl
+    public partial class MonthDatePicker : System.Windows.Forms.UserControl
     {
         DatePicker _datePickerForm;
 

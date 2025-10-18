@@ -1,4 +1,4 @@
-﻿namespace CuoreUI.Controls.Forms.DatePickerPages
+﻿namespace CuoreUI.Controls.Forms.Internal.DatePickerPages
 {
     partial class YearDatePicker
     {
@@ -395,7 +395,7 @@
             // 
             // leftMonthButton
             // 
-            this.leftMonthButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.leftMonthButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.leftMonthButton.CheckButton = false;
             this.leftMonthButton.Checked = false;
@@ -433,7 +433,7 @@
             // 
             // rightMonthButton
             // 
-            this.rightMonthButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.rightMonthButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rightMonthButton.CheckButton = false;
             this.rightMonthButton.Checked = false;

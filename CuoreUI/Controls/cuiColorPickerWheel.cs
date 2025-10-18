@@ -204,7 +204,7 @@ namespace CuoreUI.Controls
             e.Graphics.DrawImage(privateHueBitmap, x, y, size, size);
 
             using (Pen antialiasPen = new Pen(BackColor, 4))
-            using (Pen whereClickPen1 = new Pen(Color.FromArgb(128, 0, 0, 0), 2f) { StartCap = LineCap.Round, EndCap = LineCap.Round})
+            using (Pen whereClickPen1 = new Pen(Color.FromArgb(128, 0, 0, 0), 2f) { StartCap = LineCap.Round, EndCap = LineCap.Round })
             {
                 e.Graphics.DrawEllipse(antialiasPen, modifiedCR);
                 modifiedCR.Inflate(-WheelThickness, -WheelThickness);
