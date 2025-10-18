@@ -30,7 +30,6 @@ namespace CuoreUI.Controls
                 privateTriangleBitmap = null;
                 Refresh();
             };
-
         }
 
         protected override void OnResize(EventArgs e)
@@ -205,7 +204,7 @@ namespace CuoreUI.Controls
             e.Graphics.DrawImage(privateHueBitmap, x, y, size, size);
 
             using (Pen antialiasPen = new Pen(BackColor, 4))
-            using (Pen whereClickPen1 = new Pen(Color.FromArgb(128, 0, 0, 0), 2f))
+            using (Pen whereClickPen1 = new Pen(Color.FromArgb(128, 0, 0, 0), 2f) { StartCap = LineCap.Round, EndCap = LineCap.Round})
             {
                 e.Graphics.DrawEllipse(antialiasPen, modifiedCR);
                 modifiedCR.Inflate(-WheelThickness, -WheelThickness);
@@ -239,14 +238,51 @@ namespace CuoreUI.Controls
                 e.Graphics.DrawPolygon(antialiasPen, trianglePoints);
                 e.Graphics.DrawPolygon(antialiasPen, trianglePointsv2);
 
+                // hue is range <0 - 360)
+                double radians = privateHue * 3.14d / 180.0;
+                float startX = centerX + (float)((centerY - 2) * Math.Cos(radians));
+                float startY = centerY + (float)((centerY - 2) * Math.Sin(radians));
+
+                PointF p1hueSelectorPoint = new PointF(startX, startY);
+                PointF p2hueSelectorPoint = PointTowardsCenter(p1hueSelectorPoint, centerX, centerY, privateWheelThickness);
+
                 e.Graphics.DrawEllipse(whereClickPen1, clickRectangle);
+                whereClickPen1.Width = 4f;
+                e.Graphics.DrawLine(whereClickPen1, p1hueSelectorPoint.X, p1hueSelectorPoint.Y, p2hueSelectorPoint.X, p2hueSelectorPoint.Y);
                 whereClickPen1.Width = 0.4f;
                 whereClickPen1.Color = Color.White;
                 e.Graphics.DrawEllipse(whereClickPen1, clickRectangle);
+                whereClickPen1.Width = 3f;
+                e.Graphics.DrawLine(whereClickPen1, p1hueSelectorPoint.X, p1hueSelectorPoint.Y, p2hueSelectorPoint.X, p2hueSelectorPoint.Y);
 
-                //e.Graphics.DrawString(state == 0 ? "normal" : state == 1 ? "ring" : "triangle", Font, Brushes.Black, Point.Empty);
+                // e.Graphics.DrawString(privateHue.ToString(), Font, Brushes.Black, Point.Empty);
             }
         }
+
+        private PointF PointTowardsCenter(PointF inputPoint, float centerX, float centerY, double distance)
+        {
+            double dx = centerX - inputPoint.X;
+            double dy = centerY - inputPoint.Y;
+            double len = Math.Sqrt(dx * dx + dy * dy);
+
+            if (len == 0.0) // ??
+            {
+                return inputPoint;
+            }
+            if (distance >= len)
+            {
+                return new PointF(centerX, centerY);
+            }
+
+            double ux = dx / len;
+            double uy = dy / len;
+
+            return new PointF(
+                (float)(inputPoint.X + ux * distance),
+                (float)(inputPoint.Y + uy * distance)
+            );
+        }
+
 
         // WHERE THE USER IS CLICKING
         // 0 - normal
@@ -391,7 +427,13 @@ namespace CuoreUI.Controls
 
                     privateSaturation = bary.X;
                     privateValue = bary.X + bary.Y;
-                    Content = ColorFromHSV(privateHue, privateSaturation, privateValue);
+
+                    // don't replace privateContent with Content
+                    // Content calculates new hue values with GetHue,
+                    // but we don't want to change the hue while the user is changing the saturation and value
+                    privateContent = ColorFromHSV(privateHue, privateSaturation, privateValue);
+                    ContentChanged?.Invoke(null, EventArgs.Empty);
+                    Invalidate();
                 }
             }
         }

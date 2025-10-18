@@ -31,12 +31,12 @@ namespace ControlsTester
             // "\CuoreUI\"
             string cuoreSourceFolder = Directory.GetParent(exeDir).Parent.Parent.FullName;
 
-            // "\CuoreUI\wfcl1/bin/Release/net472/CuoreUI.dll"
-            string cuoreBinaryPath = Path.Combine(cuoreSourceFolder, "wfcl1", "bin", "Release", "net472", "CuoreUI.dll");
+            // "\CuoreUI\CuoreUI/bin/Release/net472/CuoreUI.dll"
+            string cuoreBinaryPath = Path.Combine(cuoreSourceFolder, "CuoreUI", "bin", "Release", "net472", "CuoreUI.dll");
 
             if (!File.Exists(cuoreBinaryPath))
             {
-                MessageBox.Show($"Couldn't find ../../wfcl1/bin/Release/net472/CuoreUI.dll!\nChecked path: \"{cuoreBinaryPath}\"");
+                MessageBox.Show($"Couldn't find ../../CuoreUI/bin/Release/net472/CuoreUI.dll!\nChecked path: \"{cuoreBinaryPath}\"");
                 Environment.Exit(0);
                 return;
             }
