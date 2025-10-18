@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace CuoreUI.Controls.Internal
 {
-    public partial class DigitsOnlyTextBox : TextBox
+    internal partial class DigitsOnlyTextBox : TextBox
     {
         public DigitsOnlyTextBox()
         {

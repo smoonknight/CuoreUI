@@ -9,6 +9,7 @@ using System.Windows.Forms;
 namespace CuoreUI.Controls.Charts
 {
     [Description("Simple line chart control")]
+    [ToolboxBitmap(typeof(Button))]
     public partial class cuiChartLine : UserControl
     {
         public cuiChartLine()

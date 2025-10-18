@@ -92,6 +92,6 @@
         #endregion
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox placeholderTextField;
-        public Controls.Internal.DigitsOnlyTextBox contentTextField;
+        internal Controls.Internal.DigitsOnlyTextBox contentTextField;
     }
 }
