@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace CuoreUI.Controls.Forms.Internal.DatePickerPages
 {
-    public partial class YearDatePicker : UserControl
+    internal partial class YearDatePicker : UserControl
     {
         DatePicker _datePickerForm;
 
