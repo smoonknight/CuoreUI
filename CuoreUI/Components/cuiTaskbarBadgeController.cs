@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
@@ -200,6 +201,8 @@ namespace CuoreUI.Components
             {
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
                 g.Clear(Color.Transparent);
 
                 // Draw background circle
@@ -217,7 +220,7 @@ namespace CuoreUI.Components
                 })
                 {
                     // 16x16 but more horizontal space to avoid drawstring issues
-                    RectangleF rect = new RectangleF(-16, 0, 48, 16);
+                    RectangleF rect = new RectangleF(-15.5f, 0, 48, 16);
                     if (NumericValue > 9)
                     {
                         using (Font moreNotificationsFont = new Font(NumericFont.FontFamily, 7, FontStyle.Bold))
@@ -225,7 +228,6 @@ namespace CuoreUI.Components
                             rect.Offset(1, -1);
 
                             // smaller font to fit the '9+'
-                            g.DrawString("9+", moreNotificationsFont, fore, rect, sf);
                             g.DrawString("9+", moreNotificationsFont, fore, rect, sf);
                         }
                     }

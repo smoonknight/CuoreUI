@@ -97,7 +97,9 @@ namespace CuoreUI.Controls.Shapes
 
             using (GraphicsPath hexagonPath = GeneralHelper.RoundHexagon(modifiedCR, Rounding))
             {
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 e.Graphics.FillPath(new SolidBrush(PanelColor), hexagonPath);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(new Pen(OutlineColor, OutlineThickness), hexagonPath);
             }
 

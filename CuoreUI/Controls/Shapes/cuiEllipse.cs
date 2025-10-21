@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace CuoreUI.Controls.Shapes
@@ -77,7 +78,9 @@ namespace CuoreUI.Controls.Shapes
 
             modifiedCR.Inflate(-OutlineThickness, -OutlineThickness);
 
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
             e.Graphics.FillEllipse(new SolidBrush(PanelColor), modifiedCR);
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
             e.Graphics.DrawEllipse(new Pen(OutlineColor, OutlineThickness), modifiedCR);
         }
     }

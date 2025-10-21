@@ -205,7 +205,7 @@ namespace CuoreUI.Controls
             {
                 base.ForeColor = value;
                 contentTextField.ForeColor = value;
-                contentTextField.Refresh();
+                contentTextField.Invalidate();
             }
         }
 
@@ -319,6 +319,7 @@ namespace CuoreUI.Controls
             if (privateBorderRadius.All > 1 || privateBorderRadius.All == -1)//Rounded TextBox
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
                 var rectBorderSmooth = ClientRectangle;
                 var rectBorder = Rectangle.Inflate(rectBorderSmooth, -OutlineThickness, -OutlineThickness);
@@ -352,6 +353,7 @@ namespace CuoreUI.Controls
                             g.SetClip(bottomHalfRegion, CombineMode.Intersect);
 
                             // Step 5: Draw the path (only the bottom half)
+                            e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                             g.DrawPath(penBorder, pathBorder);
 
                             // Reset the clipping region (optional)

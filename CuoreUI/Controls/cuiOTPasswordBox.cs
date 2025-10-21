@@ -211,6 +211,7 @@ namespace CuoreUI.Controls
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             int spacingBetweenBoxes = (Width - (Height * BoxAmount)) / (BoxAmount - 1);
             int boxSizeWithSpacingOffset = spacingBetweenBoxes + Height;
@@ -262,6 +263,7 @@ namespace CuoreUI.Controls
                             }
                             else
                             {
+                                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                                 e.Graphics.DrawPath(focusedPen, gp);
                             }
                         }
@@ -288,6 +290,7 @@ namespace CuoreUI.Controls
                                 // Step 4: Set the clipping region for the path
                                 e.Graphics.SetClip(bottomHalfRegion, CombineMode.Intersect);
 
+                                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                                 // Step 5: Draw the path (only the bottom half)
                                 e.Graphics.DrawPath(unfocusedPen, gp);
 

@@ -201,6 +201,7 @@ namespace CuoreUI.Controls
         {
             base.OnPaint(e);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             if (targetControl != null)
             {
@@ -309,7 +310,7 @@ namespace CuoreUI.Controls
 
                 base.WndProc(ref m);
 
-                scrollbar.Refresh();
+                scrollbar.Invalidate();
             }
         }
 

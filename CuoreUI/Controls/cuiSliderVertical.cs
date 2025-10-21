@@ -204,6 +204,7 @@ namespace CuoreUI.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             RectangleF trackRectangle = new RectangleF(0, 0, (Width / 8) + 0.5f, Height - 1);
@@ -230,7 +231,7 @@ namespace CuoreUI.Controls
             base.OnPaint(e);
         }
 
-        private int privateThumbOutlineThickness = 3;
+        private int privateThumbOutlineThickness = 5;
 
         [Category("CuoreUI")]
         public int ThumbOutlineThickness

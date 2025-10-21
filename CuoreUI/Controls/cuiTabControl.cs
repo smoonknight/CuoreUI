@@ -292,6 +292,7 @@ namespace CuoreUI.Controls
             g.Clear(BackColor);
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             int totalWidth = (Pages.Count) * (TabWidth + TabPadding) + TabHeight;
             scrollOffset = Math.Max(0, Math.Min(scrollOffset, totalWidth - Width));

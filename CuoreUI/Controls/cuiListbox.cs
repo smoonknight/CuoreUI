@@ -256,6 +256,7 @@ namespace CuoreUI.Controls
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             Rectangle cr = ClientRectangle;
             Rectangle backgroundRect = cr;
@@ -275,7 +276,9 @@ namespace CuoreUI.Controls
             using (Pen bgPen = new Pen(OutlineColor, OutlineThickness))
             {
                 e.Graphics.FillPath(itemBrush, path2);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(bgPen, path2);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
                 // Clip to path2 to prevent overflow
                 g.SetClip(path2, CombineMode.Intersect);

@@ -45,7 +45,7 @@ namespace CuoreUI.Components
                     privateTargetControl.Paint -= TargetControl_Paint;
                     privateTargetControl.Invalidated -= TargetControl_Invalidated;
                 }
-                value.Parent?.Refresh();
+                value.Parent?.Invalidate();
 
                 privateTargetControl = value;
                 if (privateTargetControl != null)
@@ -76,7 +76,7 @@ namespace CuoreUI.Components
                 }
                 cachedBitmap?.Dispose();
                 cachedBitmap = null;
-                privateTargetControl?.Refresh();
+                privateTargetControl?.Invalidate();
             }
         }
 

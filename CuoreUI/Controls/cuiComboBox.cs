@@ -292,6 +292,8 @@ namespace CuoreUI.Controls
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
             Rectangle cr = ClientRectangle;
             cr.Inflate(-1, -1);
 
@@ -300,6 +302,7 @@ namespace CuoreUI.Controls
             using (Pen pen = new Pen(OutlineColor, OutlineThickness))
             {
                 e.Graphics.FillPath(brush, roundBackground);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(pen, roundBackground);
             }
 

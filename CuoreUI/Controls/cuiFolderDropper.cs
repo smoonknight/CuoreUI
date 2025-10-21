@@ -206,7 +206,9 @@ namespace CuoreUI.Controls
                     pen.DashPattern = new float[] { DashLength, DashLength };
                 }
 
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 e.Graphics.FillPath(brush, roundBackground);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(pen, roundBackground);
 
                 string line1 = hover ? HoverContent : NormalContent;

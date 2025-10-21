@@ -391,6 +391,7 @@ namespace CuoreUI.Controls
             stringFormat.FormatFlags |= StringFormatFlags.NoWrap | StringFormatFlags.FitBlackBox;
             stringFormat.Alignment = TextAlignment;
 
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             Rectangle modifiedCR = ClientRectangle;
@@ -445,6 +446,7 @@ namespace CuoreUI.Controls
 
                 if (OutlineThickness > 0)
                 {
+                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
                     e.Graphics.DrawPath(privatePen, roundBackground);
                 }
             }

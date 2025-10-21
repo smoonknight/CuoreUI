@@ -127,44 +127,42 @@ namespace CuoreUI.Controls
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            Bitmap tempBitmap = new Bitmap(ClientSize.Width * 2, ClientSize.Height * 2);
-            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(new Rectangle(0, 0, ClientSize.Width * 2, ClientSize.Height * 2), Rounding * 2))
-            using (Graphics tempGraphics = Graphics.FromImage(tempBitmap))
+            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(ClientRectangle, Rounding))
             {
-                tempGraphics.SmoothingMode = SmoothingMode.AntiAlias;
-                tempGraphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-                tempGraphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                tempGraphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-
-                tempGraphics.SetClip(roundBackground);
-
                 float filledPercent = (float)Value / MaxValue;
-                float foreWidth = ClientRectangle.Width * filledPercent * 2;
-                RectangleF foreHalf = new RectangleF(0, 0, foreWidth, ClientRectangle.Height * 2 + 1);
-                RectangleF client = new RectangleF(foreWidth - Rounding - (foreWidth / 4), 0, ClientRectangle.Width * 2 - foreWidth + (Rounding * 2) + (foreWidth / 4), ClientRectangle.Height * 2);
+
+                if (Flipped)
+                {
+                    filledPercent = 1f - filledPercent;
+                }
+
+                float foreWidth = Flipped ? ClientRectangle.Width - (ClientRectangle.Width * filledPercent) : ClientRectangle.Width * filledPercent;
+                RectangleF foreHalf = new RectangleF(
+                    Flipped ? ClientRectangle.Width - foreWidth : 0,
+                    0,
+                    foreWidth,
+                    ClientRectangle.Height
+                );
 
                 using (SolidBrush brush = new SolidBrush(Background))
                 {
-                    tempGraphics.FillRectangle(brush, client);
+                    e.Graphics.FillPath(brush, roundBackground);
                 }
 
-                using (GraphicsPath graphicsPath = GeneralHelper.RoundRect(foreHalf, Rounding * 2))
-                using (SolidBrush brush = new SolidBrush(Foreground))
+                if (foreWidth > 0)
                 {
-                    tempGraphics.FillPath(brush, graphicsPath);
+                    using (GraphicsPath graphicsPath = GeneralHelper.RoundRect(
+                        new Rectangle((int)foreHalf.X, (int)foreHalf.Y, (int)Math.Ceiling(foreHalf.Width), (int)Math.Ceiling(foreHalf.Height)),
+                        Rounding))
+                    using (SolidBrush brush = new SolidBrush(Foreground))
+                    {
+                        e.Graphics.FillPath(brush, graphicsPath);
+                    }
                 }
             }
-
-            if (Flipped)
-            {
-                tempBitmap.RotateFlip(RotateFlipType.RotateNoneFlipX);
-            }
-
-            e.Graphics.DrawImage(tempBitmap, ClientRectangle);
-
-            tempBitmap.Dispose();
 
             base.OnPaint(e);
         }

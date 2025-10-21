@@ -147,6 +147,7 @@ namespace CuoreUI.Controls
             MinimumSize = new Size(BorderWidth * 2, BorderWidth * 2);
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             using (GraphicsPath path = new GraphicsPath())
             using (Pen pen = new Pen(NormalColor, BorderWidth))

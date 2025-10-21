@@ -90,6 +90,8 @@ namespace CuoreUI.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
             Rectangle modifiedCR = ClientRectangle;
             modifiedCR.Width -= 1;
             modifiedCR.Height -= 1;
@@ -99,6 +101,7 @@ namespace CuoreUI.Controls
             using (Pen pen = new Pen(PanelOutlineColor, OutlineThickness))
             {
                 e.Graphics.FillPath(brush, roundBackground);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(pen, roundBackground);
             }
 

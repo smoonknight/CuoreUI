@@ -373,6 +373,7 @@ namespace CuoreUI.Controls
                 }
             }
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
             int Rounding = (Math.Max(Height, 1) / 2) - 1;
 
@@ -403,9 +404,11 @@ namespace CuoreUI.Controls
 
                 using (Pen outlinePen = new Pen(Checked ? CheckedOutlineColor : UncheckedOutlineColor, OutlineThickness))
                 {
+                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
                     e.Graphics.DrawPath(outlinePen, roundBackground);
                 }
 
+                e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 using (Pen graphicsPen = new Pen(UncheckedSymbolColor, Height / 10))
                 {
                     graphicsPen.StartCap = LineCap.Round;

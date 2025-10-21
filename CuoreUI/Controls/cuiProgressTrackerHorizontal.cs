@@ -269,6 +269,7 @@ namespace CuoreUI.Controls
                     Rectangle tempRect = new Rectangle(currentItemPosition.X, PenThicknessCompensation, ActualItemHeight, ActualItemHeight);
 
                     RoundedItemPath = GeneralHelper.RoundRect(tempRect, tempRounding);
+                    e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
                     e.Graphics.FillPath(trackBrush, RoundedItemPath);
 
                     // checkmark

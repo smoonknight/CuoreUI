@@ -137,6 +137,7 @@ namespace CuoreUI.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             Rectangle modifiedCR = ClientRectangle;
             modifiedCR.Inflate(-1, -1);
@@ -148,7 +149,8 @@ namespace CuoreUI.Controls
                     modifiedCR, privatePanelColor1, privatePanelColor2, privateGradientAngle, true))
                 {
                     e.Graphics.FillPath(brush, roundBackground);
-                    e.Graphics.DrawPath(br, roundBackground); // offset fix
+                    e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
+                    //e.Graphics.DrawPath(br, roundBackground); // offset fix
                 }
 
                 using (LinearGradientBrush borderBrush = new LinearGradientBrush(

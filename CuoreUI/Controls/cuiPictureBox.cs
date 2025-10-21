@@ -172,8 +172,8 @@ namespace CuoreUI.Controls
             using (GraphicsPath roundBg = GeneralHelper.RoundRect(fixedCR, Rounding))
             {
                 GenerateTransformMatrix();
-
                 e.Graphics.FillPath(cachedImageBrush, roundBg);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(pen, roundBg);
             }
 
