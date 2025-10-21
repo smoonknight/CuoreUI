@@ -302,7 +302,6 @@ namespace CuoreUI.Controls
             using (Pen pen = new Pen(OutlineColor, OutlineThickness))
             {
                 e.Graphics.FillPath(brush, roundBackground);
-                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(pen, roundBackground);
             }
 
@@ -326,22 +325,12 @@ namespace CuoreUI.Controls
             expandRect.Height = expandRect.Width;
             expandRect.Offset(-expandRect.Width / 2, expandRect.Height / 2);
 
-            expandRect.Width = expandRect.Width / 2;
+            expandRect.Width /= 2;
             expandRect.X = ClientRectangle.Right - Height / 2;
             expandRect.Height = expandRect.Width;
-            expandRect.Offset(-expandRect.Width / 2, (expandRect.Height / 2));
+            expandRect.Offset(-expandRect.Width / 2, expandRect.Height / 2);
 
-            if (isBrowsingOptions)
-            {
-                expandRect.Height -= 2;
-                expandRect.Y += 1;
-            }
-            else
-            {
-                expandRect.Width -= 2;
-            }
-
-            using (GraphicsPath expandAvailable = isBrowsingOptions ? GeneralHelper.DownArrow(expandRect) : GeneralHelper.LeftArrow(expandRect))
+            using (GraphicsPath expandAvailable = isBrowsingOptions ? GeneralHelper.RoundTriangle(expandRect, 2, true) : GeneralHelper.RoundTriangle(expandRect, 2))
             {
                 e.Graphics.FillPath(new SolidBrush(ExpandArrowColor), expandAvailable);
             }

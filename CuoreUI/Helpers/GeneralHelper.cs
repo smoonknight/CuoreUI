@@ -267,20 +267,79 @@ namespace CuoreUI.Helpers
             return path;
         }
 
-        public static GraphicsPath DownArrow(Rectangle rect)
+        public static GraphicsPath RoundTriangle(Rectangle rect, int rounding, bool pointingDown = false)
         {
-            GraphicsPath path = new GraphicsPath();
+            GraphicsPath gp = new GraphicsPath();
+            rounding *= 3;
 
-            Point[] points =
+            // all sides even
+            rect.Width = Math.Min(rect.Height, rect.Width);
+            rect.Height = rect.Width;
+            int oneEighthWidth = rect.Width / 8;
+            if (pointingDown)
             {
-            new Point(rect.Left, rect.Top),
-            new Point(rect.Left + rect.Width / 2, rect.Bottom),
-            new Point(rect.Right, rect.Top)
-        };
+                rect.Height = rect.Height - oneEighthWidth;
+                rect.Y += oneEighthWidth + 1;
+                rect.X += 1;
+            }
+            else
+            {
+                rect.Width = rect.Width - oneEighthWidth;
+                rect.Y += oneEighthWidth;
+            }
 
-            path.AddPolygon(points);
+            // note: if `pointingDown == true`, middleLeft is actually the topLeft (and rightTop doesn't change)Z
+            PointF middleLeft = pointingDown ? new PointF(rect.X, rect.Y) : new PointF(rect.X, rect.Y + rect.Height / 2f);
+            PointF rightTop = new PointF(rect.X + rect.Width, rect.Y);
+            PointF rightBottom = pointingDown ? new PointF(rect.X + (rect.Width / 2), rect.Y + rect.Height) : new PointF(rect.X + rect.Width, rect.Y + rect.Height);
 
-            return path;
+            // false
+            //    X
+            //  X X
+            //    X
+
+            // true
+            // XXXXX
+            //  X X
+            //   X
+
+
+            // all sides even = only one distance to calc
+            // ^ operator cant be used on floats so:
+            float d1 = (rightBottom.X - middleLeft.X);
+            d1 *= d1;
+            float d2 = (rightBottom.Y - middleLeft.Y);
+            d2 *= d2;
+            var sideLength = (float)Math.Sqrt(d1 + d2); // distance between 2 points
+
+            // start / end
+            PointF topRight = Lerp(middleLeft, rightBottom, rounding / sideLength);
+            PointF rightToTop = Lerp(rightBottom, middleLeft, rounding / sideLength);
+
+            PointF rightToLeft = Lerp(rightBottom, rightTop, rounding / sideLength);
+            PointF leftToRight = Lerp(rightTop, rightBottom, rounding / sideLength);
+
+            PointF leftToTop = Lerp(rightTop, middleLeft, rounding / sideLength);
+            PointF topToLeft = Lerp(middleLeft, rightTop, rounding / sideLength);
+
+
+            // similar to hexagon, arcs are pain.. beziers to the rescue
+            gp.AddLine(topRight, rightToTop);
+            gp.AddBezier(rightToTop, rightBottom, rightBottom, rightToLeft);
+
+            gp.AddLine(rightToLeft, leftToRight);
+            gp.AddBezier(leftToRight, rightTop, rightTop, leftToTop);
+
+            gp.AddLine(leftToTop, topToLeft);
+            gp.AddBezier(topToLeft, middleLeft, middleLeft, topRight);
+
+            gp.CloseFigure();
+            return gp;
+        }
+
+        public static PointF Lerp(PointF a, PointF b, float t)
+        {
+            return new PointF(a.X + (b.X - a.X) * t, a.Y + (b.Y - a.Y) * t);
         }
 
         public static GraphicsPath Star(float centerX, float centerY, float outerRadius, float innerRadius, int numPoints)

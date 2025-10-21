@@ -54,11 +54,17 @@ namespace CuoreUI.Controls
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            Rectangle cr = ClientRectangle;
 
             using (StringFormat stringFormat = new StringFormat() { Alignment = HorizontalAlignment, LineAlignment = VerticalAlignment })
             using (SolidBrush brush = new SolidBrush(ForeColor))
             {
-                e.Graphics.DrawString(privateContent, Font, brush, ClientRectangle, stringFormat);
+                if (Height % 2 == 1)
+                {
+                    cr.Height -= 1;
+                }
+
+                e.Graphics.DrawString(privateContent, Font, brush, cr, stringFormat);
             }
 
             base.OnPaint(e);
