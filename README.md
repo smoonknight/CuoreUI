@@ -12,7 +12,7 @@ This is a C# .NET Winforms library with **modern** controls, components and form
 > [![image](https://i.imgur.com/rJ9l299.png) The repository](https://github.com/owtysm2/CuoreUI) may be ahead of the latest [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet package](https://www.nuget.org/packages/CuoreUI.Winforms/) (May contain unfinished code.) 
 
 ## 🗿 Why use Cuore
-> CuoreUI Showcases is an upcoming app where you can browse interactive samples.
+> CuoreUI Showcases is not out yet.
 
 ![CuoreUI Showcases: Message Dialog (UI)](https://i.imgur.com/z0XjHOY.png)
 
