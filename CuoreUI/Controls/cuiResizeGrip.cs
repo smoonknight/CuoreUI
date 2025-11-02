@@ -41,7 +41,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateGripColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -57,7 +57,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateGripTexture = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -150,7 +150,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateTextureOffset = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -195,7 +195,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateGripSize = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -211,7 +211,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateSkipBottomRightSquare = value;
-                Refresh();
+                Invalidate();
             }
         }
 

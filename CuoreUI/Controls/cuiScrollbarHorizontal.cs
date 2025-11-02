@@ -96,13 +96,13 @@ namespace CuoreUI.Controls
         private void TargetControl_Scroll(object sender, ScrollEventArgs e)
         {
             UpdateThumbPosition();
-            Refresh();
+            Invalidate();
         }
 
         private void TargetControl_Resize(object sender, EventArgs e)
         {
             BindToTargetControl();
-            Refresh();
+            Invalidate();
         }
 
         private void UpdateThumbPosition()
@@ -274,7 +274,7 @@ namespace CuoreUI.Controls
                 }
 
                 thumbPosition = newThumbPosition;
-                Refresh();
+                Invalidate();
             }
             else
             {

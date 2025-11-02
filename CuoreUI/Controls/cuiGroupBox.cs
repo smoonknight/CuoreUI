@@ -29,7 +29,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateRounding = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -46,7 +46,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateBorderColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -63,7 +63,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateContent = value;
-                Refresh();
+                Invalidate();
             }
         }
 

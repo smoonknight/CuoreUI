@@ -116,7 +116,7 @@ namespace CuoreUI.Controls
                         _ = AnimateThumbLocation();
                     }
 
-                    Refresh();
+                    Invalidate();
                     return;
                 }
 
@@ -124,7 +124,7 @@ namespace CuoreUI.Controls
                 double easing = DrawingHelper.EasingFunctions.FromEasingType(EasingTypes.SextOut, elapsedTime, Duration / (double)1000) * durationRatio;
 
                 thumbX = (int)(startX + (xDistance * easing));
-                Refresh();
+                Invalidate();
 
                 await Task.Delay(desiredFrameInterval);
             }
@@ -137,7 +137,7 @@ namespace CuoreUI.Controls
             await Task.Delay(duration);
             thumbX = (int)targetX;
             animationFinished = true;
-            Refresh();
+            Invalidate();
         }
 
         private bool privateChecked = false;
@@ -355,7 +355,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateThumbShrinkSize = value;
-                Refresh();
+                Invalidate();
             }
         }
 

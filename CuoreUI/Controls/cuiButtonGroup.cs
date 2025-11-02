@@ -249,7 +249,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateTextAlignment = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -297,7 +297,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateCheckedForeColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -313,7 +313,7 @@ namespace CuoreUI.Controls
             set
             {
                 privatePressedForeColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -342,7 +342,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateHoverForeColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 

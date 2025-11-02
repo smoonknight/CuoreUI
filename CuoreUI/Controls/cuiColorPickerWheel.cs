@@ -28,7 +28,7 @@ namespace CuoreUI.Controls
                 // couldnt override so im disposing of the triangle bitmap each resize here
                 privateTriangleBitmap?.Dispose();
                 privateTriangleBitmap = null;
-                Refresh();
+                Invalidate();
             };
         }
 
@@ -55,7 +55,7 @@ namespace CuoreUI.Controls
                 privateHueBitmap = null;
                 privateTriangleBitmap?.Dispose();
                 privateTriangleBitmap = null;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -333,7 +333,7 @@ namespace CuoreUI.Controls
                 }
 
                 ContentChanged?.Invoke(null, EventArgs.Empty);
-                Refresh();
+                Invalidate();
             }
         }
 

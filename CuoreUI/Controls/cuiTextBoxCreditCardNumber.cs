@@ -34,7 +34,7 @@ namespace CuoreUI.Controls
                 internalIsFocused = value;
                 contentTextField.BackColor = value ? FocusBackgroundColor : BackgroundColor;
                 placeholderTextField.BackColor = contentTextField.BackColor;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -54,6 +54,7 @@ namespace CuoreUI.Controls
             Load += OnLoad;
             GotFocus += OnLoad;
             ContentChanged += CuiTextBoxCreditCardNumber_ContentChanged;
+            PlaceholderText = "Credit card number here..";
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -81,7 +82,7 @@ namespace CuoreUI.Controls
                     contentTextField.BackColor = privateIsFocused ? FocusBackgroundColor : value;
                     placeholderTextField.BackColor = contentTextField.BackColor;
                 }
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -97,15 +98,14 @@ namespace CuoreUI.Controls
                 privateFocusBackgroundColor = value;
                 if (DesignMode)
                 {
-                    contentTextField.BackColor = value;
-                    placeholderTextField.BackColor = value;
+                    contentTextField.BackColor = BackgroundColor;
                 }
                 else
                 {
                     contentTextField.BackColor = privateIsFocused ? FocusBackgroundColor : value;
-                    placeholderTextField.BackColor = contentTextField.BackColor;
                 }
-                Refresh();
+                placeholderTextField.BackColor = contentTextField.BackColor;
+                Invalidate();
             }
         }
 
@@ -445,14 +445,14 @@ namespace CuoreUI.Controls
         private void textBox1_Leave(object sender, EventArgs e)
         {
             privateIsFocused = false;
-            Refresh();
+            Invalidate();
             UpdatePlaceholder();
         }
 
         private void cuiTextBox2_Click(object sender, EventArgs e)
         {
             contentTextField.Focus();
-            Refresh();
+            Invalidate();
         }
 
         private void textBox2_MouseDown(object sender, MouseEventArgs e)

@@ -42,7 +42,7 @@ namespace CuoreUI.Controls
                 internalIsFocused = value;
                 contentTextField.BackColor = value ? FocusBackgroundColor : BackgroundColor;
                 placeholderTextField.BackColor = contentTextField.BackColor;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -60,6 +60,7 @@ namespace CuoreUI.Controls
             Multiline = false;
             Load += OnLoad;
             GotFocus += OnLoad;
+            PlaceholderText = "Placeholder text..";
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -87,7 +88,7 @@ namespace CuoreUI.Controls
                     contentTextField.BackColor = privateIsFocused ? FocusBackgroundColor : value;
                     placeholderTextField.BackColor = contentTextField.BackColor;
                 }
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -111,7 +112,7 @@ namespace CuoreUI.Controls
                     contentTextField.BackColor = privateIsFocused ? FocusBackgroundColor : value;
                     placeholderTextField.BackColor = contentTextField.BackColor;
                 }
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -321,7 +322,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateTextOffset = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -509,13 +510,13 @@ namespace CuoreUI.Controls
                 }
             }
 
-            Color renderedTint = internalIsFocused ? FocusImageTint : NormalImageTint;
-            Rectangle imageRectangle = new Rectangle(contentTextField.Height, contentTextField.Location.Y, contentTextField.Height, contentTextField.Height);
-            imageRectangle.Inflate(ImageExpand.X, ImageExpand.Y);
-            imageRectangle.Offset(privateImageOffset);
-
             if (privateImage != null)
             {
+                Color renderedTint = internalIsFocused ? FocusImageTint : NormalImageTint;
+                Rectangle imageRectangle = new Rectangle(contentTextField.Height, contentTextField.Location.Y, contentTextField.Height, contentTextField.Height);
+                imageRectangle.Inflate(ImageExpand.X, ImageExpand.Y);
+                imageRectangle.Offset(privateImageOffset);
+
                 float tintR = renderedTint.R / 255f;
                 float tintG = renderedTint.G / 255f;
                 float tintB = renderedTint.B / 255f;
@@ -595,14 +596,14 @@ namespace CuoreUI.Controls
         private void textBox1_Leave(object sender, EventArgs e)
         {
             privateIsFocused = false;
-            Refresh();
+            Invalidate();
             UpdatePlaceholder();
         }
 
         private void cuiTextBox2_Click(object sender, EventArgs e)
         {
             contentTextField.Focus();
-            Refresh();
+            Invalidate();
         }
 
         private void textBox2_MouseDown(object sender, MouseEventArgs e)

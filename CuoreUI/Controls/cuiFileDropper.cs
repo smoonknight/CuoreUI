@@ -183,7 +183,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateClickToUpload = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -324,7 +324,7 @@ namespace CuoreUI.Controls
 
                 if (alreadyHovering != hover)
                 {
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -332,7 +332,7 @@ namespace CuoreUI.Controls
         {
             base.OnDragLeave(e);
             hover = false;
-            Refresh();
+            Invalidate();
         }
 
         private Image privateImage = Resources.ic_fluent_folder_add_24_regular;
@@ -347,7 +347,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateImage = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -363,7 +363,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateImageSize = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -379,7 +379,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateImageColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -395,7 +395,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateImagePadding = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -403,7 +403,7 @@ namespace CuoreUI.Controls
         {
             base.OnDragDrop(drgevent);
             hover = false;
-            Refresh();
+            Invalidate();
 
             object Data = drgevent.Data.GetData(DataFormats.FileDrop);
             if (Data is string[] fileList)

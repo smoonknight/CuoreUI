@@ -20,7 +20,7 @@ namespace CuoreUI.Controls.Shapes
             set
             {
                 privateOutlineColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -36,7 +36,7 @@ namespace CuoreUI.Controls.Shapes
             set
             {
                 privatePanelColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -52,14 +52,14 @@ namespace CuoreUI.Controls.Shapes
             set
             {
                 privateOutlineThickness = value;
-                Refresh();
+                Invalidate();
             }
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            Refresh();
+            Invalidate();
         }
 
         public cuiEllipse()

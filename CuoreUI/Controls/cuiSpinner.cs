@@ -122,7 +122,7 @@ namespace CuoreUI.Controls
                     value -= 360;
                 }
                 privateRotation = value;
-                Refresh();
+                Invalidate();
             }
         }
 

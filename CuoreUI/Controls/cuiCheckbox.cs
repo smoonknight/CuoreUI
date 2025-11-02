@@ -166,7 +166,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateContent = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -264,7 +264,6 @@ namespace CuoreUI.Controls
             symbolsOffset = new Point(0, 1);
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
             RectangleF squareClientRectangle = new RectangleF((OutlineThickness * 0.5f) + 0.6f, (OutlineThickness * 0.5f) + 0.6f, Height - OutlineThickness - 1.2f, Height - OutlineThickness - 1.2f);
 
@@ -284,7 +283,6 @@ namespace CuoreUI.Controls
 
                     using (Pen outlinePen = new Pen(CheckedOutlineColor, OutlineThickness))
                     {
-                        e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
                         e.Graphics.DrawPath(outlinePen, roundBackground);
                     }
                 }
@@ -297,7 +295,6 @@ namespace CuoreUI.Controls
 
                     using (Pen outlinePen = new Pen(UncheckedOutlineColor, OutlineThickness))
                     {
-                        e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
                         e.Graphics.DrawPath(outlinePen, roundBackground);
                     }
                 }

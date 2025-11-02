@@ -19,7 +19,7 @@ namespace CuoreUI.Controls
         protected override void OnResize(EventArgs eventargs)
         {
             base.OnResize(eventargs);
-            Refresh();
+            Invalidate();
         }
 
         Color privatePanelColor1 = Helpers.DrawingHelper.PrimaryColor;

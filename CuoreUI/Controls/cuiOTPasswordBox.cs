@@ -51,7 +51,7 @@ namespace CuoreUI.Controls
                     NotFinishedTypingContent?.Invoke(this, EventArgs.Empty);
                 }
 
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -73,7 +73,7 @@ namespace CuoreUI.Controls
                     Content = Content.Substring(BoxAmount - 1);
                 }
 
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -89,7 +89,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateUnfocusedColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -105,7 +105,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateFocusedColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -121,7 +121,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateUnfocusedBorderColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -137,7 +137,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateFocusedBorderColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -153,7 +153,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateUnfocusedTextColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -169,7 +169,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateFocusedTextColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -185,7 +185,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateRounding = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -340,7 +340,7 @@ namespace CuoreUI.Controls
 
         protected override void OnLostFocus(EventArgs e)
         {
-            Refresh();
+            Invalidate();
             base.OnLostFocus(e);
         }
 
@@ -366,12 +366,12 @@ namespace CuoreUI.Controls
                         if (i < Content.Length)
                         {
                             focusedIndex = i;
-                            Refresh();
+                            Invalidate();
                         }
                         else
                         {
                             focusedIndex = Content.Length;
-                            Refresh();
+                            Invalidate();
                         }
                     }
                 }
@@ -385,7 +385,7 @@ namespace CuoreUI.Controls
             if (e.KeyCode == Keys.Enter)
             {
                 focusedIndex = BoxAmount;
-                Refresh();
+                Invalidate();
                 return;
             }
 

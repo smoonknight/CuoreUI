@@ -169,7 +169,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateRounding = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -185,7 +185,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateBackgroundColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -198,7 +198,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateHoverBackground = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -211,7 +211,7 @@ namespace CuoreUI.Controls
             set
             {
                 privatePressedBackground = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -224,7 +224,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateNormalOutline = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -237,7 +237,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateHoverOutline = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -250,7 +250,7 @@ namespace CuoreUI.Controls
             set
             {
                 privatePressedOutline = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -263,7 +263,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateOutlineThickness = Math.Max(0, value);
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -279,7 +279,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateShowIcon = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -295,7 +295,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateIcon = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -311,7 +311,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateImageTint = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -366,7 +366,7 @@ namespace CuoreUI.Controls
             {
                 privateValue = new DateTime(value.Year, value.Month, value.Day);
                 DateChanged?.Invoke(this, EventArgs.Empty);
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -436,7 +436,7 @@ namespace CuoreUI.Controls
         protected override void OnMouseEnter(EventArgs e)
         {
             isHovered = true;
-            Refresh();
+            Invalidate();
             base.OnMouseEnter(e);
         }
 
@@ -444,21 +444,21 @@ namespace CuoreUI.Controls
         {
             isHovered = false;
             isPressed = false;
-            Refresh();
+            Invalidate();
             base.OnMouseLeave(e);
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
             isPressed = true;
-            Refresh();
+            Invalidate();
             base.OnMouseDown(e);
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
             isPressed = false;
-            Refresh();
+            Invalidate();
             base.OnMouseUp(e);
         }
     }

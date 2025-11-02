@@ -48,12 +48,12 @@ namespace CuoreUI.Controls
                 {
                     privateSelectedItem = value;
                     SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
-                    Refresh();
+                    Invalidate();
                 }
                 else
                 {
                     privateSelectedItem = string.Empty;
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace CuoreUI.Controls
             {
                 CloseDropDown(null, EventArgs.Empty);
                 lastClosed = DateTime.Now;
-                Refresh();
+                Invalidate();
             }
 
             if (GlobalMouseHook.isHooked)
@@ -107,7 +107,7 @@ namespace CuoreUI.Controls
 
             isBrowsingOptions = false;
             lastClosed = DateTime.Now;
-            Refresh();
+            Invalidate();
             if (GlobalMouseHook.isHooked)
             {
                 GlobalMouseHook.Stop();
@@ -258,7 +258,7 @@ namespace CuoreUI.Controls
                 privateNoSelectionText = value;
                 if (SelectedIndex == -1)
                 {
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -277,7 +277,7 @@ namespace CuoreUI.Controls
                 privateNoSelectionDropdownText = value;
                 if (SelectedIndex == -1)
                 {
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -287,7 +287,7 @@ namespace CuoreUI.Controls
             if (SelectedIndex == -1 && privateSelectedItem != string.Empty)
             {
                 privateSelectedItem = string.Empty;
-                Refresh();
+                Invalidate();
             }
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -302,6 +302,7 @@ namespace CuoreUI.Controls
             using (Pen pen = new Pen(OutlineColor, OutlineThickness))
             {
                 e.Graphics.FillPath(brush, roundBackground);
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 e.Graphics.DrawPath(pen, roundBackground);
             }
 
@@ -418,7 +419,7 @@ namespace CuoreUI.Controls
                     DropDown?.Invalidate();
 
                     isBrowsingOptions = true;
-                    Refresh();
+                    Invalidate();
 
                     int a = Items.Length * 45;
                     Rectangle clientrect = ClientRectangle;
@@ -468,7 +469,7 @@ namespace CuoreUI.Controls
                 dropdown?.Close();
 
                 isBrowsingOptions = false;
-                Refresh();
+                Invalidate();
             }
             else if (sender is null)
             // null sender means either something REALLY wants to close it
@@ -479,7 +480,7 @@ namespace CuoreUI.Controls
                     return;
                 }
                 isBrowsingOptions = false;
-                Refresh();
+                Invalidate();
             }
             else
             {
@@ -504,7 +505,7 @@ namespace CuoreUI.Controls
                 tempdropdown?.Close();
 
                 isBrowsingOptions = false;
-                Refresh();
+                Invalidate();
 
                 dropdown = null;
             }
@@ -518,7 +519,7 @@ namespace CuoreUI.Controls
                 tempdropdown?.Close();
 
                 isBrowsingOptions = false;
-                Refresh();
+                Invalidate();
 
                 tempdropdown = null;
             }

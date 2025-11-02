@@ -346,7 +346,7 @@ namespace CuoreUI.Controls
             {
                 SelectedIndex = temporaryHoveredIndex;
                 SuspendLayout();
-                Refresh();
+                Invalidate();
                 ResumeLayout(true);
             }
 
@@ -361,19 +361,19 @@ namespace CuoreUI.Controls
                 OnMouseDown(e);
             }
 
-            Refresh();
+            Invalidate();
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            Refresh();
+            Invalidate();
         }
 
         protected override void OnSelectedIndexChanged(EventArgs e)
         {
             SuspendLayout();
-            Refresh();
+            Invalidate();
             ResumeLayout(true);
             base.OnSelectedIndexChanged(e);
         }
@@ -389,7 +389,7 @@ namespace CuoreUI.Controls
             if (m.Msg == WM_VSCROLL || m.Msg == WM_MSCROLL)
             {
                 SuspendLayout();
-                Refresh();
+                Invalidate();
                 ResumeLayout(true);
             }
         }

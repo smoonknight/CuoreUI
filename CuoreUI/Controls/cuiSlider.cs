@@ -64,7 +64,7 @@ namespace CuoreUI.Controls
                     privateValue = (int)value;
 
                     UpdateThumbRectangle();
-                    Refresh();
+                    Invalidate();
 
                     if (isNewValue)
                     {
@@ -113,7 +113,7 @@ namespace CuoreUI.Controls
                     {
                         privateValue = privateMinValue;
                     }
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -134,7 +134,7 @@ namespace CuoreUI.Controls
                     {
                         privateValue = privateMaxValue;
                     }
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -151,7 +151,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateTrackColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -167,7 +167,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateThumbColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -213,7 +213,7 @@ namespace CuoreUI.Controls
             set
             {
                 privateThumbOutlineThickness = value;
-                Refresh();
+                Invalidate();
             }
         }
 

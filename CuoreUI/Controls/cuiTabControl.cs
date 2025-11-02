@@ -432,6 +432,7 @@ namespace CuoreUI.Controls
 
             if (ShowPlus)
             {
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
                 int addX = Pages.Count * (TabWidth + TabPadding) - scrollOffset;
                 var addRect = new Rectangle(addX, 0, TabHeight, TabHeight);
 

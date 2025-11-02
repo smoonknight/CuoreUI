@@ -30,7 +30,7 @@ namespace CuoreUI.Controls.Charts
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            Refresh();
+            Invalidate();
         }
 
         public bool hasDuplicate(int[] nums)
@@ -62,7 +62,7 @@ namespace CuoreUI.Controls.Charts
                 if (privateGradientBackground != value)
                 {
                     privateGradientBackground = value;
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace CuoreUI.Controls.Charts
                 if (privateShowLines != value)
                 {
                     privateShowLines = value;
-                    Refresh();
+                    Invalidate();
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace CuoreUI.Controls.Charts
                 if (privatePointColor != value)
                 {
                     privatePointColor = value;
-                    Refresh();
+                    Invalidate();
                 }
 
             }
@@ -124,7 +124,7 @@ namespace CuoreUI.Controls.Charts
             set
             {
                 privateAxisColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -249,7 +249,7 @@ namespace CuoreUI.Controls.Charts
             set
             {
                 privateChartLineColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -267,7 +267,7 @@ namespace CuoreUI.Controls.Charts
             set
             {
                 privateDayColor = value;
-                Refresh();
+                Invalidate();
             }
         }
 
@@ -285,7 +285,7 @@ namespace CuoreUI.Controls.Charts
             set
             {
                 privateShortDates = value;
-                Refresh();
+                Invalidate();
             }
         }
 

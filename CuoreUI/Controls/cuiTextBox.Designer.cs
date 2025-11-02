@@ -46,7 +46,7 @@
             this.contentTextField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contentTextField.Location = new System.Drawing.Point(10, 7);
             this.contentTextField.Name = "contentTextField";
-            this.contentTextField.Size = new System.Drawing.Size(246, 15);
+            this.contentTextField.Size = new System.Drawing.Size(246, 16);
             this.contentTextField.TabIndex = 0;
             this.contentTextField.Click += new System.EventHandler(this.textBox1_Click);
             this.contentTextField.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -67,10 +67,11 @@
             // 
             this.placeholderTextField.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.placeholderTextField.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.placeholderTextField.ForeColor = System.Drawing.Color.LightGray;
             this.placeholderTextField.Location = new System.Drawing.Point(10, 7);
             this.placeholderTextField.Name = "placeholderTextField";
             this.placeholderTextField.ReadOnly = true;
-            this.placeholderTextField.Size = new System.Drawing.Size(246, 15);
+            this.placeholderTextField.Size = new System.Drawing.Size(246, 16);
             this.placeholderTextField.TabIndex = 2;
             this.placeholderTextField.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.placeholderTextField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox2_MouseDown);
@@ -84,7 +85,7 @@
             this.Controls.Add(this.contentTextField);
             this.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "cuiTextBox";
