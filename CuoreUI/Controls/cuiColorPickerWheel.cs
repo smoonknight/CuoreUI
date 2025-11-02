@@ -22,20 +22,14 @@ namespace CuoreUI.Controls
             InitializeComponent();
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.ResizeRedraw, false);
-
-            Resize += (s, e) =>
-            {
-                // couldnt override so im disposing of the triangle bitmap each resize here
-                privateTriangleBitmap?.Dispose();
-                privateTriangleBitmap = null;
-                Invalidate();
-            };
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            GenerateHueBitmap();
+
+            privateTriangleBitmap?.Dispose();
+            privateTriangleBitmap = null;
             UpdateClickedRectangleFromColor();
             Invalidate();
         }
@@ -215,6 +209,7 @@ namespace CuoreUI.Controls
                 {
                     previouslyPaintedHue = privateHue;
                     GenerateTriangleBitmap((int)privateHue, size, innerRadius - 1);
+                    GenerateHueBitmap();
                 }
                 e.Graphics.DrawImage(privateTriangleBitmap, x, y, size, size);
                 int centerX = Width / 2;
@@ -240,7 +235,7 @@ namespace CuoreUI.Controls
 
                 // hue is range <0 - 360)
                 double radians = privateHue * 3.14d / 180.0;
-                float startX = centerX + (float)((centerY - 2) * Math.Cos(radians));
+                float startX = centerX + (float)(((Width > Height ? centerY : centerX) - 2) * Math.Cos(radians));
                 float startY = centerY + (float)((centerY - 2) * Math.Sin(radians));
 
                 PointF p1hueSelectorPoint = new PointF(startX, startY);
