@@ -33,10 +33,11 @@ The root directory's [/build.exe](https://github.com/owtysm2/CuoreUI/blob/master
 ### What [/build.exe](https://github.com/owtysm2/CuoreUI/blob/master/build.exe) does:
 **1. Updates the .nuspec**
    1) Checks if `CuoreUI.Winforms.nuspec` and `nuget.exe` exist in the running directory
-   2) Reads the `CuoreUI.Winforms.nuspec`'s text content
-   3) Scans each line if it starts with "\<version\>"
-   4) When the version line is found, it overwrites the line with the current date on the developer's computer
-   5) Save modified data as `CuoreUI.Winforms.nuspec`
+   2) Asks for revision number. 0 means no revision, and is the default. 
+   3) Reads the `CuoreUI.Winforms.nuspec`'s text content
+   4) Scans each line if it starts with "\<version\>"
+   5) When the version line is found, it overwrites the line with the current date on the developer's computer
+   6) Save modified data as `CuoreUI.Winforms.nuspec`
    
 **2. Builds the .nupkg**
    1) Start `nuget.exe` with the `pack` argument without a window
