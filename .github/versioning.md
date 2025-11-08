@@ -22,24 +22,4 @@ The format is: `[year]`.`[month]`.`[day]`.`[revisions]`
 - `2024.12.16 ` ∙ 2024 December 16th, no revisions
 
 ## Automation
-The root directory's [/build.exe](https://github.com/owtysm2/CuoreUI/blob/master/build.exe) file automates the editing of the [/CuoreUI.Winforms.nuspec](https://github.com/owtysm2/CuoreUI/blob/master/CuoreUI.Winforms.nuspec) file aswell as the NuGet packaging process.\
-<br>
-> [!IMPORTANT]
-> If you feel unsafe running the build executable, you can [get your own nuget.exe](https://www.nuget.org/downloads) cmd tool from the official NuGet website,
-> and manually package CuoreUI by pasting `nuget.exe` it into your master directory and running `nuget pack` in any terminal opened inside the master directory.
-
-> [!TIP]
-> You **can always decompile `build.exe`** by using tools like **JetBrains dotPeek** or **dnSpy**
-### What [/build.exe](https://github.com/owtysm2/CuoreUI/blob/master/build.exe) does:
-**1. Updates the .nuspec**
-   1) Checks if `CuoreUI.Winforms.nuspec` and `nuget.exe` exist in the running directory
-   2) Asks for revision number. 0 means no revision, and is the default. 
-   3) Reads the `CuoreUI.Winforms.nuspec`'s text content
-   4) Scans each line if it starts with "\<version\>"
-   5) When the version line is found, it overwrites the line with the current date on the developer's computer
-   6) Save modified data as `CuoreUI.Winforms.nuspec`
-   
-**2. Builds the .nupkg**
-   1) Start `nuget.exe` with the `pack` argument without a window
-   2) Redirect the console output into a `output.log` file
-   3) The `nuget.exe pack` process then takes care of packaging CuoreUI binaries into `.nupkg` files, which can then be uploaded to NuGet
+The root directory's [/nuget automation.bat](https://github.com/owtysm2/CuoreUI/blob/master/nuget%20automation.bat) file automates the editing of the [/CuoreUI.Winforms.nuspec](https://github.com/owtysm2/CuoreUI/blob/master/CuoreUI.Winforms.nuspec) file aswell as the NuGet packaging process.
