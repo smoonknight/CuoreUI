@@ -180,9 +180,8 @@ namespace CuoreUI.Controls.Forms.Internal
                         selectedIndicator.Width = 3;
 
                         using (GraphicsPath selectedIndicatorPath = Helpers.GeneralHelper.RoundRect(selectedIndicator, new Padding(2)))
-                        using (SolidBrush selectedBrush = new SolidBrush(Color.Gray))
                         {
-                            e.Graphics.FillPath(selectedBrush, selectedIndicatorPath);
+                            e.Graphics.FillPath(Brushes.Gray, selectedIndicatorPath);
                         }
                     }
                 }
