@@ -8,6 +8,13 @@ namespace CuoreUI.Helpers
 {
     internal static class WindowsHelper
     {
+        public static bool IsInDesignMode()
+        {
+            // otherwise we'd get a serialization error in the designer at random times
+            string processName = System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Trim();
+            return processName.Contains("devenv") || processName.Contains("designtoolsserver");
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         struct OSVERSIONINFOEX
         {

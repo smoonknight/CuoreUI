@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Misc.Internal;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace CuoreUI.Helpers
     {
         static GeneralHelper()
         {
+            PreloadedForms.TryPreloadForms();
             HandCursorFix.EnableModernCursor();
         }
 

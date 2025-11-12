@@ -1,5 +1,5 @@
-﻿using CuoreUI.Controls.Forms;
-using CuoreUI.Helpers;
+﻿using CuoreUI.Helpers;
+using CuoreUI.Misc.Internal;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -13,153 +13,86 @@ namespace CuoreUI.Controls
     [ToolboxBitmap(typeof(ComboBox))]
     public partial class cuiComboBox : UserControl
     {
+        private int privateSelectedIndex = -1;
+
+        [Category("CuoreUI")]
+        public int SelectedIndex
+        {
+            get
+            {
+                return privateSelectedIndex;
+            }
+            set
+            {
+                privateSelectedIndex = value;
+                if (Items != null)
+                {
+                    privateSelectedItem = SelectedIndex >= 0 ? Items[privateSelectedIndex] : "";
+                }
+                SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
+
+                Invalidate();
+            }
+        }
+
         private string privateSelectedItem = string.Empty;
-        private string[] privateItems = new string[0];
+
+        [Category("CuoreUI")]
+        public string SelectedItem
+        {
+            get
+            {
+                return privateSelectedItem;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    if (value == string.Empty)
+                    {
+                        SelectedIndex = -1;
+                    }
+                    else if (Items != null && Items.Contains(value))
+                    {
+                        privateSelectedItem = value;
+                        SelectedIndex = Array.IndexOf(privateItems, privateSelectedItem);
+                    }
+                }
+            }
+        }
+
+        private string[] privateItems = new string[] { "Item 1", "Item 2", "Item 3" };
 
         [Category("CuoreUI")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public string[] Items
         {
-            get => privateItems;
+            get
+            {
+                return privateItems;
+            }
             set
             {
                 privateItems = value;
-                Invalidate();
+
+                if (value != null && value.Length > 0 && privateSelectedItem != null)
+                {
+                    if (!value.Contains(privateSelectedItem))
+                    {
+                        SelectedIndex = 0;
+                    }
+                }
             }
         }
-
-        DateTime lastClosed = DateTime.MinValue;
 
         [Category("CuoreUI")]
         public event EventHandler SelectedIndexChanged;
 
-        [Category("CuoreUI")]
-        public Cursor ButtonCursor { get; set; } = Cursors.Arrow;
-
-        [Category("CuoreUI")]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string SelectedItem
-        {
-            get => privateSelectedItem;
-            set
-            {
-                value = value.Trim();
-                if (Items.Contains(value) && privateSelectedItem != value)
-                {
-                    privateSelectedItem = value;
-                    SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
-                    Invalidate();
-                }
-                else
-                {
-                    privateSelectedItem = string.Empty;
-                    Invalidate();
-                }
-            }
-        }
-
         public cuiComboBox()
         {
             InitializeComponent();
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            SetStyle(ControlStyles.UserPaint, true);
-
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             ForeColor = Color.Gray;
-
-            Timer timer = new Timer();
-            timer.Interval = 100;
-            timer.Tick += Timer_Tick;
-            timer.Start();
-
-            DrawingHelper.FrameDrawn += dropdownmove;
-
-            GlobalMouseHook.OnGlobalMouseClick += HandleGlobalMouseClick; // Subscribe to global mouse clicks
-        }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            base.OnMouseDown(e);
-            Focus();
-        }
-
-        private void HandleGlobalMouseClick()
-        {
-            if (DesignMode || tempdropdown == null)
-            {
-                return;
-            }
-
-            // Check if the mouse click is outside this control
-            Point mousePosition = Control.MousePosition;
-            bool flag1 = this.Bounds.Contains(mousePosition) == false;
-            bool flag2 = tempdropdown?.Bounds.Contains(mousePosition) == false;
-            if (flag1 && flag2)
-            {
-                CloseDropDown(null, EventArgs.Empty);
-                lastClosed = DateTime.Now;
-                Invalidate();
-            }
-
-            if (GlobalMouseHook.isHooked)
-            {
-                GlobalMouseHook.Stop();
-            }
-
-            isBrowsingOptions = false;
-            lastClosed = DateTime.Now;
-            Invalidate();
-            if (GlobalMouseHook.isHooked)
-            {
-                GlobalMouseHook.Stop();
-            }
-        }
-
-        private void dropdownmove(object sender, EventArgs e)
-        {
-            if (tempdropdown != null)
-            {
-                Point LocationScreen = PointToScreen(Point.Empty);
-                int dropdownTop = LocationScreen.Y + Height + 3;
-                int dropdownLeft = LocationScreen.X + 3;
-                tempdropdown.Location = new Point(dropdownLeft, dropdownTop);
-            }
-        }
-
-        int timerCountdown = 0;
-        int maxCountdown = 50;
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (DesignMode || tempdropdown == null || tempdropdown.IsDisposed)
-            {
-                return;
-            }
-
-            Point pos = Cursor.Position;
-            Rectangle dropdownRect = RectangleToScreen(ClientRectangle);
-            dropdownRect.Height += Items.Length * 45;
-
-            // Check if the cursor is within the dropdown rectangle
-            bool cursorInRectangle = dropdownRect.Contains(pos);
-
-            if (cursorInRectangle)
-            {
-                // Reset the countdown if the cursor is inside the rectangle
-                timerCountdown = 0;
-            }
-            else
-            {
-                // Increment the countdown if the cursor is outside the rectangle
-                timerCountdown++;
-            }
-
-            if (timerCountdown >= maxCountdown)
-            {
-                // Close if the countdown reaches the maximum value
-                timerCountdown = 0;
-                IndexChanged(null, EventArgs.Empty);
-                CloseDropDown(tempdropdown, EventArgs.Empty);
-            }
         }
 
         private Color privateBackgroundColor = Color.FromArgb(255, 255, 255);
@@ -210,18 +143,18 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateDropDownOutlineColor = Color.FromArgb(30, 255, 255, 255);
+        private Color privateDropDownForeColor = Color.FromArgb(27, 27, 27);
 
         [Category("CuoreUI")]
-        public Color DropDownOutlineColor
+        public Color DropDownForeColor
         {
             get
             {
-                return privateDropDownOutlineColor;
+                return privateDropDownForeColor;
             }
             set
             {
-                privateDropDownOutlineColor = value;
+                privateDropDownForeColor = value;
                 Invalidate();
             }
         }
@@ -263,23 +196,65 @@ namespace CuoreUI.Controls
             }
         }
 
-        private string privateNoSelectionDropdownText = "Empty";
+        [Category("CuoreUI")]
+        public int Rounding
+        {
+            get; set;
+        } = 8;
 
         [Category("CuoreUI")]
-        public string NoSelectionDropdownText
+        public bool SortAlphabetically { get; set; } = true;
+
+        protected override void OnClick(EventArgs e)
         {
-            get
+            //MessageBox.Show($"{_items.Contains(_selectedItem)}, {_selectedItem}");
+            if (privateItems == null || privateItems.Length == 0)
             {
-                return privateNoSelectionDropdownText;
+                return;
             }
-            set
+
+            if (SortAlphabetically)
             {
-                privateNoSelectionDropdownText = value;
-                if (SelectedIndex == -1)
-                {
-                    Invalidate();
-                }
+                Array.Sort(Items, StringComparer.OrdinalIgnoreCase);
             }
+
+            PreloadedForms.ComboBoxDropDownForm.BackColor = privateDropDownBackgroundColor;
+            PreloadedForms.ComboBoxDropDownForm.ForeColor = DropDownForeColor;
+            PreloadedForms.ComboBoxDropDownForm._selectedIndex = Array.IndexOf(privateItems, privateSelectedItem);
+
+            // The ComboBoxDropDownForm.Show method returns a bool:
+            // true means the drop down appeared successfully
+            // false means the user is clicking rapidly on this combo box and doesn't mean anything bad
+            if (PreloadedForms.ComboBoxDropDownForm.Show(this, privateItems))
+            {
+                PreloadedForms.ComboBoxDropDownForm.SelectedItemChanged += DropDown_SelectedItemChanged;
+                PreloadedForms.ComboBoxDropDownForm.LostFocus += ComboBoxDropDownForm_LostFocus;
+
+                isBrowsingOptions = true;
+                Invalidate();
+            }
+            base.OnClick(e);
+        }
+
+        void DetachEventListeners()
+        {
+            isBrowsingOptions = false;
+            Invalidate();
+            PreloadedForms.ComboBoxDropDownForm.Owner.Focus();
+            PreloadedForms.ComboBoxDropDownForm.LostFocus -= ComboBoxDropDownForm_LostFocus;
+            PreloadedForms.ComboBoxDropDownForm.SelectedItemChanged -= DropDown_SelectedItemChanged;
+        }
+
+        private void DropDown_SelectedItemChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show("changed");
+            DetachEventListeners();
+            SelectedIndex = PreloadedForms.ComboBoxDropDownForm.SelectedIndex;
+        }
+
+        private void ComboBoxDropDownForm_LostFocus(object sender, EventArgs e)
+        {
+            DetachEventListeners();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -380,197 +355,5 @@ namespace CuoreUI.Controls
                 Items = newItemsArray;
             }
         }
-
-        [Category("CuoreUI")]
-        public int SelectedIndex => Array.IndexOf(privateItems, SelectedItem);
-
-        private void cuiComboBox_Click(object sender, EventArgs e)
-        {
-            if (isBrowsingOptions)
-            {
-                IndexChanged(null, EventArgs.Empty);
-                return;
-            }
-
-            if (tempdropdown != null)
-            {
-                tempdropdown?.Close();
-            }
-
-            if (IsDisposed == false)
-            {
-                try
-                {
-
-                    ComboBoxDropDown DropDown = new ComboBoxDropDown(Items, Width, DropDownBackgroundColor, DropDownOutlineColor, this, Rounding, ButtonCursor, NoSelectionDropdownText);
-                    DropDown.ButtonCursor = ButtonCursor;
-
-                    DropDown.NormalBackground = ButtonNormalBackground;
-                    DropDown.HoverBackground = ButtonHoverBackground;
-                    DropDown.PressedBackground = ButtonPressedBackground;
-
-                    DropDown.NormalOutline = ButtonNormalOutline;
-                    DropDown.HoverOutline = ButtonHoverOutline;
-                    DropDown.PressedOutline = ButtonPressedOutline;
-
-                    DropDown.Rounding = new Padding(Rounding, Rounding, Rounding, Rounding);
-                    DropDown?.updateButtons();
-
-                    DropDown?.Invalidate();
-
-                    isBrowsingOptions = true;
-                    Invalidate();
-
-                    int a = Items.Length * 45;
-                    Rectangle clientrect = ClientRectangle;
-                    clientrect.Offset(0, clientrect.Height);
-                    clientrect.Height = a;
-
-                    // Convert client rectangle to screen coordinates
-                    clientrect = RectangleToScreen(clientrect);
-
-                    Point LocationScreen = PointToScreen(Point.Empty);
-                    int dropdownTop = LocationScreen.Y + Height + 2;
-                    int dropdownLeft = LocationScreen.X + DropDown.cuiFormRounder1.Rounding;
-                    DropDown.Location = new Point(dropdownLeft - 1, dropdownTop - 1);
-                    DropDown.Size = DropDown.Size + new Size(2, 2);
-
-                    tempdropdown = DropDown;
-                    tempdropdown.Rounding = new Padding(Rounding, Rounding, Rounding, Rounding);
-
-                    DropDown.cuiFormRounder1.roundedFormObj.Location = DropDown.Location;
-                    DropDown.Width = Width - 4;
-                    DropDown?.cuiFormRounder1.roundedFormObj.Invalidate();
-                    DropDown.SelectedIndexChanged += IndexChanged;
-
-                    DropDown?.cuiFormRounder1.roundedFormObj.Show();
-                    DropDown?.Show();
-
-                    DropDown?.cuiFormRounder1.TargetForm.Invalidate();
-
-                    GlobalMouseHook.Start();
-                }
-                catch
-                {
-                    GlobalMouseHook.Stop();
-                }
-            }
-        }
-
-        private void CloseDropDown(object sender, EventArgs e)
-        {
-
-            if (tempdropdown != null)
-            {
-                tempdropdown?.Close();
-            }
-            if (sender is ComboBoxDropDown dropdown)
-            {
-                dropdown?.Close();
-
-                isBrowsingOptions = false;
-                Invalidate();
-            }
-            else if (sender is null)
-            // null sender means either something REALLY wants to close it
-            // or the user had clicked off of the dropdown menu and/or control
-            {
-                if ((lastClosed - DateTime.Now).Seconds < 1)
-                {
-                    return;
-                }
-                isBrowsingOptions = false;
-                Invalidate();
-            }
-            else
-            {
-                throw new Exception($"Invalid sender\n{sender}");
-            }
-            GlobalMouseHook.Stop();
-        }
-
-        ComboBoxDropDown tempdropdown;
-
-        private void IndexChanged(object sender, EventArgs e)
-        {
-            if (tempdropdown != null)
-            {
-                tempdropdown?.Close();
-            }
-            if (sender is ComboBoxDropDown dropdown)
-            {
-                SelectedItem = dropdown?.SelectedItem;
-
-                dropdown?.Close();
-                tempdropdown?.Close();
-
-                isBrowsingOptions = false;
-                Invalidate();
-
-                dropdown = null;
-            }
-            else if (tempdropdown != null)
-            {
-                tempdropdown?.cuiFormRounder1.roundedFormObj.Close();
-                tempdropdown.cuiFormRounder1.TargetForm = null;
-                tempdropdown?.cuiFormRounder1.Dispose();
-                tempdropdown?.Dispose();
-
-                tempdropdown?.Close();
-
-                isBrowsingOptions = false;
-                Invalidate();
-
-                tempdropdown = null;
-            }
-            else
-            {
-                throw new Exception($"Invalid sender\n{sender}");
-            }
-        }
-
-        // dropdown buttons
-
-        [Category("CuoreUI")]
-        public int Rounding
-        {
-            get; set;
-        } = 8;
-
-        [Category("CuoreUI")]
-        public Color ButtonNormalBackground
-        {
-            get; set;
-        } = DrawingHelper.PrimaryColor;
-
-        [Category("CuoreUI")]
-        public Color ButtonHoverBackground
-        {
-            get; set;
-        } = DrawingHelper.TranslucentPrimaryColor;
-
-        [Category("CuoreUI")]
-        public Color ButtonPressedBackground
-        {
-            get; set;
-        } = DrawingHelper.PrimaryColor;
-
-        [Category("CuoreUI")]
-        public Color ButtonNormalOutline
-        {
-            get; set;
-        } = Color.Empty;
-
-        [Category("CuoreUI")]
-        public Color ButtonHoverOutline
-        {
-            get; set;
-        } = Color.Empty;
-
-        [Category("CuoreUI")]
-        public Color ButtonPressedOutline
-        {
-            get; set;
-        } = Color.Empty;
     }
 }

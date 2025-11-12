@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Misc.Internal;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -18,12 +19,8 @@ namespace CuoreUI.Helpers
 
         static DrawingHelper()
         {
+            PreloadedForms.TryPreloadForms();
             HandCursorFix.EnableModernCursor();
-            Process.GetCurrentProcess().Exited += (e, s) =>
-            {
-                GlobalMouseHook.Stop();
-            };
-
             refreshRateTimer = new Timer();
             SetTimerRefreshRate();
         }

@@ -1,6 +1,6 @@
-﻿namespace CuoreUI.Controls.Forms
+﻿namespace CuoreUI.Controls.Forms.Internal
 {
-    partial class ComboBoxDropDown
+    partial class ComboBoxDropDownForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,38 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cuiFormRounder1 = new CuoreUI.Components.cuiFormRounder();
             this.SuspendLayout();
             // 
-            // cuiFormRounder1
-            // 
-            this.cuiFormRounder1.OutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.cuiFormRounder1.Rounding = 8;
-            this.cuiFormRounder1.TargetForm = this;
-            // 
-            // ComboBoxDropDown
+            // ComboBoxDropDownForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(0, 0);
-            this.ControlBox = false;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.Location = new System.Drawing.Point(-1000, -1000);
-            this.Name = "ComboBoxDropDown";
+            this.ClientSize = new System.Drawing.Size(174, 211);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "ComboBoxDropDownForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "ComboBoxDropDown";
+            this.Text = "ComboBoxDropDownForm";
             this.TopMost = true;
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        public Components.cuiFormRounder cuiFormRounder1;
     }
 }

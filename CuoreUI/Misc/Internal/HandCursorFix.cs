@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuoreUI.Helpers;
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -15,20 +16,13 @@ public static class HandCursorFix
     {
         try
         {
-            if (!IsInDesignMode())
+            if (!WindowsHelper.IsInDesignMode())
             {
                 Cursor SystemHandCursor = new Cursor(LoadCursor(IntPtr.Zero, 32649 /*IDC_HAND*/));
                 typeof(Cursors).GetField("hand", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, SystemHandCursor);
             }
         }
         catch { }
-    }
-
-    private static bool IsInDesignMode()
-    {
-        // otherwise we'd get a serialization error in the designer at random times
-        string processName = System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Trim();
-        return processName.Contains("devenv") || processName.Contains("designtoolsserver");
     }
 
     [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]

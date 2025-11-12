@@ -10,7 +10,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace CuoreUI.Components
 {
-    [Description("(Experimental) Pre-win11 rounded corners for your form with a bitmap approach")]
+    [Description("(Experimental) Rounded corners for Windows 10 and below")]
     [ToolboxBitmap(typeof(Form))]
     public partial class cuiFormRounder : Component
     {
@@ -28,14 +28,28 @@ namespace CuoreUI.Components
             get => privateTargetForm;
             set
             {
-                if (value == null && privateTargetForm != null && !privateTargetForm.Disposing)
-                {
-                    privateTargetForm.Region = null;
-                }
-
                 if (privateTargetForm != null)
                 {
                     FormsRegisteredByRounder.RemoveByForm(privateTargetForm);
+
+                    // cuiFormRounder sets a custom region to the TargetForm
+                    // to avoid visual artifacts, the region is reset to normal here
+                    if (value == null && !privateTargetForm.IsDisposed)
+                    {
+                        privateTargetForm.Region = null;
+                    }
+
+                    if (privateTargetForm != value)
+                    {
+                        privateTargetForm.Load -= TargetForm_Load;
+                        privateTargetForm.Resize -= TargetForm_Resize;
+                        privateTargetForm.LocationChanged -= TargetForm_LocationChanged;
+                        privateTargetForm.FormClosing -= TargetForm_FormClosing;
+                        privateTargetForm.VisibleChanged -= TargetForm_VisibleChanged;
+                        privateTargetForm.Activated -= TargetForm_Activated;
+                        privateTargetForm.HandleCreated -= TargetForm_HandleCreated;
+                        privateTargetForm.ResizeEnd -= TargetForm_ResizeEnd;
+                    }
                 }
 
                 privateTargetForm = value;
@@ -57,13 +71,9 @@ namespace CuoreUI.Components
                 TargetForm.LocationChanged += TargetForm_LocationChanged;
                 TargetForm.FormClosing += TargetForm_FormClosing;
                 TargetForm.VisibleChanged += TargetForm_VisibleChanged;
-                TargetForm.BackColorChanged += TargetForm_BackColorChanged;
                 TargetForm.Activated += TargetForm_Activated;
                 TargetForm.HandleCreated += TargetForm_HandleCreated;
-                TargetForm.ResizeEnd += (e, s) =>
-                {
-                    UpdateExperimentalBitmap();
-                };
+                TargetForm.ResizeEnd += TargetForm_ResizeEnd;
 
                 if (roundedFormObj != null && roundedFormObj.IsDisposed == false && !DesignMode) // if for some reason you want to toggle between a form and 'null'
                 {
@@ -75,6 +85,11 @@ namespace CuoreUI.Components
                     roundedFormObj?.Show();
                 }
             }
+        }
+
+        private void TargetForm_ResizeEnd(object sender, EventArgs e)
+        {
+            UpdateExperimentalBitmap();
         }
 
         private void TargetForm_HandleCreated(object sender, EventArgs e)
@@ -104,14 +119,6 @@ namespace CuoreUI.Components
             }
         }
 
-        private void TargetForm_BackColorChanged(object sender, EventArgs e)
-        {
-            if (shouldCloseDown)
-            {
-                return;
-            }
-        }
-
         private void TargetForm_VisibleChanged(object sender, EventArgs e)
         {
             if (shouldCloseDown)
@@ -132,26 +139,27 @@ namespace CuoreUI.Components
 
         private void TargetForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // causes the other parts of this code to not run
+            // causes the other methods inside this class to not run
             // that stops any exceptions in the code trying to access disposed or null stuff 
             shouldCloseDown = true;
             if (!wasFormClosingCalled && TargetForm != null)
             {
                 wasFormClosingCalled = true;
 
-                // unattach events
-                TargetForm.Load -= TargetForm_Load;
-                TargetForm.Resize -= TargetForm_Resize;
-                TargetForm.LocationChanged -= TargetForm_LocationChanged;
-                TargetForm.FormClosing -= TargetForm_FormClosing;
-                TargetForm.VisibleChanged -= TargetForm_VisibleChanged;
-                TargetForm.BackColorChanged -= TargetForm_BackColorChanged;
+                // detach events
+                privateTargetForm.Load -= TargetForm_Load;
+                privateTargetForm.Resize -= TargetForm_Resize;
+                privateTargetForm.LocationChanged -= TargetForm_LocationChanged;
+                privateTargetForm.FormClosing -= TargetForm_FormClosing;
+                privateTargetForm.VisibleChanged -= TargetForm_VisibleChanged;
+                privateTargetForm.Activated -= TargetForm_Activated;
+                privateTargetForm.HandleCreated -= TargetForm_HandleCreated;
+                privateTargetForm.ResizeEnd -= TargetForm_ResizeEnd;
 
                 // clean controls from targetform
                 TargetForm.Controls.Clear();
 
                 // send close message to all forms
-
                 TryCloseForm(TargetForm);
                 TryCloseForm(roundedFormObj);
             }
