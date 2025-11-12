@@ -9,7 +9,9 @@
 This is a C# .NET Winforms library with **modern** controls, components and forms.
 
 >[!TIP]
-> [![image](https://i.imgur.com/rJ9l299.png) The repository](https://github.com/owtysm2/CuoreUI) may be ahead of the latest [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet package](https://www.nuget.org/packages/CuoreUI.Winforms/) (May contain unfinished code.) 
+> Don't be afraid to report problems on the [![image](https://i.imgur.com/rJ9l299.png) Issues](https://github.com/owtysm2/CuoreUI) page! 
+
+> [![image](https://i.imgur.com/rJ9l299.png) The master branch](https://github.com/owtysm2/CuoreUI) is usually ahead of the latest [![NuGet logo](https://i.imgur.com/6aPyVAg.png) NuGet package](https://www.nuget.org/packages/CuoreUI.Winforms/) in terms of changes made.
 
 ## 🗿 Why use Cuore
 > CuoreUI Showcases is not out yet.
