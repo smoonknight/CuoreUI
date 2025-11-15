@@ -442,12 +442,24 @@ namespace CuoreUI.Controls
                 privateBrush.Color = renderedBackgroundColor;
                 privatePen.Color = renderedOutlineColor;
 
-                e.Graphics.FillPath(privateBrush, roundBackground);
-
                 if (OutlineThickness > 0)
                 {
-                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
-                    e.Graphics.DrawPath(privatePen, roundBackground);
+                    if (renderedOutlineColor.A > 32)
+                    {
+                        e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
+                        e.Graphics.FillPath(privateBrush, roundBackground);
+                        e.Graphics.DrawPath(privatePen, roundBackground);
+                    }
+                    else
+                    {
+                        e.Graphics.FillPath(privateBrush, roundBackground);
+                        e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
+                        e.Graphics.DrawPath(privatePen, roundBackground);
+                    }
+                }
+                else
+                {
+                    e.Graphics.FillPath(privateBrush, roundBackground);
                 }
             }
 
