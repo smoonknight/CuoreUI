@@ -50,8 +50,6 @@ The official NuGet page is called [CuoreUI.Winforms![image](https://i.imgur.com/
 ---
 
 ## 📜 Documentation
-> You can consider using [![DeepWiki logo](https://i.imgur.com/fwR6Crt.png) DeepWiki](https://deepwiki.com/owtysm2/CuoreUI) while official documentation is being worked on.
-
 *Documentation, documentation. Ah yes, the documentation..*
 
 .. We currently don't provide any documentation for the project
