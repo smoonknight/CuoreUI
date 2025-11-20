@@ -403,65 +403,77 @@ namespace CuoreUI.Controls
             Color renderedTint = NormalImageTint;
             Color renderedForeColor = Color.Empty;
 
-            using (GraphicsPath roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding))
+            if (CheckButton && Checked)
             {
-                if (CheckButton && Checked)
+                renderedBackgroundColor = CheckedBackground;
+                renderedOutlineColor = CheckedOutline;
+                renderedTint = CheckedImageTint;
+                renderedForeColor = CheckedForeColor;
+            }
+            else
+            {
+                switch (state)
                 {
-                    renderedBackgroundColor = CheckedBackground;
-                    renderedOutlineColor = CheckedOutline;
-                    renderedTint = CheckedImageTint;
-                    renderedForeColor = CheckedForeColor;
-                }
-                else
-                {
-                    switch (state)
-                    {
-                        case States.Normal:
-                            renderedBackgroundColor = NormalBackground;
-                            renderedOutlineColor = NormalOutline;
-                            renderedForeColor = NormalForeColor;
-                            renderedTint = NormalImageTint;
-                            break;
+                    case States.Normal:
+                        renderedBackgroundColor = NormalBackground;
+                        renderedOutlineColor = NormalOutline;
+                        renderedForeColor = NormalForeColor;
+                        renderedTint = NormalImageTint;
+                        break;
 
-                        case States.Hovered:
-                            renderedBackgroundColor = HoverBackground;
-                            renderedOutlineColor = HoverOutline;
-                            renderedTint = HoverImageTint;
-                            renderedForeColor = HoverForeColor;
-                            break;
+                    case States.Hovered:
+                        renderedBackgroundColor = HoverBackground;
+                        renderedOutlineColor = HoverOutline;
+                        renderedTint = HoverImageTint;
+                        renderedForeColor = HoverForeColor;
+                        break;
 
-                        case States.Pressed:
-                            renderedBackgroundColor = PressedBackground;
-                            renderedOutlineColor = PressedOutline;
-                            renderedTint = PressedImageTint;
-                            renderedForeColor = PressedForeColor;
-                            break;
-                    }
-                }
-
-                privateBrush.Color = renderedBackgroundColor;
-                privatePen.Color = renderedOutlineColor;
-
-                if (OutlineThickness > 0)
-                {
-                    if (renderedOutlineColor.A > 32)
-                    {
-                        e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
-                        e.Graphics.FillPath(privateBrush, roundBackground);
-                        e.Graphics.DrawPath(privatePen, roundBackground);
-                    }
-                    else
-                    {
-                        e.Graphics.FillPath(privateBrush, roundBackground);
-                        e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
-                        e.Graphics.DrawPath(privatePen, roundBackground);
-                    }
-                }
-                else
-                {
-                    e.Graphics.FillPath(privateBrush, roundBackground);
+                    case States.Pressed:
+                        renderedBackgroundColor = PressedBackground;
+                        renderedOutlineColor = PressedOutline;
+                        renderedTint = PressedImageTint;
+                        renderedForeColor = PressedForeColor;
+                        break;
                 }
             }
+
+            privateBrush.Color = renderedBackgroundColor;
+            privatePen.Color = renderedOutlineColor;
+
+            GraphicsPath roundBackground;
+            if (OutlineThickness > 0)
+            {
+                if (renderedOutlineColor == Color.Empty || renderedOutlineColor == Color.Transparent)
+                {
+                    // draw with PixelOffsetMode.HighQuality.
+                    // the HighQuality actually draws accurately,
+                    // so we need to resize the background rectangle, 
+                    // so that it takes up the correct space, minus the outline
+                    modifiedCR.Width -= 1;
+                    modifiedCR.Height -= 1;
+                    modifiedCR.X += 1;
+                    modifiedCR.Y += 1;
+
+                    roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+                    e.Graphics.FillPath(privateBrush, roundBackground);
+                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
+                }
+                else
+                {
+                    roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
+                    e.Graphics.FillPath(privateBrush, roundBackground);
+                    e.Graphics.DrawPath(privatePen, roundBackground);
+                }
+            }
+            else
+            {
+                roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+                e.Graphics.FillPath(privateBrush, roundBackground);
+            }
+
+            // because roundBackground is not inside an using statement, it needs to be diposed here
+            roundBackground.Dispose();
 
             Rectangle textRectangle = ClientRectangle;
             int textY = (Height / 2) - (Font.Height / 2);
