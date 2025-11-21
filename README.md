@@ -1,4 +1,4 @@
-![CuoreUI Banner](https://i.imgur.com/ajoAlSJ.png)
+![CuoreUI Banner](https://i.imgur.com/jkVHYpG.png)
 
 > ![Microsoft logo](https://i.imgur.com/Wbos3r0.png) [Fluent Icons](https://github.com/microsoft/fluentui-system-icons) used in this project are licensed under the [![License: MIT License](https://img.shields.io/badge/MIT-License-006aff)](https://mit-license.org/) (MIT license @ https://mit-license.org).
 
