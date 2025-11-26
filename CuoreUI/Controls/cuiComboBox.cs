@@ -35,6 +35,23 @@ namespace CuoreUI.Controls
             }
         }
 
+        private int privateMaxDropDownHeight = 240;
+
+        [Category("CuoreUI")]
+        [Description("How big the drop down popup can be at maximum.")]
+        public int MaxDropDownHeight
+        {
+            get
+            {
+                return privateMaxDropDownHeight;
+            }
+            set
+            {
+                privateMaxDropDownHeight = value;
+                Invalidate();
+            }
+        }
+
         private string privateSelectedItem = string.Empty;
 
         [Category("CuoreUI")]

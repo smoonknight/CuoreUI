@@ -207,6 +207,7 @@ namespace CuoreUI.Controls
 
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             int WantedItemHeight = Height - 1 - Font.Height;
 

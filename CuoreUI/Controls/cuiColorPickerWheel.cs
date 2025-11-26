@@ -56,18 +56,30 @@ namespace CuoreUI.Controls
         #region hue ring & sat/val triangle
         private void GenerateHueBitmap()
         {
-            int size = Math.Min(Width, Height);
-            if (size <= 0) return;
 
-            privateHueBitmap?.Dispose();
-            privateHueBitmap = new Bitmap(size, size, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            int size = Math.Min(Width, Height);
+            if (size <= 0)
+            {
+                return;
+            }
 
             int outerRadius = size / 2 - 1;
             int innerRadius = outerRadius - WheelThickness;
             Point center = new Point(size / 2, size / 2);
+            Rectangle rect = new Rectangle(0, 0, size, size);
 
-            var rect = new Rectangle(0, 0, size, size);
-            var bmpData = privateHueBitmap.LockBits(rect, ImageLockMode.WriteOnly, privateHueBitmap.PixelFormat);
+            BitmapData bmpData = null;
+            try
+            {
+                privateHueBitmap?.Dispose();
+                privateHueBitmap = new Bitmap(size, size, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                bmpData = privateHueBitmap.LockBits(rect, ImageLockMode.WriteOnly, privateHueBitmap.PixelFormat);
+            }
+            catch
+            {
+                // Most likely that bitmap is already locked
+                return;
+            }
 
             int bytesPerPixel = 4;
             int stride = bmpData.Stride;
@@ -111,8 +123,18 @@ namespace CuoreUI.Controls
 
         private void GenerateTriangleBitmap(double hue, int size, int innerRadius)
         {
-            privateTriangleBitmap?.Dispose();
-            privateTriangleBitmap = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+            BitmapData bmpData = null;
+            try
+            {
+                privateTriangleBitmap?.Dispose();
+                privateTriangleBitmap = new Bitmap(size, size, PixelFormat.Format32bppArgb);
+                bmpData = privateTriangleBitmap.LockBits(new Rectangle(0, 0, size, size), ImageLockMode.WriteOnly, privateTriangleBitmap.PixelFormat);
+            }
+            catch
+            {
+                // Most likely that bitmap is already locked
+                return;
+            }
 
             Point center = new Point(size / 2, size / 2);
 
@@ -121,7 +143,6 @@ namespace CuoreUI.Controls
             PointF pWhite = RotatePoint(center, new PointF(center.X, center.Y - innerRadius), 120); // bottom-left
             PointF pBlack = RotatePoint(center, new PointF(center.X, center.Y - innerRadius), 240); // bottom-right
 
-            BitmapData bmpData = privateTriangleBitmap.LockBits(new Rectangle(0, 0, size, size), ImageLockMode.WriteOnly, privateTriangleBitmap.PixelFormat);
             int bytesPerPixel = 4;
             int stride = bmpData.Stride;
             IntPtr ptr = bmpData.Scan0;
@@ -182,36 +203,58 @@ namespace CuoreUI.Controls
             int x = (Width - size) / 2;
             int y = (Height - size) / 2;
 
-            int outerRadius = size / 2 - 1;
-            int innerRadius = outerRadius - WheelThickness;
-
-            Rectangle modifiedCR = ClientRectangle;
-            modifiedCR.Size = new Size(size, size);
-            modifiedCR.X = x;
-            modifiedCR.Y = y;
-            modifiedCR.Inflate(-1, -1);
-
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             // hue ring
-            if (privateHueBitmap == null) GenerateHueBitmap();
-            e.Graphics.DrawImage(privateHueBitmap, x, y, size, size);
+            if (privateHueBitmap == null)
+            {
+                GenerateHueBitmap();
+            }
+
+            try
+            {
+                e.Graphics.DrawImage(privateHueBitmap, x, y, size, size);
+            }
+            catch
+            {
+                // Most likely hue ring bitmap is locked and it shouldn't be touched right now
+                return;
+            }
+
+            int outerRadius = size / 2 - 1;
+            int innerRadius = outerRadius - WheelThickness;
+
+            // value/sat triangle
+            if (privateTriangleBitmap == null || previouslyPaintedHue != privateHue)
+            {
+                previouslyPaintedHue = privateHue;
+                GenerateTriangleBitmap((int)privateHue, size, innerRadius - 1);
+                //GenerateHueBitmap();
+            }
 
             using (Pen antialiasPen = new Pen(BackColor, 4))
             using (Pen whereClickPen1 = new Pen(Color.FromArgb(128, 0, 0, 0), 2f) { StartCap = LineCap.Round, EndCap = LineCap.Round })
             {
+                Rectangle modifiedCR = ClientRectangle;
+                modifiedCR.Size = new Size(size, size);
+                modifiedCR.X = x;
+                modifiedCR.Y = y;
+                modifiedCR.Inflate(-1, -1);
+
                 e.Graphics.DrawEllipse(antialiasPen, modifiedCR);
                 modifiedCR.Inflate(-WheelThickness, -WheelThickness);
                 e.Graphics.DrawEllipse(antialiasPen, modifiedCR);
 
-                // value/sat triangle
-                if (privateTriangleBitmap == null || previouslyPaintedHue != privateHue)
+                try
                 {
-                    previouslyPaintedHue = privateHue;
-                    GenerateTriangleBitmap((int)privateHue, size, innerRadius - 1);
-                    GenerateHueBitmap();
+                    e.Graphics.DrawImage(privateTriangleBitmap, x, y, size, size);
                 }
-                e.Graphics.DrawImage(privateTriangleBitmap, x, y, size, size);
+                catch
+                {
+                    // Most likely sat/val triangle bitmap is locked and it shouldn't be touched right now
+                    return;
+                }
+
                 int centerX = Width / 2;
                 int centerY = Height / 2;
 

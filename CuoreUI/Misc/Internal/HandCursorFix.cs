@@ -19,7 +19,11 @@ public static class HandCursorFix
             if (!WindowsHelper.IsInDesignMode())
             {
                 Cursor SystemHandCursor = new Cursor(LoadCursor(IntPtr.Zero, 32649 /*IDC_HAND*/));
-                typeof(Cursors).GetField("hand", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, SystemHandCursor);
+                FieldInfo handFieldInfo = typeof(Cursors).GetField("hand", BindingFlags.Static | BindingFlags.NonPublic);
+                if (handFieldInfo != null)
+                { 
+                    handFieldInfo.SetValue(null, SystemHandCursor);
+                }
             }
         }
         catch { }
