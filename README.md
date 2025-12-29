@@ -4,7 +4,7 @@
 
 ---
 
-# ![cui logo mini](https://i.imgur.com/8fLdRDY.png) CuoreUI.Winforms
+# ![cui-32x](https://i.imgur.com/PHRIIbS.png) CuoreUI.Winforms
 
 This is a C# .NET Winforms library with **modern** controls, components and forms.
 
