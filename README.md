@@ -4,7 +4,7 @@
 
 ---
 
-# ![cui-32x](https://i.imgur.com/PHRIIbS.png) CuoreUI.Winforms
+# <img width="32" height="32" src="https://i.imgur.com/PHRIIbS.png"> CuoreUI.Winforms
 
 This is a C# .NET Winforms library with **modern** controls, components and forms.
 
