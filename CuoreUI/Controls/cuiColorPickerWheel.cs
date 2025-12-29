@@ -348,7 +348,7 @@ namespace CuoreUI.Controls
             }
             set
             {
-                float oldHue = value.GetHue();
+                float oldHue = privateContent.GetHue();
                 privateContent = value;
 
                 if (DesignMode)
