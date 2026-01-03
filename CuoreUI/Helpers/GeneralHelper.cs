@@ -378,25 +378,51 @@ namespace CuoreUI.Helpers
 
         public static PointF ClosestPointOnSegment(PointF p, PointF a, PointF b)
         {
-            var ap = new PointF(p.X - a.X, p.Y - a.Y);
-            var ab = new PointF(b.X - a.X, b.Y - a.Y);
-            float ab2 = ab.X * ab.X + ab.Y * ab.Y;
-            float dot = ap.X * ab.X + ap.Y * ab.Y;
-            float t = Math.Max(0, Math.Min(1, ab2 == 0 ? 0 : dot / ab2));
-            return new PointF(a.X + ab.X * t, a.Y + ab.Y * t);
+            float abx = b.X - a.X;
+            float aby = b.Y - a.Y;
+            float apx = p.X - a.X;
+            float apy = p.Y - a.Y;
+
+            float ab2 = abx * abx + aby * aby;
+            if (ab2 <= float.Epsilon)
+            {
+                return a;
+            }
+
+            float t = (apx * abx + apy * aby) / ab2;
+            if (t <= 0)
+            {
+                return a;
+            }
+
+            if (t >= 1)
+            {
+                return b;
+            }
+
+            return new PointF(a.X + abx * t, a.Y + aby * t);
         }
 
         public static PointF ClosestPointOnTriangle(PointF p, PointF a, PointF b, PointF c)
         {
-            var ab = ClosestPointOnSegment(p, a, b);
-            var bc = ClosestPointOnSegment(p, b, c);
-            var ca = ClosestPointOnSegment(p, c, a);
+            PointF bestMatch = ClosestPointOnSegment(p, a, b);
+            float bestD = DistanceSquared(p, bestMatch);
 
-            float d1 = DistanceSquared(p, ab);
-            float d2 = DistanceSquared(p, bc);
-            float d3 = DistanceSquared(p, ca);
+            PointF q = ClosestPointOnSegment(p, b, c);
+            float d = DistanceSquared(p, q);
+            if (d < bestD)
+            {
+                bestMatch = q;
+                bestD = d;
+            }
 
-            return d1 < d2 && d1 < d3 ? ab : d2 < d3 ? bc : ca;
+            q = ClosestPointOnSegment(p, c, a);
+            if (DistanceSquared(p, q) < bestD)
+            {
+                bestMatch = q;
+            }
+
+            return bestMatch;
         }
 
         public static float DistanceSquared(PointF p1, PointF p2)
@@ -409,16 +435,15 @@ namespace CuoreUI.Helpers
         public static PointF RotatePoint(PointF origin, PointF point, float angleDegrees)
         {
             double angleRadians = angleDegrees * Math.PI / 180.0;
-            double cosA = Math.Cos(angleRadians);
-            double sinA = Math.Sin(angleRadians);
+            float cosA = (float)Math.Cos(angleRadians);
+            float sinA = (float)Math.Sin(angleRadians);
 
             float dx = point.X - origin.X;
             float dy = point.Y - origin.Y;
 
-            float xNew = (float)(dx * cosA - dy * sinA) + origin.X;
-            float yNew = (float)(dx * sinA + dy * cosA) + origin.Y;
-
-            return new PointF(xNew, yNew);
+            return new PointF(
+                dx * cosA - dy * sinA + origin.X,
+                dx * sinA + dy * cosA + origin.Y);
         }
 
         public static bool PointInTriangle(PointF p, PointF p0, PointF p1, PointF p2)
@@ -427,18 +452,25 @@ namespace CuoreUI.Helpers
             float t = p0.X * p1.Y - p0.Y * p1.X + (p0.Y - p1.Y) * p.X + (p1.X - p0.X) * p.Y;
 
             if (s < 0 != t < 0)
+            {
                 return false;
+            }
 
             float A = -p1.Y * p2.X + p0.Y * (p2.X - p1.X) + p0.X * (p1.Y - p2.Y) + p1.X * p2.Y;
-            return A < 0 ? s <= 0 && s + t >= A : s >= 0 && s + t <= A;
+            float st = s + t;
+
+            return A < 0
+                ? (s <= 0 && st >= A)
+                : (s >= 0 && st <= A);
         }
 
-        public static (double X, double Y, double Z) BarycentricCoords(PointF p, PointF a, PointF b, PointF c)
+        public static (float X, float Y, float Z) BarycentricCoords(PointF p, PointF a, PointF b, PointF c)
         {
-            double denom = (b.Y - c.Y) * (a.X - c.X) + (c.X - b.X) * (a.Y - c.Y);
-            double w1 = ((b.Y - c.Y) * (p.X - c.X) + (c.X - b.X) * (p.Y - c.Y)) / denom;
-            double w2 = ((c.Y - a.Y) * (p.X - c.X) + (a.X - c.X) * (p.Y - c.Y)) / denom;
-            double w3 = 1 - w1 - w2;
+            float denom = (b.Y - c.Y) * (a.X - c.X) + (c.X - b.X) * (a.Y - c.Y);
+            float invDenom = 1f / denom;
+            float w1 = ((b.Y - c.Y) * (p.X - c.X) + (c.X - b.X) * (p.Y - c.Y)) * invDenom;
+            float w2 = ((c.Y - a.Y) * (p.X - c.X) + (a.X - c.X) * (p.Y - c.Y)) * invDenom;
+            float w3 = 1f - w1 - w2;
             return (w1, w2, w3);
         }
     }

@@ -167,7 +167,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private int state = 1;
+        private int state = ButtonStates.Normal;
         private SolidBrush privateBrush = new SolidBrush(Color.Black);
         private Pen privatePen = new Pen(Color.Black);
         StringFormat stringFormat = new StringFormat() { Alignment = StringAlignment.Center };
@@ -369,7 +369,6 @@ namespace CuoreUI.Controls
             Color renderedTint = Color.Empty;
             Color renderedForeColor = Color.Empty;
 
-
             if (Checked)
             {
                 renderedBackgroundColor = CheckedBackground;
@@ -381,21 +380,21 @@ namespace CuoreUI.Controls
             {
                 switch (state)
                 {
-                    case States.Normal:
+                    case ButtonStates.Normal:
                         renderedBackgroundColor = NormalBackground;
                         renderedOutlineColor = NormalOutline;
                         renderedForeColor = NormalForeColor;
                         renderedTint = NormalImageTint;
                         break;
 
-                    case States.Hovered:
+                    case ButtonStates.Hovered:
                         renderedBackgroundColor = HoverBackground;
                         renderedOutlineColor = HoverOutline;
                         renderedTint = HoverImageTint;
                         renderedForeColor = HoverForeColor;
                         break;
 
-                    case States.Pressed:
+                    case ButtonStates.Pressed:
                         renderedBackgroundColor = PressedBackground;
                         renderedOutlineColor = PressedOutline;
                         renderedTint = PressedImageTint;
@@ -640,7 +639,7 @@ namespace CuoreUI.Controls
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            state = 3;
+            state = ButtonStates.Pressed;
             Focus();
             Invalidate();
         }
@@ -652,13 +651,13 @@ namespace CuoreUI.Controls
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            state = 1;
+            state = ButtonStates.Normal;
             Invalidate();
         }
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            state = 2;
+            state = ButtonStates.Hovered;
             Invalidate();
         }
 
@@ -679,7 +678,7 @@ namespace CuoreUI.Controls
                 }
             }
 
-            state = isInside ? 2 : 1;
+            state = isInside ? ButtonStates.Hovered : ButtonStates.Normal;
             Invalidate();
         }
 

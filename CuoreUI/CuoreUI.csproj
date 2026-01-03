@@ -64,7 +64,6 @@
     <Compile Update="Controls\cuiPictureBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\cuiScrollbar.cs" />
     <Compile Update="Controls\cuiSeparator.cs">
       <SubType>UserControl</SubType>
     </Compile>

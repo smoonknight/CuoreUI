@@ -13,7 +13,7 @@ namespace CuoreUI.Controls
     [DefaultEvent("Click")]
     public partial class cuiButton : UserControl
     {
-        public static class States
+        public static class ButtonStates
         {
             public const int Normal = 1;
             public const int Hovered = 2;
@@ -206,9 +206,9 @@ namespace CuoreUI.Controls
             }
         }
 
-        private int state = 1;
+        private int state = ButtonStates.Normal;
         private SolidBrush privateBrush = new SolidBrush(Color.Black);
-        private Pen privatePen = new Pen(Color.Black);
+        private Pen privatePen = new Pen(Color.Black) { Alignment = PenAlignment.Inset };
         StringFormat stringFormat = new StringFormat() { Alignment = StringAlignment.Center };
 
         private Image privateImage = null;
@@ -395,8 +395,7 @@ namespace CuoreUI.Controls
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             Rectangle modifiedCR = ClientRectangle;
-            modifiedCR.Width -= 1;
-            modifiedCR.Height -= 1;
+            modifiedCR.Inflate(-1, -1);
 
             Color renderedBackgroundColor = Color.Empty;
             Color renderedOutlineColor = Color.Empty;
@@ -414,21 +413,21 @@ namespace CuoreUI.Controls
             {
                 switch (state)
                 {
-                    case States.Normal:
+                    case ButtonStates.Normal:
                         renderedBackgroundColor = NormalBackground;
                         renderedOutlineColor = NormalOutline;
                         renderedForeColor = NormalForeColor;
                         renderedTint = NormalImageTint;
                         break;
 
-                    case States.Hovered:
+                    case ButtonStates.Hovered:
                         renderedBackgroundColor = HoverBackground;
                         renderedOutlineColor = HoverOutline;
                         renderedTint = HoverImageTint;
                         renderedForeColor = HoverForeColor;
                         break;
 
-                    case States.Pressed:
+                    case ButtonStates.Pressed:
                         renderedBackgroundColor = PressedBackground;
                         renderedOutlineColor = PressedOutline;
                         renderedTint = PressedImageTint;
@@ -439,41 +438,25 @@ namespace CuoreUI.Controls
 
             privateBrush.Color = renderedBackgroundColor;
             privatePen.Color = renderedOutlineColor;
+            privatePen.Width = OutlineThickness;
 
-            GraphicsPath roundBackground;
+            GraphicsPath roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+            e.Graphics.FillPath(privateBrush, roundBackground);
+
             if (OutlineThickness > 0)
             {
-                if (renderedOutlineColor == Color.Empty || renderedOutlineColor == Color.Transparent)
-                {
-                    // draw with PixelOffsetMode.HighQuality.
-                    // the HighQuality actually draws accurately,
-                    // so we need to resize the background rectangle, 
-                    // so that it takes up the correct space, minus the outline
-                    modifiedCR.Width -= 1;
-                    modifiedCR.Height -= 1;
-                    modifiedCR.X += 1;
-                    modifiedCR.Y += 1;
-
-                    roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
-                    e.Graphics.FillPath(privateBrush, roundBackground);
-                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
-                }
-                else
-                {
-                    roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
-                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
-                    e.Graphics.FillPath(privateBrush, roundBackground);
-                    e.Graphics.DrawPath(privatePen, roundBackground);
-                }
-            }
-            else
-            {
+                // need to adjust modifiedCR, or else the outline's left & top borders won't be in the expected places
+                modifiedCR.Width += 1;
+                modifiedCR.Height += 1;
+                modifiedCR.Offset(-1, -1);
+                roundBackground.Dispose();
                 roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
-                e.Graphics.FillPath(privateBrush, roundBackground);
-            }
 
-            // because roundBackground is not inside an using statement, it needs to be diposed here
-            roundBackground.Dispose();
+                // PixelOffsetMode.HighQuality's antialiasing looks ugly
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
+                e.Graphics.DrawPath(privatePen, roundBackground);
+            }
+            roundBackground?.Dispose();
 
             Rectangle textRectangle = ClientRectangle;
             int textY = (Height / 2) - (Font.Height / 2);
@@ -659,7 +642,7 @@ namespace CuoreUI.Controls
         {
             if (ClientRectangle.Contains(e.Location))
             {
-                if (state == 3)
+                if (state == ButtonStates.Pressed)
                 {
                     if (CheckButton)
                     {
@@ -667,34 +650,34 @@ namespace CuoreUI.Controls
                     }
                 }
 
-                if (state != 1)
+                if (state != ButtonStates.Normal)
                 {
-                    state = 2;
+                    state = ButtonStates.Hovered;
                 }
                 Invalidate();
             }
             else
             {
-                state = 1;
+                state = ButtonStates.Normal;
                 Invalidate();
             }
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            state = 1;
+            state = ButtonStates.Normal;
             Invalidate();
         }
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            state = 2;
+            state = ButtonStates.Hovered;
             Invalidate();
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            state = 3;
+            state = ButtonStates.Pressed;
 
             if (privateDialogResult != DialogResult.None)
             {
@@ -711,7 +694,7 @@ namespace CuoreUI.Controls
 
         protected override void OnLostFocus(EventArgs e)
         {
-            state = 1;
+            state = ButtonStates.Normal;
             base.OnLostFocus(e);
         }
     }
