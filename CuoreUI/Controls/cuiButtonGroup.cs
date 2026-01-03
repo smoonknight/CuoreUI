@@ -647,34 +647,7 @@ namespace CuoreUI.Controls
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (ClientRectangle.Contains(e.Location))
-            {
-                if (state == 3)
-                {
-                    try
-                    {
-                        foreach (Control ctrl in Parent?.Controls)
-                        {
-                            if (ctrl is cuiButtonGroup cbg && cbg.Group == Group)
-                            {
-                                cbg.Checked = cbg == this;
-                            }
-                        }
-                    }
-                    catch
-                    {
-                        // if anything went wrong here it's probably a null reference exception
-                    }
-                }
-
-                state = 2;
-                Invalidate();
-            }
-            else
-            {
-                state = 1;
-                Invalidate();
-            }
+            UpdateState(ClientRectangle.Contains(e.Location), true);
         }
 
         protected override void OnMouseLeave(EventArgs e)
@@ -687,6 +660,33 @@ namespace CuoreUI.Controls
         {
             state = 2;
             Invalidate();
+        }
+
+        private void UpdateState(bool isInside, bool updateGroup)
+        {
+            if (updateGroup && isInside)
+            {
+                var parentControls = Parent?.Controls;
+                if (parentControls != null)
+                {
+                    foreach (Control ctrl in parentControls)
+                    {
+                        if (ctrl is cuiButtonGroup cbg && cbg.Group == Group)
+                        {
+                            cbg.Checked = ReferenceEquals(cbg, this);
+                        }
+                    }
+                }
+            }
+
+            state = isInside ? 2 : 1;
+            Invalidate();
+        }
+
+        public void PerformClick()
+        {
+            UpdateState(true, true);
+            OnClick(EventArgs.Empty);
         }
     }
 }
