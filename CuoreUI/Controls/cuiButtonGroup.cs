@@ -686,6 +686,7 @@ namespace CuoreUI.Controls
         public void PerformClick()
         {
             UpdateState(true, true);
+            OnClick(EventArgs.Empty);
         }
     }
 }
