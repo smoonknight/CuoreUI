@@ -39,6 +39,24 @@ namespace CuoreUI.Controls
             }
         }
 
+        public new string Text
+        {
+            get
+            {
+                return Content;
+            }
+            set
+            {
+                Content = value;
+            }
+        }
+
+        public override void ResetText()
+        {
+            Content = string.Empty;
+            base.ResetText();
+        }
+
         private Padding privateRounding = new Padding(8, 8, 8, 8);
 
         [Category("CuoreUI")]
@@ -170,7 +188,12 @@ namespace CuoreUI.Controls
         private int state = ButtonStates.Normal;
         private SolidBrush privateBrush = new SolidBrush(Color.Black);
         private Pen privatePen = new Pen(Color.Black);
-        StringFormat stringFormat = new StringFormat() { Alignment = StringAlignment.Center };
+        StringFormat stringFormat = new StringFormat()
+        {
+            Alignment = StringAlignment.Center,
+            Trimming = StringTrimming.None,
+            FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.FitBlackBox
+        };
 
         private Image privateImage = null;
 
@@ -245,10 +268,10 @@ namespace CuoreUI.Controls
             {
                 return privateTextAlignment;
             }
-
             set
             {
                 privateTextAlignment = value;
+                stringFormat.Alignment = value;
                 Invalidate();
             }
         }
@@ -348,10 +371,6 @@ namespace CuoreUI.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            stringFormat.Trimming = StringTrimming.None;
-            stringFormat.FormatFlags |= StringFormatFlags.NoWrap | StringFormatFlags.FitBlackBox;
-            stringFormat.Alignment = TextAlignment;
-
             e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -405,6 +424,7 @@ namespace CuoreUI.Controls
 
             privateBrush.Color = renderedBackgroundColor;
             privatePen.Color = renderedOutlineColor;
+            privatePen.Width = privateOutlineThickness;
 
             GraphicsPath roundBackground;
             if (OutlineThickness > 0)

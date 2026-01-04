@@ -242,6 +242,24 @@ namespace CuoreUI.Controls
             }
         }
 
+        public new string Text
+        {
+            get
+            {
+                return Content;
+            }
+            set
+            {
+                Content = value;
+            }
+        }
+
+        public override void ResetText()
+        {
+            Content = string.Empty;
+            base.ResetText();
+        }
+
         [Category("CuoreUI")]
         public Padding Rounding
         {

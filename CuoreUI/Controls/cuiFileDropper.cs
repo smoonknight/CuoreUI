@@ -489,22 +489,23 @@ namespace CuoreUI.Controls
         public FileDroppedEventArgs(string fileName)
         {
             FileName = fileName;
+            FileNames = new string[] { fileName };
             OneFileDropped = true;
         }
 
         public FileDroppedEventArgs(string[] fileNames)
         {
             FileNames = fileNames;
+            FileName = fileNames.FirstOrDefault();
 
             if (fileNames.Length == 1)
             {
-                FileName = fileNames[0];
                 OneFileDropped = true;
             }
         }
 
         public bool OneFileDropped { get; private set; } = false;
         public string FileName;
-        public string[] FileNames { get; } = Array.Empty<string>();
+        public string[] FileNames { get; }
     }
 }

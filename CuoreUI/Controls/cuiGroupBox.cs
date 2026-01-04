@@ -19,7 +19,7 @@ namespace CuoreUI.Controls
         private Padding privateRounding = new Padding(4);
 
         [Category("CuoreUI")]
-        [Description("How round will the inside border be.")]
+        [Description("How round the inside border is.")]
         public Padding Rounding
         {
             get
@@ -65,6 +65,24 @@ namespace CuoreUI.Controls
                 privateContent = value;
                 Invalidate();
             }
+        }
+
+        public new string Text
+        {
+            get
+            {
+                return Content;
+            }
+            set
+            {
+                Content = value;
+            }
+        }
+
+        public override void ResetText()
+        {
+            Content = string.Empty;
+            base.ResetText();
         }
 
         protected override void OnPaint(PaintEventArgs e)

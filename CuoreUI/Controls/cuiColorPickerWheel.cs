@@ -28,6 +28,8 @@ namespace CuoreUI.Controls
         {
             base.OnResize(e);
 
+            privateHueBitmap?.Dispose();
+            privateHueBitmap = null;
             privateTriangleBitmap?.Dispose();
             privateTriangleBitmap = null;
             UpdateClickedRectangleFromColor();
@@ -36,6 +38,7 @@ namespace CuoreUI.Controls
 
         private int privateWheelThickness = 16;
         [Category("CuoreUI")]
+        [Description("The Hue ring's thickness. The bigger it is, the smaller the triangle inside.")]
         public int WheelThickness
         {
             get
@@ -105,7 +108,7 @@ namespace CuoreUI.Controls
                         pixels[index] = color.B;
                         pixels[index + 1] = color.G;
                         pixels[index + 2] = color.R;
-                        pixels[index + 3] = color.A;
+                        pixels[index + 3] = 255;
                     }
                     else
                     {
@@ -172,7 +175,7 @@ namespace CuoreUI.Controls
                         pixels[idx] = color.B;
                         pixels[idx + 1] = color.G;
                         pixels[idx + 2] = color.R;
-                        pixels[idx + 3] = color.A;
+                        pixels[idx + 3] = 255;
                     }
                     else
                     {
@@ -329,6 +332,7 @@ namespace CuoreUI.Controls
         byte state = 0;
 
         [Category("CuoreUI")]
+        [Description("Any change in hue, brightness or saturation will invoke this event.")]
         public event EventHandler ContentChanged;
 
         protected override void OnLoad(EventArgs e)
@@ -362,6 +366,15 @@ namespace CuoreUI.Controls
                     {
                         privateHue = newHue;
                         privateHueBitmap = null;
+                    }
+
+                    // if color changes, but mouse is not over this wheel, fire the SelectedColor event
+                    // (means the color was changed programatically, and not by the user)
+                    // do not use ClientRectangle.Contains(PointToClient(Cursor.Position))
+                    // since if the user were to click a control on TOP OF this wheel, the event wouldn't fire
+                    if (!isMouseOnControl)
+                    {
+                        SelectedColor?.Invoke(this, EventArgs.Empty);
                     }
                 }
 
@@ -425,6 +438,8 @@ namespace CuoreUI.Controls
                 float rOuter = size / 2f - 1;
                 float rInner = rOuter - WheelThickness;
 
+                byte currentAlpha = Content.A;
+
                 // changing hue (ring)
                 if (state == 1)
                 {
@@ -436,7 +451,7 @@ namespace CuoreUI.Controls
                     privateHue = (int)angle;
                     privateTriangleBitmap?.Dispose();
                     privateTriangleBitmap = null;
-                    Content = ColorFromHSV(privateHue, privateSaturation, privateValue);
+                    Content = ColorFromHSV(privateHue, privateSaturation, privateValue, currentAlpha);
                 }
 
                 // changing saturation or value (triangle)
@@ -469,7 +484,7 @@ namespace CuoreUI.Controls
                     // don't replace privateContent with Content
                     // Content calculates new hue values with GetHue,
                     // but we don't want to change the hue while the user is changing the saturation and value
-                    privateContent = ColorFromHSV(privateHue, privateSaturation, privateValue);
+                    privateContent = ColorFromHSV(privateHue, privateSaturation, privateValue, currentAlpha);
                     ContentChanged?.Invoke(null, EventArgs.Empty);
                     Invalidate();
                 }
@@ -493,6 +508,7 @@ namespace CuoreUI.Controls
         }
 
         [Category("CuoreUI")]
+        [Description("Gets invoked whenever the user releases their mouse, and the color has changed.")]
         public event EventHandler SelectedColor;
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -533,6 +549,20 @@ namespace CuoreUI.Controls
             PointF p3 = new PointF(center.X - r * (float)Math.Sin(Math.PI / 3), center.Y + r * (float)Math.Cos(Math.PI / 3) - 1);
 
             return PointInTriangle(point, p1, p2, p3);
+        }
+
+        private bool isMouseOnControl = false;
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            isMouseOnControl = true;
+            base.OnMouseEnter(e);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            isMouseOnControl = false;
+            base.OnMouseLeave(e);
         }
     }
 }

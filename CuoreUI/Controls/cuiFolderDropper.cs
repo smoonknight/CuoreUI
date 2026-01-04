@@ -483,6 +483,6 @@ namespace CuoreUI.Controls
 
         public bool OneFolderDropped { get; private set; } = false;
         public string FolderName;
-        public string[] FolderNames { get; } = Array.Empty<string>();
+        public string[] FolderNames { get; }
     }
 }

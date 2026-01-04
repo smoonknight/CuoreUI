@@ -61,6 +61,24 @@ namespace CuoreUI.Controls
             }
         }
 
+        public new string Text
+        {
+            get
+            {
+                return Content;
+            }
+            set
+            {
+                Content = value;
+            }
+        }
+
+        public override void ResetText()
+        {
+            Content = string.Empty;
+            base.ResetText();
+        }
+
         private Padding privateRounding = new Padding(8, 8, 8, 8);
 
         [Category("CuoreUI")]
@@ -208,8 +226,13 @@ namespace CuoreUI.Controls
 
         private int state = ButtonStates.Normal;
         private SolidBrush privateBrush = new SolidBrush(Color.Black);
-        private Pen privatePen = new Pen(Color.Black) { Alignment = PenAlignment.Inset };
-        StringFormat stringFormat = new StringFormat() { Alignment = StringAlignment.Center };
+        private Pen privatePen = new Pen(Color.Black);
+        StringFormat stringFormat = new StringFormat()
+        {
+            Alignment = StringAlignment.Center,
+            Trimming = StringTrimming.None,
+            FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.FitBlackBox
+        };
 
         private Image privateImage = null;
 
@@ -284,10 +307,10 @@ namespace CuoreUI.Controls
             {
                 return privateTextAlignment;
             }
-
             set
             {
                 privateTextAlignment = value;
+                stringFormat.Alignment = value;
                 Invalidate();
             }
         }
@@ -387,15 +410,12 @@ namespace CuoreUI.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            stringFormat.Trimming = StringTrimming.None;
-            stringFormat.FormatFlags |= StringFormatFlags.NoWrap | StringFormatFlags.FitBlackBox;
-            stringFormat.Alignment = TextAlignment;
-
             e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             Rectangle modifiedCR = ClientRectangle;
-            modifiedCR.Inflate(-1, -1);
+            modifiedCR.Width -= 1;
+            modifiedCR.Height -= 1;
 
             Color renderedBackgroundColor = Color.Empty;
             Color renderedOutlineColor = Color.Empty;
@@ -440,23 +460,40 @@ namespace CuoreUI.Controls
             privatePen.Color = renderedOutlineColor;
             privatePen.Width = OutlineThickness;
 
-            GraphicsPath roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
-            e.Graphics.FillPath(privateBrush, roundBackground);
-
+            GraphicsPath roundBackground;
             if (OutlineThickness > 0)
             {
-                // need to adjust modifiedCR, or else the outline's left & top borders won't be in the expected places
-                modifiedCR.Width += 1;
-                modifiedCR.Height += 1;
-                modifiedCR.Offset(-1, -1);
-                roundBackground.Dispose();
-                roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+                if (renderedOutlineColor == Color.Empty || renderedOutlineColor == Color.Transparent)
+                {
+                    // draw with PixelOffsetMode.HighQuality.
+                    // the HighQuality actually draws accurately,
+                    // so we need to resize the background rectangle, 
+                    // so that it takes up the correct space, minus the outline
+                    modifiedCR.Width -= 1;
+                    modifiedCR.Height -= 1;
+                    modifiedCR.X += 1;
+                    modifiedCR.Y += 1;
 
-                // PixelOffsetMode.HighQuality's antialiasing looks ugly
-                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
-                e.Graphics.DrawPath(privatePen, roundBackground);
+                    roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+                    e.Graphics.FillPath(privateBrush, roundBackground);
+                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
+                }
+                else
+                {
+                    roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+                    e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Default;
+                    e.Graphics.FillPath(privateBrush, roundBackground);
+                    e.Graphics.DrawPath(privatePen, roundBackground);
+                }
             }
-            roundBackground?.Dispose();
+            else
+            {
+                roundBackground = GeneralHelper.RoundRect(modifiedCR, Rounding);
+                e.Graphics.FillPath(privateBrush, roundBackground);
+            }
+
+            // because roundBackground is not inside an using statement, it needs to be diposed here
+            roundBackground.Dispose();
 
             Rectangle textRectangle = ClientRectangle;
             int textY = (Height / 2) - (Font.Height / 2);

@@ -55,6 +55,24 @@ namespace CuoreUI.Controls
             }
         }
 
+        public new string Text
+        {
+            get
+            {
+                return Content;
+            }
+            set
+            {
+                Content = value;
+            }
+        }
+
+        public override void ResetText()
+        {
+            Content = string.Empty;
+            base.ResetText();
+        }
+
         private int privateBoxAmount = 6;
 
         [Category("CuoreUI")]
@@ -246,7 +264,7 @@ namespace CuoreUI.Controls
                                 RectangleF bounds = gp.GetBounds();
 
                                 // Step 2: Define the clipping region for the bottom half
-                                RectangleF bottomHalfBounds = new RectangleF(bounds.X + 1, bounds.Y + bounds.Height / 2, bounds.Width - 1, bounds.Height / 2 + 1);
+                                RectangleF bottomHalfBounds = new RectangleF(bounds.X + 1, bounds.Y + bounds.Height / 2, bounds.Width - 1.5f, bounds.Height / 2 + 1);
 
                                 // Step 3: Create a region for the bottom half
                                 using (Region bottomHalfRegion = new Region(bottomHalfBounds))
