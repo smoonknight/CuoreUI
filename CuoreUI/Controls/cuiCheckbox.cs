@@ -86,23 +86,6 @@ namespace CuoreUI.Controls
             }
         }
 
-        private bool privateOutlineStyle = true;
-
-        [Category("CuoreUI")]
-        [Description("The style of the outline.")]
-        public bool OutlineStyle
-        {
-            get
-            {
-                return privateOutlineStyle;
-            }
-            set
-            {
-                privateOutlineStyle = value;
-                Invalidate();
-            }
-        }
-
         private Color privateOutlineColor = Color.Gray;
 
         [Category("CuoreUI")]
