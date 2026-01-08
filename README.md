@@ -61,6 +61,8 @@ The official NuGet page is called [CuoreUI.Winforms![image](https://i.imgur.com/
 
 .. We currently don't provide any documentation for the project
 
+There is, however, ongoing work towards wriying the docs. 
+
 ---
 
 ## 📅 Versioning
