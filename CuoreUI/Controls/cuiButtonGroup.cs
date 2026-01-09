@@ -21,6 +21,7 @@ namespace CuoreUI.Controls
             ForeColor = Color.Black;
             Font = new Font("Microsoft Sans Serif", 9.75f);
             SetStyle(ControlStyles.ResizeRedraw, true);
+            Padding = new Padding(12);
         }
 
         private string privateContent = "Your text here!";
@@ -190,7 +191,7 @@ namespace CuoreUI.Controls
         private Pen privatePen = new Pen(Color.Black);
         StringFormat stringFormat = new StringFormat()
         {
-            Alignment = StringAlignment.Center,
+            Alignment = StringAlignment.Near,
             Trimming = StringTrimming.None,
             FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.FitBlackBox
         };
@@ -243,22 +244,6 @@ namespace CuoreUI.Controls
             }
         }
 
-        private bool privateImageAutoCenter = true;
-
-        [Category("CuoreUI")]
-        public bool ImageAutoCenter
-        {
-            get
-            {
-                return privateImageAutoCenter;
-            }
-            set
-            {
-                privateImageAutoCenter = value;
-                Invalidate();
-            }
-        }
-
         private StringAlignment privateTextAlignment = StringAlignment.Center;
 
         [Category("CuoreUI")]
@@ -271,7 +256,6 @@ namespace CuoreUI.Controls
             set
             {
                 privateTextAlignment = value;
-                stringFormat.Alignment = value;
                 Invalidate();
             }
         }
@@ -295,6 +279,7 @@ namespace CuoreUI.Controls
         private Point privateImageExpand = Point.Empty;
 
         [Category("CuoreUI")]
+        [Description("The default size for Image is Font.Height. Adjust the size manually here if you need to.")]
         public Point ImageExpand
         {
             get
@@ -353,7 +338,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        Color privateHoverForeColor = Color.Black;
+        Color privateHoverForeColor = Color.DimGray;
 
         [Category("CuoreUI")]
         public Color HoverForeColor
@@ -365,6 +350,37 @@ namespace CuoreUI.Controls
             set
             {
                 privateHoverForeColor = value;
+                Invalidate();
+            }
+        }
+
+        private int textSpacing = 2;
+        [Category("CuoreUI")]
+        [Description("Space between the image and the text (if Image isn't null)")]
+        public int TextSpacing
+        {
+            get
+            {
+                return textSpacing;
+            }
+            set
+            {
+                textSpacing = value;
+                Invalidate();
+            }
+        }
+
+        [Category("CuoreUI")]
+        [Description("Text padding for when TextAlignment is set to \"Near\" or \"Far\". For finer control, edit the `Padding` property instead.")]
+        public int TextPadding
+        {
+            get
+            {
+                return Padding.All;
+            }
+            set
+            {
+                Padding = new Padding(value);
                 Invalidate();
             }
         }
@@ -463,27 +479,45 @@ namespace CuoreUI.Controls
 
             Rectangle textRectangle = ClientRectangle;
             int textY = (Height / 2) - (Font.Height / 2);
-            textRectangle.Location = new Point(0, textY);
+            textRectangle.Y = textY;
 
             Rectangle imageRectangle = textRectangle;
             imageRectangle.Height = Font.Height;
             imageRectangle.Width = imageRectangle.Height;
             imageRectangle.Inflate(ImageExpand.X, ImageExpand.Y);
 
-            if (ImageAutoCenter && privateImage != null)
+            SizeF textSize = e.Graphics.MeasureString(privateContent, Font);
+            int textWidth = (int)Math.Ceiling(textSize.Width);
+
+            int imageWidth = privateImage != null ? imageRectangle.Width : 0;
+            int combinedWidth = imageWidth + (privateImage != null ? textSpacing : 0) + textWidth;
+
+            int startX;
+
+            switch (TextAlignment)
             {
-                imageRectangle.X = (Width / 2) - (imageRectangle.Width / 2);
-                int TextOffsetFromImage = (int)e.Graphics.MeasureString(Content, Font, textRectangle.Width, stringFormat).Width;
-                imageRectangle.X -= TextOffsetFromImage / 2;
-                textRectangle.X += imageRectangle.Width / 2;
-            }
-            else if (privateImage != null)
-            {
-                textRectangle.X += imageRectangle.Width;
+                case StringAlignment.Near:
+                    startX = Padding.Left;
+                    break;
+
+                case StringAlignment.Far:
+                    startX = ClientRectangle.Width - Padding.Right - combinedWidth;
+                    break;
+
+                default: // StringAlignment.Center
+                    startX = (ClientRectangle.Width - combinedWidth) / 2;
+                    break;
             }
 
-            textRectangle.Offset(privateTextOffset);
-            imageRectangle.Offset(privateImageOffset);
+            if (privateImage != null)
+            {
+                imageRectangle.X = startX;
+                textRectangle.X = startX + imageWidth + textSpacing;
+            }
+            else
+            {
+                textRectangle.X = startX;
+            }
 
             using (SolidBrush brush = new SolidBrush(renderedForeColor))
             {
@@ -544,7 +578,7 @@ namespace CuoreUI.Controls
         private ColorMatrix colorMatrix = null;
         private ImageAttributes imageAttributes = null;
 
-        private Color privateImageTint = Color.White;
+        private Color privateImageTint = Color.Black;
 
         [Category("CuoreUI")]
         public Color NormalImageTint
@@ -560,7 +594,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privateHoverImageTint = Color.White;
+        private Color privateHoverImageTint = Color.DimGray;
 
         [Category("CuoreUI")]
         public Color HoverImageTint
@@ -592,7 +626,7 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Color privatePressedImageTint = Color.White;
+        private Color privatePressedImageTint = Color.FromArgb(32, 32, 32);
 
         [Category("CuoreUI")]
         public Color PressedImageTint
@@ -604,38 +638,6 @@ namespace CuoreUI.Controls
             set
             {
                 privatePressedImageTint = value;
-                Invalidate();
-            }
-        }
-
-        private Point privateImageOffset = new Point(0, 0);
-
-        [Category("CuoreUI")]
-        public Point ImageOffset
-        {
-            get
-            {
-                return privateImageOffset;
-            }
-            set
-            {
-                privateImageOffset = value;
-                Invalidate();
-            }
-        }
-
-        private Point privateTextOffset = new Point(0, 0);
-
-        [Category("CuoreUI")]
-        public Point TextOffset
-        {
-            get
-            {
-                return privateTextOffset;
-            }
-            set
-            {
-                privateTextOffset = value;
                 Invalidate();
             }
         }

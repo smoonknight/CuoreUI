@@ -5,13 +5,13 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
 using static CuoreUI.Controls.Forms.DatePicker;
 
 namespace CuoreUI.Controls
 {
     [Description("Allows the user to select a date with the custom CuoreUI date picker form")]
+    [DefaultEvent("DateChanged")]
     public partial class cuiCalendarDatePicker : UserControl
     {
         public cuiCalendarDatePicker()
@@ -41,7 +41,7 @@ namespace CuoreUI.Controls
         private bool privateEnableThemeChangeButton = true;
 
         [Category("CuoreUI")]
-        [Description("Lets the USER toggle the theme between Light and Dark with a button.")]
+        [Description("Lets the user toggle the theme between Light and Dark with a button.")]
         public bool EnableThemeChangeButton
         {
             get
@@ -106,10 +106,6 @@ namespace CuoreUI.Controls
                     location = basePoint + new Size(rounding, Height / 2 + rounding * 4) - new Size(pickerSize.Width, pickerSize.Height / 2);
                     break;
 
-                case Position.Bottom:
-                    location = basePoint + new Size(Width / 2 + rounding, Height + rounding * 4) - new Size(pickerSize.Width / 2, 0);
-                    break;
-
                 case Position.Right:
                     location = basePoint + new Size(Width + rounding, Height / 2 + rounding * 4) - new Size(0, pickerSize.Height / 2);
                     break;
@@ -130,24 +126,26 @@ namespace CuoreUI.Controls
                     location = basePoint + new Size(Width + rounding, Height + rounding * 4);
                     break;
 
-                default: // same as bottom
+                default: // Position.Bottom
                     location = basePoint + new Size(Width / 2 + rounding, Height + rounding * 4) - new Size(pickerSize.Width / 2, 0);
                     break;
             }
 
             PickerForm.Location = location;
-
             PickerForm.Show();
+            PickerForm.FormClosing += formClosing;
 
-            PickerForm.FormClosing += (s, e) =>
+            void formClosing(object sender, EventArgs e)
             {
+                PickerForm.FormClosing -= formClosing;
+                _PickerForm?.Dispose();
                 _PickerForm = null;
                 if (PickerForm.DialogResult == DialogResult.OK)
                 {
                     Content = PickerForm.Value;
                 }
                 isDialogVisible = false;
-            };
+            }
         }
 
         protected override void OnClick(EventArgs e)
@@ -315,44 +313,6 @@ namespace CuoreUI.Controls
             }
         }
 
-        private Image TintIcon(Image icon)
-        {
-            if (icon == null)
-                return null;
-
-            Bitmap tintedBitmap = new Bitmap(icon.Width, icon.Height);
-
-            using (Graphics graphics = Graphics.FromImage(tintedBitmap))
-            {
-                graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                float r = IconTint.R / 255f;
-                float g = IconTint.G / 255f;
-                float b = IconTint.B / 255f;
-                float a = IconTint.A / 255f;
-
-                ColorMatrix colorMatrix = new ColorMatrix(new float[][]
-                {
-                    new float[] {r, 0, 0, 0, 0},
-                    new float[] {0, g, 0, 0, 0},
-                    new float[] {0, 0, b, 0, 0},
-                    new float[] {0, 0, 0, a, 0},
-                    new float[] {0, 0, 0, 0, 1}
-                });
-
-                ImageAttributes imageAttributes = new ImageAttributes();
-                imageAttributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-
-                graphics.DrawImage(icon, new Rectangle(0, 0, icon.Width, icon.Height),
-                            0, 0, icon.Width, icon.Height,
-                            GraphicsUnit.Pixel, imageAttributes);
-            }
-
-            return tintedBitmap;
-        }
-
         private DateTime privateValue = DateTime.Now.Date;
 
         [Category("CuoreUI")]
@@ -413,7 +373,7 @@ namespace CuoreUI.Controls
 
                 int textWidth = e.Graphics.MeasureString(Content.ToShortDateString(), Font).ToSize().Width;
                 Rectangle iconRect = new Rectangle(Width / 2 - textWidth / 2 - textWidth / 8, iconYOffset, Font.Height, Font.Height);
-                using (Image tintedIcon = TintIcon(privateIcon))
+                using (Image tintedIcon = Helpers.DrawingHelper.Imaging.TintBitmap((Bitmap)privateIcon, privateImageTint))
                 {
                     e.Graphics.DrawImage(tintedIcon, iconRect);
                 }
