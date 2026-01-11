@@ -62,7 +62,7 @@ namespace CuoreUI.Components
 
         public async Task<DialogResult> ShowDialog(Form parentForm, string description, string title, MessageBoxButtons messageBoxButtons)
         {
-            using (MessageDialog md = new MessageDialog())
+            using (Forms.MessageDialog md = new Forms.MessageDialog())
             {
                 md.OKText = OKText;
                 md.CancelText = CancelText;
