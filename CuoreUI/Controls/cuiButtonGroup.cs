@@ -662,9 +662,9 @@ namespace CuoreUI.Controls
             Invalidate();
         }
 
-        public void UpdateState(bool isInside, bool updateGroup)
+        private void UpdateState(bool isInside, bool updateGroup)
         {
-            if (updateGroup)
+            if (updateGroup && isInside)
             {
                 var parentControls = Parent?.Controls;
                 if (parentControls != null)
@@ -683,5 +683,10 @@ namespace CuoreUI.Controls
             Invalidate();
         }
 
+        public void PerformClick()
+        {
+            UpdateState(true, true);
+            OnClick(EventArgs.Empty);
+        }
     }
 }
