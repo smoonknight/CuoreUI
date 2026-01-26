@@ -552,7 +552,7 @@ namespace CuoreUI.Controls
         {
             placeholderTextField.Text = PlaceholderText;
 
-            if (actualText == "" && !internalIsFocused)
+            if (string.IsNullOrWhiteSpace(actualText) && !internalIsFocused)
             {
                 placeholderTextField.Visible = true;
                 privateIsPlaceholder = true;
