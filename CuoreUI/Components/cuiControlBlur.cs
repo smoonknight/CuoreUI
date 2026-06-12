@@ -1,4 +1,5 @@
 ﻿using CuoreUI.Helpers;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -86,30 +87,50 @@ namespace CuoreUI.Components
             cachedBitmap = null;
         }
 
-        private unsafe void TargetControl_Paint(object sender, PaintEventArgs e)
+        private void TargetControl_Paint(object sender, PaintEventArgs e)
         {
-            //e.Graphics.FillRectangle(new SolidBrush(TargetControl.BackColor), TargetControl.ClientRectangle);
-            if (cachedBitmap == null || cachedBitmap.Width != privateTargetControl.Width || cachedBitmap.Height != privateTargetControl.Height)
+            if (privateTargetControl == null ||
+                privateTargetControl.IsDisposed ||
+                !privateTargetControl.IsHandleCreated ||
+                privateTargetControl.Width <= 0 ||
+                privateTargetControl.Height <= 0)
             {
-                cachedBitmap?.Dispose();
-                cachedBitmap = new Bitmap(privateTargetControl.Width, privateTargetControl.Height);
-                using (Graphics g = Graphics.FromImage(cachedBitmap))
-                {
-
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                    g.PixelOffsetMode = PixelOffsetMode.None;
-                    g.InterpolationMode = InterpolationMode.Low;
-                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-
-                    privateTargetControl.DrawToBitmap(cachedBitmap, new Rectangle(0, 0, privateTargetControl.Width, privateTargetControl.Height));
-
-                    //GaussianBlur.Apply(ref cachedBitmap, BlurAmount);
-                    DrawingHelper.Imaging.ImageBlurs.QuadraticBlur.Apply(ref cachedBitmap, BlurAmount);
-
-                }
+                return;
             }
 
-            e.Graphics.DrawImage(cachedBitmap, privateTargetControl.ClientRectangle);
+            try
+            {
+                if (cachedBitmap == null ||
+                    cachedBitmap.Width != privateTargetControl.Width ||
+                    cachedBitmap.Height != privateTargetControl.Height)
+                {
+                    cachedBitmap?.Dispose();
+
+                    cachedBitmap = new Bitmap(
+                        privateTargetControl.Width,
+                        privateTargetControl.Height);
+
+                    privateTargetControl.DrawToBitmap(
+                        cachedBitmap,
+                        new Rectangle(
+                            0,
+                            0,
+                            privateTargetControl.Width,
+                            privateTargetControl.Height));
+
+                    DrawingHelper.Imaging.ImageBlurs.QuadraticBlur.Apply(
+                        ref cachedBitmap,
+                        BlurAmount);
+                }
+
+                e.Graphics.DrawImage(
+                    cachedBitmap,
+                    privateTargetControl.ClientRectangle);
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         protected override void Dispose(bool disposing)
