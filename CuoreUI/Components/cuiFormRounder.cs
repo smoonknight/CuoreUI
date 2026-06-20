@@ -63,7 +63,8 @@ namespace CuoreUI.Components
 
                 if (FormsRegisteredByRounder.AddByForm(value, this) == false)
                 {
-                    throw new Exception("This form already has a cuiformRounder");
+                    //throw new Exception("This form already has a cuiformRounder");
+                    return;
                 }
 
                 TargetForm.Load += TargetForm_Load;

@@ -210,6 +210,7 @@ namespace CuoreUI.Controls.Forms.Internal
             }
 
             Size = new Size(TargetControl.Width + 1 + doubleFormPadding, newHeight + 1 + doubleFormPadding);
+            if (formRounder.roundedFormObj != null)
             formRounder.roundedFormObj.Region = null;
         }
 
