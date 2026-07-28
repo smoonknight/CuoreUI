@@ -127,7 +127,7 @@ namespace CuoreUI.Components
                     cachedBitmap,
                     privateTargetControl.ClientRectangle);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }

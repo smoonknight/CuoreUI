@@ -1,5 +1,6 @@
 ﻿using CuoreUI.Helpers;
 using CuoreUI.Misc.Internal;
+using KopeAIModel.Shared.Toast.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,7 +29,14 @@ namespace CuoreUI.Controls
                 privateSelectedIndex = value;
                 if (Items != null)
                 {
-                    privateSelectedItem = SelectedIndex >= 0 ? Items[privateSelectedIndex] : "";
+                    try
+                    {
+                        privateSelectedItem = SelectedIndex >= 0 ? Items[privateSelectedIndex] : "";
+                    }
+                    catch
+                    {
+                        Toast.Show("Error in " + Name, "Kalau kamu lihat ini, silahkan lapor ke developer");
+                    }
                 }
                 SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
 
